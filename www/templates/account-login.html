@@ -1,0 +1,73 @@
+<ion-view title="{{title}}" >
+  <ion-content class="has-header">
+
+    <div name="divlogin" class="list" style="{{display_login}}">
+    		<!-- <ion-item > -->
+            <!-- <h2>基本信息：</h2> -->
+        <!-- <form name="loginForm">     -->
+    			  <label class="item item-input">
+              <span class="input-label">帐号：</span>
+              <input name="user.username" ng-model="user.username" type="text" placeholder="个人帐号" required>
+            </label>
+            
+            <label class="item item-input">
+              <span class="input-label">密码：</span>
+              <input name="user.password" ng-model="user.password" type="password" placeholder="密码" required>
+            </label>
+           
+        		<!-- </ion-item> -->
+            <div class="buttons" style='text-align:center; margin-top:10px'>
+              <button class="button button-energized" ng-click="toreg()">去注册</button>
+              <button class="button button-balanced" ng-click="login()"> 登录 </button>
+            </div>
+            <!-- <span>name:{{user.username}}</span> -->
+        <!-- </form>     -->
+    </div>
+
+    <div name="divreg" class="list" style="{{display_reg}}">
+      
+        <ion-item >
+            <!-- <h2>基本信息：</h2> -->
+            <label class="item item-input">
+              <span class="input-label">帐号：</span>
+              <input name="user.username" ng-model="user.username" type="text" placeholder="帐号" required>
+            </label>
+            <label class="item item-input">
+              <span class="input-label">密码：</span>
+              <input name="user.password" ng-model="user.password" type="password" placeholder="密码" required>
+            </label>
+            <label class="item item-input">
+              <span class="input-label">确认密码：</span>
+              <input name="user.passconfirm" ng-model="user.passconfirm" type="password" placeholder="确认密码" required>
+            </label>
+            <!-- <label class="item item-radio">
+              <span class="input-label">性别：</span>
+              <input name="sex" ng-model="user.sex" type="radio" value="6" >
+              <i>男</i>
+              <input name="sex" ng-model="user.sex" type="radio" value="7" checked="checked">
+              <i>女</i>
+            </label> -->
+            <!-- <label class="item item-radio">
+              <span class="input-label">性别：</span>
+              <ion-radio name="user.sex" ng-model="user.sex" ng-value="6">男</ion-radio>
+              <ion-radio name="user.sex" ng-model="user.sex" ng-value="7">女</ion-radio>
+            </label>  -->
+            <label class="item item-input">
+              <span class="input-label">电子邮箱：</span>
+              <input name="user.email" ng-model="user.email"  type="email" placeholder="邮箱" required>
+            </label>
+            <label class="item item-input">
+              <span class="input-label">联系方式：</span>
+              <input name="user.mobile" ng-model="user.mobile" type="tel" placeholder="联系方式">
+            </label>
+            
+        </ion-item>
+
+        <div class="buttons" style='text-align:center; margin-top:10px'>
+          <button class="button button-balanced" ng-click="tologin()"> 已有帐号 </button>
+          <button class="button button-positive" ng-click="reg()"> 提交注册 </button>
+        </div>
+    </div>
+
+  </ion-content>
+</ion-view>

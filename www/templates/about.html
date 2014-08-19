@@ -1,0 +1,185 @@
+<ion-view title="关于">
+  <ion-content class="has-header padding">
+	<div class="list">
+
+
+	 <!--  <a class="item item-icon-left item-icon-right" href="#/app/about/setting">
+	    <i class="icon ion-ios7-person"></i>
+	    应用设置
+	    <i class="icon ion-ios7-arrow-right"></i>
+	  </a> -->
+
+	  <a class="item item-icon-left item-icon-right" href="#/app/about/apps">
+	    <i class="icon ion-aperture"></i>
+	    应用推荐
+	    <span class="icon ion-ios7-arrow-right"></span>
+	  </a>
+
+	  <a class="item item-icon-left item-icon-right" href="#/app/about/advice">
+	    <i class="icon ion-edit"></i>
+	    意见反馈
+	    <span class="icon ion-ios7-arrow-right"></span>
+	  </a>
+
+	  <a class="item item-icon-left" href="#/app/about/question">
+	    <i class="icon ion-help-circled"></i>
+	    常见问题
+	    <span class="item-note">点击查看</span>
+	  </a>
+
+	<a class="item item-icon-left item-icon-right" href="#/app/about/findout">
+	    <i class="icon ion-hammer"></i>
+	    在线找漏
+	    <i class="icon ion-ios7-arrow-right"></i>
+	 </a>	  
+
+	  <a class="item item-icon-left item-icon-right" ng-click="refresh()">
+	    <i class="icon ion-loop"></i>
+	    版本更新
+	    <i class="icon ion-ios7-arrow-right"></i>
+	  </a>
+	<a class="item item-icon-left item-icon-right" href="#/app/about/us">
+	    <i class="icon ion-person-stalker"></i>
+	    关于我们
+	    <i class="icon ion-ios7-arrow-right"></i>
+	  </a>
+
+	</div>
+  </ion-content>
+</ion-view>
+
+
+<script type="text/ng-template" id="templates/about-apps.html">
+<ion-view title="应用推荐">
+	<ion-content class="has-header padding">
+		<ion-item class="item-avatar">
+			<img ng-src="/img/ionic.png" alt="ionic">
+			<h2>应用狗</h2>
+			<p>Google Player上工具类应用前100强</p>
+		</ion-item>
+		
+		<ion-item class="item-avatar">
+			<img ng-src="/img/meinv.png" alt="美女图片">
+			<h2>美女修图应用</h2>
+			<p>美女们都喜欢的美图应用</p>
+		</ion-item>
+
+		<ion-item class="item-avatar">
+			<img ng-src="/img/hqt92.ico" alt="好前途">
+			<h2>好前途</h2>
+			<p>毕业生就职必备</p>
+		</ion-item>
+	</ion-content>
+</ion-view>
+</script>
+
+<script type="text/ng-template" id="templates/about-advice.html">
+<ion-view title="意见反馈">
+	<ion-content class="has-header padding">
+		<ion-item >
+	        
+	        <p>多谢您的反馈，我们会认真聆听您的声音！</p>
+	        <label class="item item-input item-stacked-label">
+	          <p class="input-label"> 您的意见：</p>
+	          <textarea name="suggest" cols ="20" rows = "5" placeholder="我的意见"></textarea>
+	        </label>
+
+	        <label class="item item-input">
+	          <span class="input-label">联系人：</span>
+	          <input type="text" placeholder="您的大名">
+	        </label>
+	        <label class="item item-input">
+	          <span class="input-label">邮箱：</span>
+	          <input  type="email" placeholder="邮箱">
+	        </label>
+	        
+	    </ion-item>
+
+	    <div class="buttons" style='text-align:center; margin-top:10px'>
+              <button class="button button-positive" ng-click="advice()"> 意见反馈 </button>
+        </div>
+
+	</ion-content>
+</ion-view>
+</script>
+
+<script type="text/ng-template" id="templates/about-question.html">
+<ion-view title="常见问题">
+	<ion-content class="has-header padding">
+		<ion-item>
+			<h3>怎么通过APP投递语音简历？</h3>
+		</ion-item>
+		<ion-item>
+			<h3>怎么通过APP投递视频简历？</h3>
+		</ion-item>
+
+		<ion-item>
+			<h3>怎么通过APP委托投递简历？</h3>
+		</ion-item>
+		<ion-item>
+			<h3>怎么通过微信委托投递简历？</h3>
+		</ion-item>
+		<ion-item>
+			<h3>pp可以收到邀请面试的通知么？</h3>
+		</ion-item>
+
+	</ion-content>
+</ion-view>
+</script>
+
+<script type="text/ng-template" id="templates/about-findout.html">
+<ion-view title="在线找漏">
+	<ion-content class="has-header padding">
+		<ion-item >
+	        <h2>企业信息：</h2>
+	        <p>您可以在此登记关注的企业及职位！</p>
+	        
+	        <label class="item item-input">
+	          <span class="input-label">企业信息：</span>
+	          <input type="text" name="企业名称">
+	        </label>
+	        <label class="item item-input">
+	          <span class="input-label">关注职位：</span>
+	          <input  type="text" placeholder="职位">
+	        </label>
+	        <label class="item item-input item-stacked-label">
+	          <p class="input-label">您想说：</p>
+	          <textarea name="suggest" cols ="20" rows = "5" placeholder="我想进你们公司"></textarea>
+	        </label>
+	    </ion-item>
+	    <div class="buttons" style='text-align:center; margin-top:10px'>
+              <button class="button button-positive" ng-click="findout()"> 提交找漏 </button>
+        </div>
+		
+	</ion-content>
+</ion-view>
+</script>
+
+
+<script type="text/ng-template" id="templates/about-us.html">
+<ion-view title="关于我们">
+	<ion-content class="has-header padding">
+		<ion-item>
+			<h2>关于好前途</h2>
+			<p>好前途成立于2014年，专职于校园招聘，<br />服务广大企业，学生，学校。</p>
+			<h3>我们的优势</h3>
+			<p>1，强力的企业支持；</p>
+			<p>2，和校方良好的合作关系；</p>
+			<p>3，多种生动创新的应聘方式；</p>
+			<p>4，大量的就业数据，学习资料，创业辅导等。</p>
+		</ion-item>
+		<ion-item>
+			<p>联系地址：湖南长沙科技园长沙大厦B栋</p>
+			<p>网址：www.haoqiantu.net</p>
+		</ion-item>
+
+		<ion-item>
+			<p>联系电话：400-0009-0971</p>
+			<p>企业QQ号：400-0009-0971</p>
+		</ion-item>
+		
+	</ion-content>
+</ion-view>
+</script>
+
+

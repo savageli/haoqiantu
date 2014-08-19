@@ -1,0 +1,190 @@
+<ion-view title="首页">
+  <ion-content class="has-header padding">
+    <!-- <h1>Dash</h1> -->
+    <div class="list ">
+    	<a class="item item-icon-left item-icon-right" href="#/app/home/postsubs">
+    		<i class="icon ion-ios7-search positive"></i>
+    		职位订阅
+    		<i class="icon ion-ios7-arrow-right"></i>
+    	</a>
+
+    	<a class="item item-icon-left item-icon-right" href="#/app/home/newjobs">
+    		<i class="icon ion-ios7-contact positive"></i>
+    		最新招聘
+    		<i class="icon ion-ios7-arrow-right"></i>
+    	</a>
+
+    	<a class="item item-icon-left item-icon-right" href="#/app/home/jobfairs">
+    		<i class="icon ion-cloud calm"></i>
+    		全城招聘会
+    		<i class="icon ion-ios7-arrow-right"></i>
+    	</a>
+
+    	<a class="item item-icon-left item-icon-right" href="#/app/home/preaches">
+    		<i class="icon ion-ios7-videocam positive"></i>
+    		全城宣讲会
+    		<i class="icon ion-ios7-arrow-right"></i>
+    	</a>
+
+		<!-- <a class="item item-icon-left item-icon-right" href="#/app/home/dayaward">
+    		<i class="icon ion-ios7-pricetag balanced"></i>
+    		每日抽奖
+    		<i class="icon ion-ios7-arrow-right"></i>
+    	</a> -->
+
+        <a class="item item-icon-left item-icon-right" href="#/app/home/study">
+            <i class="icon ion-planet energized"></i>
+            学习中心
+            <i class="icon ion-ios7-arrow-right"></i>
+        </a>
+
+        <a class="item item-icon-left item-icon-right" href="#/app/home/venture">
+            <i class="icon ion-star royal   "></i>
+            创业频道
+            <i class="icon ion-ios7-arrow-right"></i>
+        </a>
+    
+    </div>
+  </ion-content>
+</ion-view>
+
+
+<script type="text/ng-template" id="templates/jobdetail.html">
+<ion-view title={{job.title}}>
+  <ion-content class="has-header padding">
+  
+    <div class="list">
+        <a class="item" type="item-text-wrap" >
+            <h3 style='text-align:center; margin-top:10px'>{{job.title}}</h3>
+        </a>
+        
+        <a class="item" type="item-text-wrap" >
+            <h3>招聘类型：{{job.type}}</h3>
+            <h3>薪资待遇：{{job.money}}</h3>
+        </a>
+
+        <a class="item" type="item-text-wrap" >
+            <h4>公司：{{job.from}}</h4>
+            <h4>创建时间：{{job.ctime*1000 |date : 'yyyy-MM-dd hh:mm:ss'}}</h4>
+        </a>
+
+        <a class="item" style="word-wrap: break-word; word-break: normal; ">招聘要求：<br />{{job.body}}</a>
+       
+        
+    </div>
+    
+
+  </ion-content>
+</ion-view>
+</script>
+
+
+<script type="text/ng-template" id="templates/postsubs.html">
+<ion-view title="职位订阅">
+  <ion-content class="has-header padding">
+  
+    <div class="list ">
+        <label class="item item-input">
+          <span class="input-label">行业选择：</span>
+          <input  type="text" placeholder="行业">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">地区选择：</span>
+          <input  type="text" placeholder="地区">
+        </label>
+
+        <label class="item item-input item-select">
+            <div class="input-label">求职类型：</div>
+            <select>
+              <option selected>全职</option>
+              <option>兼职</option>
+              <option>实习</option>
+            </select>
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">求职待遇：</span>
+          <input  type="text" placeholder="待遇">
+        </label>
+
+        <div class="buttons" style='text-align:center; margin-top:10px'>
+          <button class="button button-positive" ng-click="postsubs()"> 提交 </button>
+        </div>
+    </div>
+
+
+  </ion-content>
+</ion-view>
+</script>
+
+<script type="text/ng-template" id="templates/newjobs.html">
+<ion-view title="最新招聘">
+  <ion-content class="has-header padding">
+  
+    <div class="list " ng-repeat="job in jobs">
+        <a class="item item-icon-right" type="item-text-wrap" href="#/app/home/job/{{job.id}}">
+            <div>
+                <span>{{job.title}}</span>
+                <span style='position:absolute;right:40px'>{{job.ctime*1000 |date : 'yyyy-MM-dd'}}</span><br />
+                <span>{{job.from}}</span>
+                <span style='position:absolute;right:40px'>{{job.money}}</span>
+            </div>  
+            <i class="icon ion-ios7-arrow-right"></i>
+        </a>
+    </div>
+
+  </ion-content>
+</ion-view>
+</script>
+
+
+
+<script type="text/ng-template" id="templates/news.html">
+<ion-view title={{news.title}}>
+  <ion-content class="has-header padding">
+  
+    <div class="list">
+        <a class="item" type="item-text-wrap" >
+            <h3 style='text-align:center; margin-top:10px'>{{news.title}}</h3>
+        </a>
+        <a class="item" type="item-text-wrap" >
+            <h4>来源：{{news.from}}</h4>
+            <h4>创建时间：{{news.ctime*1000 |date : 'yyyy-MM-dd hh:mm:ss'}}</h4>
+        </a>
+    </div>
+    <div>{{news.body}}</div>
+
+  </ion-content>
+</ion-view>
+</script>
+
+<script type="text/ng-template" id="templates/study.html">
+<ion-view title="学习中心">
+  <ion-content class="has-header padding">
+  
+    <div class="list " ng-repeat="news in newss">
+        <a class="item item-icon-right" ng-if="news.pid==29" type="item-text-wrap" href="#/app/home/news/{{news.id}}">
+            <h3>{{news.title}}</h3>
+            <i class="icon ion-ios7-arrow-right"></i>
+        </a>
+    </div>
+
+  </ion-content>
+</ion-view>
+</script>
+
+<script type="text/ng-template" id="templates/venture.html">
+<ion-view title="创业中心">
+  <ion-content class="has-header padding">
+  
+    <div class="list " ng-repeat="news in newss">
+        <a class="item item-icon-right" ng-if="news.pid==30" type="item-text-wrap" href="#/app/home/news/{{news.id}}">
+            <h3>{{news.title}}</h3>
+            <i class="icon ion-ios7-arrow-right"></i>
+        </a>
+    </div>
+
+  </ion-content>
+</ion-view>
+</script>

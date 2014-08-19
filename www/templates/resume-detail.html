@@ -1,0 +1,47 @@
+<!--
+  This template loads for the 'tab.resume-detail' state (app.js)
+  'firend' is a $scope variable created in the resumesCtrl controller (controllers.js)
+  The resumesCtrl pulls data from the resumes service (service.js)
+  The resumes service returns an array of resume data
+-->
+<ion-view title="{{resume.name}}">
+  <ion-content has-header="true" padding="true">
+
+  	<ion-item>
+		<span>简历名称：</span>
+		<span>{{resume.name}}</span>
+	</ion-item>
+
+	<ion-item>
+		<span>默认简历：</span>
+		<span ng-if='resume.def_job == 1'>是</span>
+		<span ng-if='resume.def_job != 1'>否</span>
+	</ion-item>
+
+	<ion-item>
+		<span>开放：</span>
+		<span ng-if='resume.open == 1'>是</span>
+		<span ng-if='resume.open != 1'>否</span>
+	</ion-item>	
+
+	<ion-item>
+		<span>最近更新时间：</span>
+		<span>{{resume.lastupdate*1000 | date : 'yyyy-MM-dd hh:mm:ss'}}</span>
+	</ion-item>
+	<ion-item>
+		<span>查看次数：</span>
+		<span>{{resume.hits}}</span>
+	</ion-item>
+
+	<!-- <div ng-if='resume.def_job != 1' class="button button-right" style="border-style:none">
+		<button class="button button-small button-positive">设置默认</button>
+	</div>
+	<div ng-if='resume.open != 1' class="button button-right" style="border-style:none">
+			<button class="button button-small button-balanced">开放简历</button>
+	</div>
+	<div ng-if='resume.def_job != 1' class="button button-right" style="border-style:none">
+		<button class="button button-small button-positive">刷新简历时间</button>
+	</div> -->
+
+  </ion-content>
+</ion-view>
