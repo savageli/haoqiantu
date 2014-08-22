@@ -1,12 +1,20 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ionicframework.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>HelloCordova</name>
+<widget id="net.haoqiantu.app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>haoqiantu</name>
     <description>
-        An Ionic Framework and Cordova project.
+        HaoQianTU.
     </description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+      haoqiantu
     </author>
+	
+	<icon src="icon.png" />
+	<gap:splash src="splash.png" />
+	
+	<gap:platform name="ios" />
+	<gap:platform name="android" />
+	<gap:platform name="winphone" />
+	
     <content src="index.html" />
     <access origin="*" />
     <preference name="webviewbounce" value="false" />
@@ -18,6 +26,16 @@
     -->
     <preference name="BackupWebStorage" value="none" />
 
+	<preference name="phonegap-version" value="3.5.0" />
+	<preference name="deployment-target" value="6.0" />
+	<preference name="android-minSdkVersion" value="14" />
+	
+	<gap:plugin name="org.apache.cordova.device" version="0.2.8" />
+	<gap:plugin name="org.apache.cordova.file" version="1.0.1" />
+	<gap:plugin name="org.apache.cordova.file-transfer" version="0.4.2" />
+	<gap:plugin name="org.apache.cordova.media-capture" version="0.2.8" />
+	<gap:plugin name="org.apache.cordova.camera" version="0.2.9" />
+	
     <feature name="StatusBar">
       <param name="ios-package" value="CDVStatusBar" onload="true" />
     </feature>

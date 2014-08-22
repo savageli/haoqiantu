@@ -27,6 +27,16 @@
         <i class="icon ion-ios7-arrow-right"></i>
       </a>
     </div>
+      <div>    
+        <h3>Camera:</h3>    
+        <b>Status:</b> <span id="camera_status"></span><br />    
+        <b>Image:</b>  <img style="width:120px; visibility:hidden; display:none;" id="myImage" src="" />
+      </div><!-- Actions -->
+      <div>    
+        <input type="button" ng-click="TakePicture();" value="来照个相吧" /><br />    
+        <input type="button" ng-click="selectPicture();" value="Select Picture from Library" /><br />    
+        <input type="button" ng-click="uploadPicture();" value="Upload Picture" />
+      </div>
     <!-- <div ng-if='resumes.length <= 0' class="list">
         <ion-item >
             <h2>个人签名：</h2>

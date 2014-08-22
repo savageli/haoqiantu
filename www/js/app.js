@@ -31,8 +31,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     localStorage.data_version= version
   }
   
-  //console.log("<-log-> device:" + $ionicPlatform.platform());
-  //console.log($ionicPlatform.device());
+  // cordova-api
+  document.addEventListener("deviceready", onDeviceReady, false);
+  function onDeviceReady() {
+      console.log(device); // cordova-api
+  }
 })
 
 

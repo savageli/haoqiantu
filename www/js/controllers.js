@@ -155,6 +155,54 @@ angular.module('starter.controllers', [])
       });
   }
 
+  /** * Upload current picture */
+  $scope.uploadPicture = function() {
+    // Get URI of picture to upload
+      var img = document.getElementById('myImage');
+      var imageURI = img.src;
+      if (!imageURI || (img.style.display == "none")) {
+          document.getElementById('camera_status').innerHTML = "Take picture or select picture from library first.";
+          return;
+      }
+    // Verify server has been entered
+      //server = document.getElementById('serverUrl').value;
+      server = localStorage.siteHost + "?c=upload"
+      if (server) {
+      // Specify transfer options
+          var options = new FileUploadOptions();
+          options.fileKey="file";
+          options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+          options.mimeType="image/jpeg";
+          options.chunkedMode = false;
+      // Transfer picture to server
+          var ft = new FileTransfer();
+          ft.upload(imageURI, server, function(r) {
+              document.getElementById('camera_status').innerHTML = "Upload successful: "+ r.bytesSent+" bytes uploaded.";
+          }, function(error) {
+              document.getElementById('camera_status').innerHTML = "Upload failed: Code = "+ error.code;
+          }, options);
+      }
+  }
+  // 照相
+  $scope.TakePicture = function(){
+    navigator.camera.getPicture(onSuccess, onFail, { quality: 30,
+    destinationType: Camera.DestinationType.FILE_URI,
+    // allowEdit: true, encodingType：Camera.EncodingType.JPEG,
+    targetWidth: 100, targetHeight:100, correctOrientation:true,
+    cameraDirection:Camera.Direction.FRONT });
+    function onSuccess(imageURI) {
+        var image = document.getElementById('myImage');
+        image.style.visibility = "visible";
+        image.style.display = "block";
+        image.src = imageURI;
+        document.getElementById('camera_status').innerHTML = "Success";
+        console.log(image.src);
+        // upload file
+    }
+    function onFail(message) {
+        alert('Failed because: ' + message);
+    }
+  }
   if(!User.getuid()){
     $state.go("app.account-login");
     return;
