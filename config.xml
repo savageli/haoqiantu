@@ -15,6 +15,8 @@
 	<icon src="icon.png" />
 	<gap:splash src="splash.png" />
 	
+	<preference name="permissions" value="none"/>
+	
 	<gap:platform name="ios" />
 	<gap:platform name="android" />
 	<!-- <gap:platform name="winphone" /> -->
@@ -34,11 +36,11 @@
 	<preference name="deployment-target" value="6.0" />
 	<preference name="android-minSdkVersion" value="14" />
 	
-	<gap:plugin name="org.apache.cordova.device" version="0.2.8" />
-	<gap:plugin name="org.apache.cordova.file" version="1.0.1" />
-	<gap:plugin name="org.apache.cordova.file-transfer" version="0.4.2" />
-	<gap:plugin name="org.apache.cordova.media-capture" version="0.2.8" />
-	<gap:plugin name="org.apache.cordova.camera" version="0.2.9" />
+	<gap:plugin name="org.apache.cordova.device" />
+	<gap:plugin name="org.apache.cordova.file" />
+	<gap:plugin name="org.apache.cordova.file-transfer" />
+	<gap:plugin name="org.apache.cordova.media-capture" />
+	<gap:plugin name="org.apache.cordova.camera" />
 	
     <feature name="StatusBar">
       <param name="ios-package" value="CDVStatusBar" onload="true" />
