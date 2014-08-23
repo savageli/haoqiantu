@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('HomeCtrl', function($scope, $state, User) {
+.controller('HomeCtrl', function($scope, $state, User, Device) {
 
   // //console.log("<-log-> HomeCtrl");
 
@@ -10,7 +10,6 @@ angular.module('starter.controllers', [])
     ////console.log("<-log-> HomeCtrl.init");
     
     var UserObj = localStorage['user'];
-    
 
     if(!UserObj)
     {
@@ -21,6 +20,12 @@ angular.module('starter.controllers', [])
 
     $scope.user = JSON.parse(UserObj);
     User.setuser($scope.user.uid, $scope.user.username, $scope.user.password, $scope.user.usertype);
+
+    var DeviceStr = localStorage['device'];
+    if(DeviceStr){
+        Obj = DeviceStr.parse(DeviceStr);
+        Device.set(Obj.uuid, Obj.platform, Obj.version);
+    }
   };
 
   if(!$scope.user.uid){
@@ -96,7 +101,7 @@ angular.module('starter.controllers', [])
 })
 
 // resume 简历
-.controller('ResumesCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User, Resumes) {
+.controller('ResumesCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User, Resumes, Device) {
 
   //console.log("<-log-> ResumesCtrl");
   $scope.user = User.getuser();
@@ -185,12 +190,46 @@ angular.module('starter.controllers', [])
   }
 
   // 照相
-  $scope.TakePicture = function(){
-    navigator.camera.getPicture(onSuccess, onFail, { quality: 30,
-    destinationType: Camera.DestinationType.FILE_URI,
-    // allowEdit: true, encodingType：Camera.EncodingType.JPEG,
-    targetWidth: 100, targetHeight:100, correctOrientation:true,
-    cameraDirection:Camera.Direction.FRONT });
+  $scope.TakePicture = function(picsource = 1){
+    // picsource 1:camera  2:photolib
+    if(picsource == '1'){
+      picSrcType = Camera.PictureSourceType.CAMERA;
+    }
+    else{
+      picSrcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
+    }
+
+    var CameraOptions;
+    if(Device.get().platform == 'ios'){
+      CameraOptions = {
+        quality : 30,
+        destinationType : Camera.DestinationType.FILE_URI,
+        sourceType : picSrcType,
+        allowEdit : true,
+        encodingType: Camera.EncodingType.PNG,
+        targetWidth: 120,
+        targetHeight: 150,
+        popoverOptions: CameraPopoverOptions,
+        saveToPhotoAlbum: true,
+        cameraDirection: camera.Direction.FRONT 
+      };
+    }
+    else{
+      CameraOptions = {
+        quality : 80,
+        destinationType : Camera.DestinationType.FILE_URI,
+        sourceType : picSrcType,
+        allowEdit : true,
+        encodingType: Camera.EncodingType.PNG,
+        targetWidth: 120,
+        targetHeight: 150,
+        popoverOptions: CameraPopoverOptions,
+        saveToPhotoAlbum: true,
+        cameraDirection: camera.Direction.FRONT 
+      };
+    }
+
+    navigator.camera.getPicture(onSuccess, onFail, CameraOptions);
     function onSuccess(imageURI) {
         var image = document.getElementById('myImage');
         image.style.visibility = "visible";
@@ -201,7 +240,74 @@ angular.module('starter.controllers', [])
         // upload file
     }
     function onFail(message) {
+      setTimeout(function() {
+        // do your thing here!
         alert('Failed because: ' + message);
+      }, 0);  
+    }
+  }
+
+  // media-capture
+  $scope.MediaCapture = function(type = 1){
+
+    function GoUpload(mediaurl, medianame){
+
+      server = localStorage.siteHost + "?c=upload";
+      if (server) {
+        // Specify transfer options
+        var options = new FileUploadOptions();
+        options.fileKey="file";
+        options.fileName= medianame; 
+        options.mimeType= "image/jpeg";
+        options.chunkedMode = false;
+        // Transfer picture to server
+        var ft = new FileTransfer();
+        ft.upload(mediaurl, server, function(r) {
+            alert(medianame + " upload success");
+        }, function(error) {
+            alert("Upload failed: Code = "+ error.code);
+        }, options);
+      }
+    }
+
+    function OnSuccess(mediafiles){
+      var i, path, len;
+      //alert(mediaFiles);
+      GoUpload(mediafiles, );
+      // for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+      //     path = mediaFiles[i].fullPath;
+      //     // do something interesting with the file
+      // }
+    }
+
+    function OnError(error){
+      alert('Capture Error code: ' + error.code);
+    }
+
+    // global var 
+    medianame = "png";
+
+    switch(type){
+      case 1: // voice
+        var options = { limit: 1, duration: 10 };
+        medianame = User.getuid + "_audio.amr";
+        navigator.device.capture.captureAudio(OnSuccess, OnError, options);
+        break;
+
+      case 2: // image
+        var options = { limit: 1 };
+        medianame = User.getuid + "_image.jpeg";
+        navigator.device.capture.captureImage(OnSuccess, OnError, options);
+        break;
+
+      case 3: // video
+        var options = { limit: 1, duration: 10 };
+        medianame = User.getuid + "_video.3gpp";
+        navigator.device.capture.captureVideo(OnSuccess, OnError, options);
+        break;
+
+      default:
+        alert("type is error:" + type);
     }
   }
 
@@ -418,16 +524,17 @@ angular.module('starter.controllers', [])
   $scope.reg = function(){
     //console.log("<-log-> reg" + $scope.user.username + "," + $scope.user.password);
     // //console.log(localStorage.siteHost);
-    $ionicLoading.show({
-        noBackdrop:true,
-        template: '正在登录...'
-        });
 
     $scope.handletype = 2;
 
     if(!$scope.checkinput()){
       return;
     }
+
+    $ionicLoading.show({
+        noBackdrop:true,
+        template: '正在注册中...'
+        });
 
     $http.post(localStorage.siteHost+'?c=reg', $scope.user).
       success(function(data) {

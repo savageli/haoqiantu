@@ -36,6 +36,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   function onDeviceReady() {
       console.log(device); // cordova-api
       alert(JSON.stringify(device));
+      localStorage['device'] = JSON.stringify(device);
   }
 })
 

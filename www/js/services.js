@@ -34,6 +34,35 @@ angular.module('starter.services', [])
   }
 })
 
+.factory('Device', function() {
+  // Might use a resource here that returns a JSON array
+  //json-object
+  var Device = {uuid:'', platform:'', version:''}
+
+  return {
+    set: function(uuid, platform, version) {
+      Device.uuid = uuid;
+      Device.platform = platform;
+      Device.version = version;
+    },
+
+    get: function(){
+      return Device;
+    },
+
+    clear: function(){
+      Device.uuid = '';
+      Device.platform = '';
+      Device.version = '';
+    },
+
+    getuuid: function() {
+      // Simple index lookup
+      return Device.uuid;
+    }
+  }
+})
+
 .factory('UserBase', function() {
   // Might use a resource here that returns a JSON array
   //json-object
