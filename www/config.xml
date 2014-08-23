@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="net.haoqiantu.app"
+        version="0.0.1"
+        xmlns="http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0">
+		
+    <name>haoqiantu</name>
+    <description>
+        HaoQianTU.
+    </description>
+    <author email="hi@ionicframework" href="http://ionicframework.com/">
+      haoqiantu
+    </author>
+	
+	<icon src="icon.png" />
+	<gap:splash src="splash.png" />
+	
+	<preference name="permissions" value="none"/>
+	
+	<gap:platform name="ios" />
+	<gap:platform name="android" />
+	<!-- <gap:platform name="winphone" /> -->
+	
+    <content src="index.html" />
+    <access origin="*" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="UIWebViewBounce" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
+
+    <!-- Don't store local date in an iCloud backup. Turn this to "cloud" to enable storage 
+         to be sent to iCloud. Note: enabling this could result in Apple rejecting your app.
+    -->
+    <preference name="BackupWebStorage" value="none" />
+
+	<preference name="phonegap-version" value="3.5.0" />
+	<preference name="deployment-target" value="6.0" />
+	<preference name="android-minSdkVersion" value="14" />
+	
+	<gap:plugin name="org.apache.cordova.device" />
+	<gap:plugin name="org.apache.cordova.file" />
+	<gap:plugin name="org.apache.cordova.file-transfer" />
+	<gap:plugin name="org.apache.cordova.media-capture" />
+	<gap:plugin name="org.apache.cordova.camera" />
+	
+    <feature name="StatusBar">
+      <param name="ios-package" value="CDVStatusBar" onload="true" />
+    </feature>
+</widget>
