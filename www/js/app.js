@@ -35,7 +35,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   document.addEventListener("deviceready", onDeviceReady, false);
   function onDeviceReady() {
       console.log(device); // cordova-api
-      alert(device);
+      alert(JSON.stringify(device));
   }
 })
 

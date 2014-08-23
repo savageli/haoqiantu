@@ -171,8 +171,8 @@ angular.module('starter.controllers', [])
       // Specify transfer options
           var options = new FileUploadOptions();
           options.fileKey="file";
-          options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
-          options.mimeType="image/jpeg";
+          options.fileName= User.getuid() + ".png"; //imageURI.substr(imageURI.lastIndexOf('/')+1);
+          options.mimeType= "image/jpeg";
           options.chunkedMode = false;
       // Transfer picture to server
           var ft = new FileTransfer();
@@ -204,7 +204,7 @@ angular.module('starter.controllers', [])
         alert('Failed because: ' + message);
     }
   }
-  
+
   if(!User.getuid()){
     $state.go("app.account-login");
     return;
@@ -261,6 +261,7 @@ angular.module('starter.controllers', [])
 
   $scope.AddBaseInfo = function(){
     $ionicPopup.alert({ template: '提交成功！' });
+    $state.go("app.account");
   }
 
   if (!User.getuid()) {

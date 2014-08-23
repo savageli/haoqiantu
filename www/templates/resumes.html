@@ -7,6 +7,7 @@
   </div> -->
 
   <ion-content class="has-header">
+    <!-- 有简历时 -->
     <ion-list ng-if='resumes.length > 0' 
     	  show-delete="shouldShowDelete"
         show-reorder="shouldShowReorder"
@@ -17,9 +18,9 @@
         {{resume.name}}
         <i class="icon ion-ios7-arrow-right"></i>
       </ion-item>
-
     </ion-list>
 
+    <!-- 没有简历时 -->
     <div ng-if='resumes.length <= 0' >
       <a class="item item-icon-left item-icon-right" href="#/app/account/baseinfo">
         <i class="icon ion-star"></i>
@@ -27,6 +28,8 @@
         <i class="icon ion-ios7-arrow-right"></i>
       </a>
     </div>
+
+    <!-- 测试照相api -->
       <div>    
         <h3>Camera:</h3>    
         <b>Status:</b> <span id="camera_status"></span><br />    

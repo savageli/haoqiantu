@@ -4,12 +4,12 @@
         xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0">
 		
-    <name>haoqiantu</name>
+    <name>好前途</name>
     <description>
-        HaoQianTU.
+        好前途就业网.
     </description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">
-      haoqiantu
+      好前途
     </author>
 	
 	<icon src="icon.png" />
@@ -36,11 +36,11 @@
 	<preference name="deployment-target" value="6.0" />
 	<preference name="android-minSdkVersion" value="14" />
 	
-	<gap:plugin name="org.apache.cordova.device" />
-	<gap:plugin name="org.apache.cordova.file" />
-	<gap:plugin name="org.apache.cordova.file-transfer" />
-	<gap:plugin name="org.apache.cordova.media-capture" />
-	<gap:plugin name="org.apache.cordova.camera" />
+	<gap:plugin name="org.apache.cordova.device" version="0.2.8" />
+	<gap:plugin name="org.apache.cordova.file" version="1.0.1" />
+	<gap:plugin name="org.apache.cordova.file-transfer" version="0.4.2" />
+	<gap:plugin name="org.apache.cordova.media-capture" version="0.2.8" />
+	<gap:plugin name="org.apache.cordova.camera" version="0.2.9" />
 	
     <feature name="StatusBar">
       <param name="ios-package" value="CDVStatusBar" onload="true" />
