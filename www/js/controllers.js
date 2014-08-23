@@ -23,7 +23,7 @@ angular.module('starter.controllers', [])
 
     var DeviceStr = localStorage['device'];
     if(DeviceStr){
-        Obj = DeviceStr.parse(DeviceStr);
+        Obj = JSON.parse(DeviceStr);
         Device.set(Obj.uuid, Obj.platform, Obj.version);
     }
   };
@@ -231,7 +231,7 @@ angular.module('starter.controllers', [])
         cameraDirection: camera.Direction.FRONT 
       };
     }
-
+    alert("will getPicture");
     navigator.camera.getPicture(onSuccess, onFail, CameraOptions);
     function onSuccess(imageURI) {
         var image = document.getElementById('myImage');
@@ -239,8 +239,7 @@ angular.module('starter.controllers', [])
         image.style.display = "block";
         image.src = imageURI;
         document.getElementById('camera_status').innerHTML = "Success";
-        console.log(image.src);
-        // upload file
+        alert(image.src);
     }
     function onFail(message) {
       setTimeout(function() {
@@ -296,19 +295,19 @@ angular.module('starter.controllers', [])
     switch(type){
       case 1: // voice
         var options = { limit: 1, duration: 10 };
-        medianame = User.getuid + "_audio.amr";
+        medianame = User.getuid() + "_audio.amr";
         navigator.device.capture.captureAudio(OnSuccess, OnError, options);
         break;
 
       case 2: // image
         var options = { limit: 1 };
-        medianame = User.getuid + "_image.jpeg";
+        medianame = User.getuid() + "_image.jpeg";
         navigator.device.capture.captureImage(OnSuccess, OnError, options);
         break;
 
       case 3: // video
         var options = { limit: 1, duration: 10 };
-        medianame = User.getuid + "_video.3gpp";
+        medianame = User.getuid() + "_video.3gpp";
         navigator.device.capture.captureVideo(OnSuccess, OnError, options);
         break;
 
