@@ -190,7 +190,10 @@ angular.module('starter.controllers', [])
   }
 
   // 照相
-  $scope.TakePicture = function(picsource = 1){
+  $scope.TakePicture = function(picsource){
+    if(!picsource){
+      picsource = 1;
+    }
     // picsource 1:camera  2:photolib
     if(picsource == '1'){
       picSrcType = Camera.PictureSourceType.CAMERA;
@@ -248,7 +251,7 @@ angular.module('starter.controllers', [])
   }
 
   // media-capture
-  $scope.MediaCapture = function(type = 1){
+  $scope.MediaCapture = function(){
 
     function GoUpload(mediaurl, medianame){
 
@@ -273,7 +276,7 @@ angular.module('starter.controllers', [])
     function OnSuccess(mediafiles){
       var i, path, len;
       //alert(mediaFiles);
-      GoUpload(mediafiles, );
+      GoUpload(mediafiles, medianame);
       // for (i = 0, len = mediaFiles.length; i < len; i += 1) {
       //     path = mediaFiles[i].fullPath;
       //     // do something interesting with the file
@@ -284,6 +287,9 @@ angular.module('starter.controllers', [])
       alert('Capture Error code: ' + error.code);
     }
 
+    if(!type){
+      type = 1;
+    }
     // global var 
     medianame = "png";
 
