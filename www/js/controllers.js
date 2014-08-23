@@ -166,7 +166,7 @@ angular.module('starter.controllers', [])
       }
     // Verify server has been entered
       //server = document.getElementById('serverUrl').value;
-      server = localStorage.siteHost + "?c=upload"
+      server = localStorage.siteHost + "?c=upload";
       if (server) {
       // Specify transfer options
           var options = new FileUploadOptions();
@@ -183,6 +183,7 @@ angular.module('starter.controllers', [])
           }, options);
       }
   }
+
   // 照相
   $scope.TakePicture = function(){
     navigator.camera.getPicture(onSuccess, onFail, { quality: 30,
@@ -203,6 +204,7 @@ angular.module('starter.controllers', [])
         alert('Failed because: ' + message);
     }
   }
+  
   if(!User.getuid()){
     $state.go("app.account-login");
     return;
@@ -212,7 +214,6 @@ angular.module('starter.controllers', [])
     $scope.init();
     return;
   }
-
 })
 
 .controller('ResumeDetailCtrl', function($scope, $stateParams, $ionicPopup, Resumes) {
@@ -222,12 +223,7 @@ angular.module('starter.controllers', [])
   if(!$scope.resume){
     $ionicPopup.alert({ template: '系统错误，请退出重现登录' });
   }
-
 })
-
-// day-award
-// .controller('DayAwardCtrl', function($scope) {
-// })
 
 // 个人
 .controller('AccountCtrl', function($scope, $state, $http, $ionicPopup, User) {
@@ -257,7 +253,6 @@ angular.module('starter.controllers', [])
   if(!User.getuid()){
     $state.go("app.account-login")
   }
-
 })
 
 .controller('AccountBaseInfoCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User) {
@@ -292,7 +287,6 @@ angular.module('starter.controllers', [])
     $ionicPopup.alert({ template: '登录过期，请先退出登录。' });
     $state.go("app.account-login");
   }
-    
 })
 
 .controller('AccountChgPassCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User) {
@@ -350,7 +344,6 @@ angular.module('starter.controllers', [])
     $ionicPopup.alert({ template: '登录过期，请先退出登录。' });
     $state.go("app.account-login");
   }
-    
 })
 
 //登录注册相关
@@ -360,11 +353,6 @@ angular.module('starter.controllers', [])
 
   //console.log("<-log-> LoginCtrl");
   $scope.login = function(){
-    $ionicLoading.show({
-        noBackdrop:true,
-        template: '正在登录...'
-        });
-
     //console.log("<-log-> " + $scope.user.username + "," + $scope.user.password);
     //console.log(localStorage.siteHost);
  
@@ -373,6 +361,11 @@ angular.module('starter.controllers', [])
     if(!$scope.checkinput()){
       return;
     }
+
+    $ionicLoading.show({
+        noBackdrop:true,
+        template: '正在登录...'
+        });
 
     $http.post(localStorage.siteHost+'?c=login', $scope.user).
       success(function(data) {
@@ -526,7 +519,6 @@ angular.module('starter.controllers', [])
   $scope.refresh = function(){
     $ionicPopup.alert({ template: '您已经是最新版本，不需要更新！' });
   }
-
 })
 
 // 关于
@@ -536,7 +528,6 @@ angular.module('starter.controllers', [])
   $scope.advice = function(){
     $ionicPopup.alert({ template: '多谢您的反馈，我们一定及时处理！' });
   }
-
 })
 
 // 关于
@@ -546,6 +537,5 @@ angular.module('starter.controllers', [])
   $scope.findout = function(){
     $ionicPopup.alert({ template: '多谢您的反馈，我们一定及时处理！' });
   }
-
 })
 ;

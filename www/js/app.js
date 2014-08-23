@@ -35,6 +35,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   document.addEventListener("deviceready", onDeviceReady, false);
   function onDeviceReady() {
       console.log(device); // cordova-api
+      alert(device);
   }
 })
 
@@ -156,19 +157,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
-
-    // day-award
-    // .state('app.home-dayaward', {
-    //   url: '/home/dayaward',
-    //   views: {
-    //     'app-home': {
-    //       template: '<ion-view title="每日抽奖"><ion-content class="has-header">\
-    //       <h1 class="positive"> 正在建设中... </h1>\
-    //       </ion-content></ion-view>',
-    //       controller: 'DayAwardCtrl'
-    //     }
-    //   }
-    // })
 
     // news
     .state('app.home-news', {
