@@ -201,7 +201,7 @@ angular.module('starter.controllers', [])
     else{
       picSrcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
     }
-
+   //alert("will getPicture111");
     var CameraOptions;
     if(Device.get().platform == 'ios'){
       CameraOptions = {
@@ -219,16 +219,16 @@ angular.module('starter.controllers', [])
     }
     else{
       CameraOptions = {
-        quality : 80,
-        destinationType : Camera.DestinationType.FILE_URI,
-        sourceType : picSrcType,
-        allowEdit : true,
-        encodingType: Camera.EncodingType.PNG,
-        targetWidth: 120,
-        targetHeight: 150,
-        popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: true,
-        cameraDirection: camera.Direction.FRONT 
+        quality : 80
+        ,destinationType : Camera.DestinationType.FILE_URI
+        ,sourceType : picSrcType
+        ,allowEdit : true
+        ,encodingType: Camera.EncodingType.PNG
+        ,targetWidth: 120
+        ,targetHeight: 150
+        ,popoverOptions: CameraPopoverOptions
+        ,saveToPhotoAlbum: true
+        // ,cameraDirection: camera.Direction.FRONT 
       };
     }
     alert("will getPicture");
@@ -250,7 +250,7 @@ angular.module('starter.controllers', [])
   }
 
   // media-capture
-  $scope.MediaCapture = function(){
+  $scope.MediaCapture = function(type){
 
     function GoUpload(mediaurl, medianame){
 
