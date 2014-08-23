@@ -253,7 +253,7 @@ angular.module('starter.controllers', [])
   $scope.MediaCapture = function(type){
 
     function GoUpload(mediaurl, medianame){
-
+      alert("upload"+ mediaurl + ";" + medianame);
       server = localStorage.siteHost + "?c=upload";
       if (server) {
         // Specify transfer options
@@ -274,8 +274,8 @@ angular.module('starter.controllers', [])
 
     function OnSuccess(mediafiles){
       var i, path, len;
-      //alert(mediaFiles);
-      GoUpload(mediafiles, medianame);
+      alert(mediafiles[0].fullPath + ";" + medianame);
+      GoUpload(mediafiles[0].fullPath, medianame);
       // for (i = 0, len = mediaFiles.length; i < len; i += 1) {
       //     path = mediaFiles[i].fullPath;
       //     // do something interesting with the file
