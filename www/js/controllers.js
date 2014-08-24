@@ -19,13 +19,10 @@ angular.module('starter.controllers', [])
     }
 
     $scope.user = JSON.parse(UserObj);
-    User.setuser($scope.user.uid, $scope.user.username, $scope.user.password, $scope.user.usertype);
+    //User.setuser($scope.user.uid, $scope.user.username, $scope.user.password, $scope.user.usertype);
+    User.setAll($scope.user);
 
-    var DeviceStr = localStorage['device'];
-    if(DeviceStr){
-        Obj = JSON.parse(DeviceStr);
-        Device.set(Obj.uuid, Obj.platform, Obj.version);
-    }
+    Device.set();
   };
 
   if(!$scope.user.uid){
@@ -34,8 +31,16 @@ angular.module('starter.controllers', [])
   
 })
 
-.controller('JobDetailCtrl', function($scope, $stateParams, Jobs) {
+.controller('JobDetailCtrl', function($scope, $stateParams, $ionicPopup, Jobs) {
   $scope.job = Jobs.get($stateParams.jobId);
+
+  $scope.jobFav = function(){
+    $ionicPopup.alert({ template: '收藏成功！' });
+  }
+
+  $scope.jobApply = function(){
+    $ionicPopup.alert({ template: '申请成功！' });
+  }
 })
 
 // PostSubscription 招聘会
@@ -43,7 +48,7 @@ angular.module('starter.controllers', [])
   //$scope.postsubs = PostSubs.all();
   $scope.mycity = "深圳";
 
-  $scope.postsubs = function(){  
+  $scope.postSubs = function(){  
     $ionicPopup.alert({ template: '没有您期待的职位，请稍候再试！' });
   }
 
@@ -117,21 +122,15 @@ angular.module('starter.controllers', [])
 
     $http.post(localStorage.siteHost+'?c=resumelist', $scope.user).
       success(function(data) {
-        //console.log("<-log-> resumelist.resp.success");
-
+        
         $ionicLoading.hide();
-        if(!data.error){
-            
-            //console.log("<-log-> resumelist-resp listnum:" + data.list.length);
-            
+        if(!data.error){   
             Resumes.setisfetch();
             for (var i = data.list.length - 1; i >= 0; i--) {
                Resumes.pushresume(data.list[i]);
             };
             $scope.resumes = Resumes.all();
 
-            //localStorage['resumelist'] = JSON.stringify(data.list);
-            
         }else{
           switch(data.error){
             case 2:
@@ -160,6 +159,32 @@ angular.module('starter.controllers', [])
       });
   }
 
+  if(!User.getuid()){
+    $state.go("app.account-login");
+    return;
+  }
+
+  if(!Resumes.isfetch()){
+    $scope.init();
+    return;
+  }
+})
+
+.controller('ResumeDetailCtrl', function($scope, $stateParams, $ionicPopup, Resumes) {
+
+  $scope.resume = Resumes.get($stateParams.resumeId);
+
+  if(!$scope.resume){
+    $ionicPopup.alert({ template: '系统错误，请退出重现登录' });
+  }
+})
+
+.controller('ResumeMediaCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User, Resumes, Device) {
+
+  $scope.imageurl = "";
+  $scope.audiourl = "";
+  $scope.vidiourl = "";
+
   /** * Upload current picture */
   $scope.uploadPicture = function() {
     // Get URI of picture to upload
@@ -170,23 +195,23 @@ angular.module('starter.controllers', [])
           return;
       }
     // Verify server has been entered
-      //server = document.getElementById('serverUrl').value;
-      server = localStorage.siteHost + "?c=upload";
-      if (server) {
-      // Specify transfer options
-          var options = new FileUploadOptions();
-          options.fileKey="file";
-          options.fileName= User.getuid() + ".png"; //imageURI.substr(imageURI.lastIndexOf('/')+1);
-          options.mimeType= "image/jpeg";
-          options.chunkedMode = false;
-      // Transfer picture to server
-          var ft = new FileTransfer();
-          ft.upload(imageURI, server, function(r) {
-              document.getElementById('camera_status').innerHTML = "Upload successful: "+ r.bytesSent+" bytes uploaded.";
-          }, function(error) {
-              document.getElementById('camera_status').innerHTML = "Upload failed: Code = "+ error.code;
-          }, options);
-      }
+    //server = document.getElementById('serverUrl').value;
+    server = localStorage.siteHost + "?c=upload";
+    if (server) {
+    // Specify transfer options
+        var options = new FileUploadOptions();
+        options.fileKey="file";
+        options.fileName= User.getuid() + ".png"; //imageURI.substr(imageURI.lastIndexOf('/')+1);
+        options.mimeType= "image/jpeg";
+        options.chunkedMode = false;
+    // Transfer picture to server
+        var ft = new FileTransfer();
+        ft.upload(imageURI, server, function(r) {
+            document.getElementById('camera_status').innerHTML = "Upload successful: "+ r.bytesSent+" bytes uploaded.";
+        }, function(error) {
+            document.getElementById('camera_status').innerHTML = "Upload failed: Code = "+ error.code;
+        }, options);
+    }
   }
 
   // 照相
@@ -231,7 +256,7 @@ angular.module('starter.controllers', [])
         // ,cameraDirection: camera.Direction.FRONT 
       };
     }
-    alert("will getPicture");
+    //alert("will getPicture");
     navigator.camera.getPicture(onSuccess, onFail, CameraOptions);
     function onSuccess(imageURI) {
         var image = document.getElementById('myImage');
@@ -239,7 +264,9 @@ angular.module('starter.controllers', [])
         image.style.display = "block";
         image.src = imageURI;
         document.getElementById('camera_status').innerHTML = "Success";
-        alert(image.src);
+        //alert(image.src);
+
+        $scope.imageurl = imageURI;
     }
     function onFail(message) {
       setTimeout(function() {
@@ -253,9 +280,13 @@ angular.module('starter.controllers', [])
   $scope.MediaCapture = function(type){
 
     function GoUpload(mediaurl, medianame){
-      alert("upload"+ mediaurl + ";" + medianame);
+      //alert("upload"+ mediaurl + ";" + medianame);
       server = localStorage.siteHost + "?c=upload";
       if (server) {
+        $ionicLoading.show({
+          noBackdrop:true,
+          template: '数据上传中...'
+        });
         // Specify transfer options
         var options = new FileUploadOptions();
         options.fileKey="file";
@@ -265,16 +296,18 @@ angular.module('starter.controllers', [])
         // Transfer picture to server
         var ft = new FileTransfer();
         ft.upload(mediaurl, server, function(r) {
-            alert(medianame + " upload success");
+          $ionicLoading.hide();
+          //alert(medianame + " upload success");
         }, function(error) {
-            alert("Upload failed: Code = "+ error.code);
+          $ionicLoading.hide();
+          alert("Upload failed: Code = "+ error.code);
         }, options);
       }
     }
 
     function OnSuccess(mediafiles){
       var i, path, len;
-      alert(mediafiles[0].fullPath + ";" + medianame);
+      //alert(mediafiles[0].fullPath + ";" + medianame);
       GoUpload(mediafiles[0].fullPath, medianame);
       // for (i = 0, len = mediaFiles.length; i < len; i += 1) {
       //     path = mediaFiles[i].fullPath;
@@ -315,25 +348,6 @@ angular.module('starter.controllers', [])
         alert("type is error:" + type);
     }
   }
-
-  if(!User.getuid()){
-    $state.go("app.account-login");
-    return;
-  }
-
-  if(!Resumes.isfetch()){
-    $scope.init();
-    return;
-  }
-})
-
-.controller('ResumeDetailCtrl', function($scope, $stateParams, $ionicPopup, Resumes) {
-
-  $scope.resume = Resumes.get($stateParams.resumeId);
-
-  if(!$scope.resume){
-    $ionicPopup.alert({ template: '系统错误，请退出重现登录' });
-  }
 })
 
 // 个人
@@ -366,10 +380,11 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('AccountBaseInfoCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User) {
+.controller('AccountBaseInfoCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User, BaseConfig) {
   $scope.user = User.getuser();
   $scope.ouser = {}
 
+  //alert(JSON.stringify(BaseInfo.getcity(1)) );
   $scope.AddBaseInfo = function(){
     $ionicPopup.alert({ template: '提交成功！' });
     $state.go("app.account");
@@ -379,6 +394,14 @@ angular.module('starter.controllers', [])
     $ionicPopup.alert({ template: '登录过期，请先退出登录。' });
     $state.go("app.account-login");
   }  
+})
+
+// NewJobs 职位招聘
+.controller('AccountFavJobCtrl', function($scope, Jobs) {
+  //$scope.postsubs = PostSubs.all();
+  $scope.mycity = "深圳";
+  $scope.jobs = Jobs.all();
+
 })
 
 .controller('AccountMyMsgCtrl', function($scope) {
@@ -391,8 +414,8 @@ angular.module('starter.controllers', [])
   $scope.user = User.getuser();
   $scope.ouser = {}
 
-  $scope.employreg = function(){
-    $ionicPopup.alert({ template: '提交成功！' });
+  $scope.employReg = function(){
+    $ionicPopup.alert({ template: '就业登记，提交成功！' });
   }
 
   if (!User.getuid()) {
@@ -481,17 +504,9 @@ angular.module('starter.controllers', [])
 
     $http.post(localStorage.siteHost+'?c=login', $scope.user).
       success(function(data) {
-        //console.log("<-log-> resp.error:" + data.error);
-
         $ionicLoading.hide();
         if(data.error == 1){
-            
-            //console.log("<-log-> login ok:" + data.uid);
-            // localStorage['user.uid'] = data.uid;
-            // localStorage['user.username'] = data.username;
-            // localStorage['user.password'] = $scope.user.password;
-
-            User.setuser(data.uid, data.username, $scope.user.password);
+            User.setAll(data);
             localStorage['user'] = JSON.stringify(User.getuser());
             $ionicPopup.alert({ template: '登录成功' });
             $state.go("app.home");
@@ -515,8 +530,7 @@ angular.module('starter.controllers', [])
 
             default:
               $ionicPopup.alert({ template: '系统错误，请稍候重试。错误码：' + data.error });
-          }
-          
+          }  
         }
       }).
       error(function(data,status,headers,config){

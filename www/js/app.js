@@ -212,6 +212,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
 
+    .state('app.resume-media', {
+      url: '/resumes/media',
+      views: {
+        'app-resumes': {
+          templateUrl: 'templates/resume-media.html',
+          controller: 'ResumeMediaCtrl'
+        }
+      }
+    })
+
     // 个人
     .state('app.account', {
       url: '/account',
@@ -255,7 +265,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       views: {
         'app-account': {
           templateUrl: 'templates/account-favjobs.html',
-          controller: 'AccountCtrl'
+          controller: 'AccountFavJobCtrl'
         }
       }
     })

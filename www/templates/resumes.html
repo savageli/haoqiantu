@@ -29,21 +29,12 @@
       </a>
     </div>
 
-    <!-- 测试照相api -->
-      <div>    
-        <h3>Camera:</h3>    
-        <b>Status:</b> <span id="camera_status"></span><br />    
-        <b>Image:</b>  <img style="width:150px; visibility:hidden; display:none;" id="myImage" src="" />
-      </div><!-- Actions -->
-      <div>    
-        <input type="button" ng-click="TakePicture('1');" value="来照个相吧" /><br />    
-        <input type="button" ng-click="TakePicture('2');" value="从相册中选取照片" /><br />    
-        <input type="button" ng-click="uploadPicture();" value="照片上传" />
+    <a class="item item-icon-left item-icon-right" href="#/app/resumes/media">
+        <i class="icon ion-ios7-videocam energized"></i>
+        个性化的多媒体简历
+        <i class="icon ion-ios7-arrow-right"></i>
+    </a>
 
-        <input type="button" ng-click="MediaCapture(1);" value="录音" />
-        <input type="button" ng-click="MediaCapture(3);" value="录像" />
-        <input type="button" ng-click="MediaCapture(2);" value="capture-image" />
-      </div>
     <!-- <div ng-if='resumes.length <= 0' class="list">
         <ion-item >
             <h2>个人签名：</h2>
@@ -94,3 +85,39 @@
 
   </ion-content>
 </ion-view>
+
+<script type="text/ng-template" id="templates/resume-media.html">
+<ion-view title='多媒体简历展示'>
+  <ion-content class="has-header padding">
+    <!-- 测试照相api -->
+
+    <div>    
+      <h3>{{title}}</h3>    
+         
+      <img style="width:300px; visibility:hidden; display:none;" id="myImage" src="" />
+      <video style="width:300px; visibility:hidden; display:none;" id="myvideo"  controls>
+        <source src="" type="video/3gpp">
+        Your app does not support the video tag.
+      </video>
+      <audio style="width:300px; visibility:hidden; display:none;" id="myaudio"  controls>
+        <source src="" type="audio/amr">
+        Your app does not support the audio tag.
+      </audio>
+
+    </div>
+
+    <!-- Actions -->
+    <div>    
+      <input type="button" ng-click="TakePicture('1');" value="来照个相吧" /><br />    
+      <input type="button" ng-click="TakePicture('2');" value="从相册中选取照片" /><br />    
+      <input type="button" ng-click="uploadPicture();" value="照片上传" />
+
+      <input type="button" ng-click="MediaCapture(1);" value="录音" />
+      <input type="button" ng-click="MediaCapture(3);" value="录像" />
+      <!-- input type="button" ng-click="MediaCapture(2);" value="capture-image" / -->
+    </div>
+
+  </ion-content>
+</ion-view>
+</script>
+

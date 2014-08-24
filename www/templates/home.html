@@ -26,17 +26,17 @@
     		<i class="icon ion-ios7-arrow-right"></i>
     	</a>
 
-        <a class="item item-icon-left item-icon-right" href="#/app/home/study">
-            <i class="icon ion-planet energized"></i>
-            学习中心
-            <i class="icon ion-ios7-arrow-right"></i>
-        </a>
+      <a class="item item-icon-left item-icon-right" href="#/app/home/study">
+          <i class="icon ion-planet energized"></i>
+          学习中心
+          <i class="icon ion-ios7-arrow-right"></i>
+      </a>
 
-        <a class="item item-icon-left item-icon-right" href="#/app/home/venture">
-            <i class="icon ion-star royal   "></i>
-            创业频道
-            <i class="icon ion-ios7-arrow-right"></i>
-        </a>
+      <a class="item item-icon-left item-icon-right" href="#/app/home/venture">
+          <i class="icon ion-star royal "></i>
+          创业频道
+          <i class="icon ion-ios7-arrow-right"></i>
+      </a>
     
     </div>
   </ion-content>
@@ -58,13 +58,17 @@
         </a>
 
         <a class="item" type="item-text-wrap" >
-            <h4>公司：{{job.from}}</h4>
-            <h4>创建时间：{{job.ctime*1000 |date : 'yyyy-MM-dd hh:mm:ss'}}</h4>
+            <h3>公司：{{job.from}}</h3>
+            <h3>创建时间：{{job.ctime*1000 |date : 'yyyy-MM-dd hh:mm:ss'}}</h3>
         </a>
 
         <a class="item" style="white-space: normal">招聘要求：<br />{{job.body}}</a>
        
-        
+       <div class="buttons" style='text-align:center; margin-top:10px'>
+          <button class="button button-energized" ng-click="jobFav()"> 收藏 </button>
+          <button class="button button-positive" ng-click="jobApply()"> 申请 </button>
+       </div>
+      
     </div>
     
 
@@ -103,7 +107,7 @@
         </label>
 
         <div class="buttons" style='text-align:center; margin-top:10px'>
-          <button class="button button-positive" ng-click="postsubs()"> 提交 </button>
+          <button class="button button-positive" ng-click="postSubs()"> 提交 </button>
         </div>
     </div>
 
