@@ -177,6 +177,19 @@ angular.module('starter.controllers', [])
   if(!$scope.resume){
     $ionicPopup.alert({ template: '系统错误，请退出重现登录' });
   }
+
+  $scope.ResumeDef = function(){
+    $ionicPopup.alert({ template: '简历刷新成功' });
+  }
+
+  $scope.ResumeOpen = function(){
+    $ionicPopup.alert({ template: '简历设置开放' });
+  }
+
+  $scope.ResumeRefresh = function(){
+    $ionicPopup.alert({ template: '简历刷新成功' });
+  }
+
 })
 
 .controller('ResumeMediaCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User, Resumes, Device) {

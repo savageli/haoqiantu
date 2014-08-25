@@ -12,17 +12,31 @@
 		<span>{{resume.name}}</span>
 	</ion-item>
 
-	<ion-item>
+	<!-- <ion-item>
 		<span>默认简历：</span>
 		<span ng-if='resume.def_job == 1'>是</span>
 		<span ng-if='resume.def_job != 1'>否</span>
-	</ion-item>
+	</ion-item> -->
+	<ion-toggle ng-model="resume.def_job" 
+                    ng-checked="resume.def_job">
+          默认简历
+    </ion-toggle>
 
-	<ion-item>
+	<!-- <ion-item class="item-toggle">
 		<span>开放：</span>
 		<span ng-if='resume.open == 1'>是</span>
 		<span ng-if='resume.open != 1'>否</span>
-	</ion-item>	
+		<label class="toggle toggle-assertive">
+	       <input type="checkbox">
+	       <div class="track">
+	         <div class="handle"></div>
+	       </div>
+	     </label>
+	</ion-item>	 -->
+	<ion-toggle ng-model="resume.open" 
+                    ng-checked="resume.open">
+          开放
+    </ion-toggle>
 
 	<ion-item>
 		<span>最近更新时间：</span>
@@ -34,9 +48,9 @@
 	</ion-item>
 
 	<div class="buttons" style='text-align:center; margin-top:10px'>
-		<button class="button button-energized">设置默认</button>
-		<button class="button button-balanced">开放简历</button>
-		<button class="button button-positive">刷新简历时间</button>
+		<button class="button button-energized" ng-click="ResumeDef()">设置默认</button>
+		<button class="button button-balanced" ng-click="ResumeOpen()">开放简历</button>
+		<button class="button button-positive" ng-click="ResumeRefresh()">刷新简历</button>
 	</div>
 
   </ion-content>

@@ -2,7 +2,7 @@
 <widget id="net.haoqiantu.app"
         version="0.0.1"
         xmlns="http://www.w3.org/ns/widgets"
-        xmlns:gap = "http://phonegap.com/ns/1.0">
+        xmlns:gap = "http://phonegap.com/ns/3.5.0">
 		
     <name>好前途</name>
     <description>
