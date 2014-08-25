@@ -182,8 +182,11 @@ angular.module('starter.controllers', [])
 .controller('ResumeMediaCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User, Resumes, Device) {
 
   $scope.imageurl = "";
+
   $scope.audiourl = "";
-  $scope.vidiourl = "";
+  $scope.audioname = "";
+  $scope.videourl = "";
+  $scope.videoname = "";
 
   /** * Upload current picture */
   $scope.uploadPicture = function() {
@@ -191,7 +194,7 @@ angular.module('starter.controllers', [])
       var img = document.getElementById('myImage');
       var imageURI = img.src;
       if (!imageURI || (img.style.display == "none")) {
-          document.getElementById('camera_status').innerHTML = "Take picture or select picture from library first.";
+          $ionicPopup.alert({ template: '先照相或选照片' });
           return;
       }
     // Verify server has been entered
@@ -207,9 +210,11 @@ angular.module('starter.controllers', [])
     // Transfer picture to server
         var ft = new FileTransfer();
         ft.upload(imageURI, server, function(r) {
-            document.getElementById('camera_status').innerHTML = "Upload successful: "+ r.bytesSent+" bytes uploaded.";
+            //document.getElementById('camera_status').innerHTML = "Upload successful: "+ r.bytesSent+" bytes uploaded.";
+            $ionicPopup.alert({ template: '上传成功' });
         }, function(error) {
-            document.getElementById('camera_status').innerHTML = "Upload failed: Code = "+ error.code;
+            //document.getElementById('camera_status').innerHTML = "Upload failed: Code = "+ error.code;
+            $ionicPopup.alert({ template: '上传失败，错误码：' +  error.code});
         }, options);
     }
   }
@@ -244,13 +249,13 @@ angular.module('starter.controllers', [])
     }
     else{
       CameraOptions = {
-        quality : 80
+        quality : 100
         ,destinationType : Camera.DestinationType.FILE_URI
         ,sourceType : picSrcType
         ,allowEdit : true
         ,encodingType: Camera.EncodingType.PNG
-        ,targetWidth: 120
-        ,targetHeight: 150
+        ,targetWidth: 480
+        ,targetHeight: 600
         ,popoverOptions: CameraPopoverOptions
         ,saveToPhotoAlbum: true
         // ,cameraDirection: camera.Direction.FRONT 
@@ -263,7 +268,6 @@ angular.module('starter.controllers', [])
         image.style.visibility = "visible";
         image.style.display = "block";
         image.src = imageURI;
-        document.getElementById('camera_status').innerHTML = "Success";
         //alert(image.src);
 
         $scope.imageurl = imageURI;
@@ -271,7 +275,7 @@ angular.module('starter.controllers', [])
     function onFail(message) {
       setTimeout(function() {
         // do your thing here!
-        alert('Failed because: ' + message);
+        $ionicPopup.alert({ template: '照相失败：' + message });
       }, 0);  
     }
   }
@@ -297,10 +301,10 @@ angular.module('starter.controllers', [])
         var ft = new FileTransfer();
         ft.upload(mediaurl, server, function(r) {
           $ionicLoading.hide();
-          //alert(medianame + " upload success");
+          $ionicPopup.alert({ template: '上传成功' });
         }, function(error) {
           $ionicLoading.hide();
-          alert("Upload failed: Code = "+ error.code);
+          $ionicPopup.alert({ template: '上传失败，错误码：' + error.code });
         }, options);
       }
     }
@@ -308,7 +312,43 @@ angular.module('starter.controllers', [])
     function OnSuccess(mediafiles){
       var i, path, len;
       //alert(mediafiles[0].fullPath + ";" + medianame);
-      GoUpload(mediafiles[0].fullPath, medianame);
+      //GoUpload(mediafiles[0].fullPath, medianame);
+      if(type == 1){
+        $scope.audiourl = mediafiles[0].fullPath;
+        
+        var image = document.getElementById('myImage');
+        image.style.visibility = "hidden";
+        image.style.display = "none";
+        
+        var audio = document.getElementById('myAudio');
+        audio.style.visibility = "visible";
+        audio.style.display = "block";
+        audio.src = mediafiles[0].fullPath;
+
+        var video = document.getElementById('myVideo');
+        video.style.visibility = "hidden";
+        video.style.display = "none";
+      }
+      else if(type == 3){
+        $scope.videourl = mediafiles[0].fullPath;
+
+        var image = document.getElementById('myImage');
+        image.style.visibility = "hidden";
+        image.style.display = "none";
+        
+        var audio = document.getElementById('myAudio');
+        audio.style.visibility = "hidden";
+        audio.style.display = "none";
+
+        var video = document.getElementById('myVideo');
+        video.style.visibility = "visible";
+        video.style.display = "block";
+        video.src = mediafiles[0].fullPath;
+      } 
+      else{
+
+      }
+
       // for (i = 0, len = mediaFiles.length; i < len; i += 1) {
       //     path = mediaFiles[i].fullPath;
       //     // do something interesting with the file
@@ -316,7 +356,7 @@ angular.module('starter.controllers', [])
     }
 
     function OnError(error){
-      alert('Capture Error code: ' + error.code);
+      $ionicPopup.alert({ template: 'capture failed code:' + error.code });
     }
 
     if(!type){
@@ -329,6 +369,7 @@ angular.module('starter.controllers', [])
       case 1: // voice
         var options = { limit: 1, duration: 10 };
         medianame = User.getuid() + "_audio.amr";
+        $scope.audioname = medianame;
         navigator.device.capture.captureAudio(OnSuccess, OnError, options);
         break;
 
@@ -341,12 +382,56 @@ angular.module('starter.controllers', [])
       case 3: // video
         var options = { limit: 1, duration: 10 };
         medianame = User.getuid() + "_video.3gpp";
+        $scope.videoname = medianame;
         navigator.device.capture.captureVideo(OnSuccess, OnError, options);
         break;
 
       default:
-        alert("type is error:" + type);
+        $ionicPopup.alert({ template: 'capture failed type:' + type });
     }
+  }
+
+  $scope.MediaUpload = function(type){
+    if(type == 1){
+      medianame = $scope.audioname;
+      mediaurl = $scope.audiourl;
+    }
+    else if( type == 3){
+      medianame = $scope.videoname;
+      mediaurl = $scope.videourl;
+    }
+    else{
+      $ionicPopup.alert({ template: '选择错误，请重现选择！'});
+      return;
+    }
+
+    server = localStorage.siteHost + "?c=upload";
+    if (server) {
+      $ionicLoading.show({
+        noBackdrop:true,
+        template: '数据上传中...'
+      });
+      // Specify transfer options
+      var options = new FileUploadOptions();
+      options.fileKey="file";
+      options.fileName= medianame; 
+      options.mimeType= "image/jpeg";
+      options.chunkedMode = false;
+      // Transfer picture to server
+      var ft = new FileTransfer();
+      ft.upload(mediaurl, server, function(r) {
+        $ionicLoading.hide();
+        $ionicPopup.alert({ template: '上传成功' });
+      }, function(error) {
+        $ionicLoading.hide();
+        $ionicPopup.alert({ template: '上传失败，错误码：' + error.code });
+      }, options);
+    }
+    else{
+      $ionicPopup.alert({ template: '系统错误，请退出重新登录！'});
+      return;
+    }
+
   }
 })
 

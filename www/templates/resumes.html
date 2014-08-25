@@ -91,32 +91,50 @@
   <ion-content class="has-header padding">
     <!-- 测试照相api -->
 
-    <div>    
+    <div style="width:90%">    
       <h3>{{title}}</h3>    
          
-      <img style="width:300px; visibility:hidden; display:none;" id="myImage" src="" />
-      <video style="width:300px; visibility:hidden; display:none;" id="myvideo"  controls>
+      <img style="visibility:hidden; display:none;" id="myImage" src="" />
+
+      <video style="visibility:hidden; display:none;" id="myVideo"  controls>
         <source src="" type="video/3gpp">
-        Your app does not support the video tag.
+        你的系统不支持video标签
       </video>
-      <audio style="width:300px; visibility:hidden; display:none;" id="myaudio"  controls>
+
+      <audio style="visibility:hidden; display:none;" id="myAudio"  controls>
         <source src="" type="audio/amr">
-        Your app does not support the audio tag.
+        您的系统不支持audio标签
       </audio>
 
     </div>
 
     <!-- Actions -->
-    <div>    
+    <!-- div>    
       <input type="button" ng-click="TakePicture('1');" value="来照个相吧" /><br />    
       <input type="button" ng-click="TakePicture('2');" value="从相册中选取照片" /><br />    
       <input type="button" ng-click="uploadPicture();" value="照片上传" />
 
       <input type="button" ng-click="MediaCapture(1);" value="录音" />
       <input type="button" ng-click="MediaCapture(3);" value="录像" />
-      <!-- input type="button" ng-click="MediaCapture(2);" value="capture-image" / -->
+      <input type="button" ng-click="MediaCapture(2);" value="capture-image" />
+    </div -->
+
+    <div class="buttons" style='text-align:center; margin-top:10px'>
+          <button class="button button-energized" ng-click="TakePicture('1')"> 来照个相吧 </button>
+          <button class="button button-positive" ng-click="TakePicture('2')"> 从相册中选取照片 </button>
+
+          <button class="button button-energized" ng-click="uploadPicture();"> 照片上传 </button> 
+
     </div>
 
+    <div class="buttons" style='text-align:center; margin-top:10px'>
+          <button class="button button-positive" ng-click="MediaCapture(1)"> 录音 </button>
+          <button class="button button-energized" ng-click="MediaCapture(3)"> 录像 </button>
+
+          <button class="button button-positive" ng-click="MediaUpload(1)"> 录音上传 </button>
+          <button class="button button-energized" ng-click="MediaUpload(3)"> 录像上传 </button>
+    </div>
+    
   </ion-content>
 </ion-view>
 </script>
