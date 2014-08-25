@@ -366,7 +366,7 @@ angular.module('starter.controllers', [])
     medianame = "png";
 
     switch(type){
-      case 1: // voice
+      case 1: // audio
         var options = { limit: 1, duration: 10 };
         medianame = User.getuid() + "_audio.amr";
         $scope.audioname = medianame;

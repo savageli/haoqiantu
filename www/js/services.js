@@ -66,9 +66,9 @@ angular.module('starter.services', [])
 	  var DeviceStr = localStorage['device'];
 	  if(DeviceStr){
         Obj = JSON.parse(DeviceStr);
-        Device.uuid = uuid;
-		Device.platform = platform;
-		Device.version = version;
+        Device.uuid = Obj.uuid;
+		Device.platform = Obj.platform;
+		Device.version = Obj.version;
       }  
     },
 
