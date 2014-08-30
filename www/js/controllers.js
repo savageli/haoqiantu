@@ -582,14 +582,13 @@ angular.module('starter.controllers', [])
 //登录注册相关
 .controller('LoginCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User) {
   $scope.user = {}
-  $scope.handletype = 0; // 1login，2reg
+  $scope.handletype = 0; // 1login，2reg，3getpass，4chgpass
+  var HandleType = {
+    NONE: 0, LOGIN: 1, REG: 2, GETPASS: 3, CHGPASS:4 };
 
   //console.log("<-log-> LoginCtrl");
   $scope.login = function(){
-    //console.log("<-log-> " + $scope.user.username + "," + $scope.user.password);
-    //console.log(localStorage.siteHost);
- 
-    $scope.handletype = 1;
+    $scope.handletype = HandleType.LOGIN;
 
     if(!$scope.checkinput()){
       return;
@@ -636,13 +635,10 @@ angular.module('starter.controllers', [])
         //console.log("<-log-> resp.status:" + status);
         $ionicPopup.alert({ template: '系统或网络异常，请稍候重试！' });
       });
-  };
+  }
 
   $scope.reg = function(){
-    //console.log("<-log-> reg" + $scope.user.username + "," + $scope.user.password);
-    // //console.log(localStorage.siteHost);
-
-    $scope.handletype = 2;
+    $scope.handletype = HandleType.REG;
 
     if(!$scope.checkinput()){
       return;
@@ -655,13 +651,10 @@ angular.module('starter.controllers', [])
 
     $http.post(localStorage.siteHost+'?c=reg', $scope.user).
       success(function(data) {
-        //console.log("<-log-> resp.error:" + data.error);
 
         $ionicLoading.hide();
         if(data.error == 1){     
-            //console.log("<-log-> reg ok:" + data.uid);
   
-
             User.setuser(data.uid, $scope.user.username, $scope.user.password, data.usertype);
             localStorage['user'] = JSON.stringify(User.getuser());
             $ionicPopup.alert({ template: '注册成功' });
@@ -692,35 +685,154 @@ angular.module('starter.controllers', [])
       }).
       error(function(data,status,headers,config){
         $ionicLoading.hide();
-        //console.log("<-log-> resp.status:" + status);
         $ionicPopup.alert({ template: '系统或网络异常，请稍候重试！' });
       });
-  };
+  }
+
+  $scope.getpass = function(){
+    $scope.handletype = HandleType.GETPASS;
+
+    if(!$scope.checkinput()){
+      return;
+    }
+
+    $ionicLoading.show({
+        noBackdrop:true,
+        template: '正在提交...'
+        });
+
+    $http.post(localStorage.siteHost+'?c=chgpassforcode', $scope.user).
+      success(function(data) {
+        $ionicLoading.hide();
+        if(data.error == 1){     
+            $ionicPopup.alert({ template: '验证码已成功发送，请留意您登记的手机和邮箱' });
+            $scope.tochgpass();
+        }else{
+          switch(data.error){
+            case 3:
+              $ionicPopup.alert({ template: '参数异常，请重新填写' });
+              break;
+
+            case 4:
+              $ionicPopup.alert({ template: '请查收邮箱或者短信，不要频繁尝试' });
+              break;
+
+            case 2:
+              $ionicPopup.alert({ template: '帐号，邮箱，手机可能不匹配，请重新填写' });
+              break;    
+
+            default:
+              $ionicPopup.alert({ template: '系统错误，请稍候重试。错误码：' + data.error });
+          }
+        }
+      }).
+      error(function(data,status,headers,config){
+        $ionicLoading.hide();
+        $ionicPopup.alert({ template: '系统或网络异常，请稍候重试！' });
+      });
+  }
+
+  $scope.chgpassBycode = function(){
+    $scope.handletype = HandleType.CHGPASS;
+
+    if(!$scope.checkinput()){
+      return;
+    }
+
+    $ionicLoading.show({
+        noBackdrop:true,
+        template: '正在提交...'
+        });
+
+    $http.post(localStorage.siteHost+'?c=chgpassbycode', $scope.user).
+      success(function(data) {
+        $ionicLoading.hide();
+        if(data.error == 1){     
+          $ionicPopup.alert({ template: '密码修改成功，请重现登录' });
+          $scope.tologin();
+        }else{
+          switch(data.error){
+            case 3:
+              $ionicPopup.alert({ template: '请确认参数都输入正确，重现输入！' });
+              break;
+
+            case 4:
+              $ionicPopup.alert({ template: '帐号不存在' });
+              break;
+
+            case 5:
+              $ionicPopup.alert({ template: '验证码过期，请重现获取验证码' });
+              break;  
+
+            case 2:
+              $ionicPopup.alert({ template: '验证失败，请重现输入。' });
+              break;      
+
+            default:
+              $ionicPopup.alert({ template: '系统错误，请稍候重试。错误码：' + data.error });
+          }
+        }
+      }).
+      error(function(data,status,headers,config){
+        $ionicLoading.hide();
+        $ionicPopup.alert({ template: '系统或网络异常，请稍候重试！' });
+      });
+  }
 
   $scope.tologin = function(){
     $scope.title = "登录";
     $scope.display_reg = "display:none";
     $scope.display_login = "display:block";
+    $scope.display_getpass = "display:none";
+    $scope.display_chgpass = "display:none";
   }
 
   $scope.toreg = function(){
-    $scope.title = "新人注册";
+    $scope.title = "新用户注册";
     $scope.display_reg = "display:block";
     $scope.display_login = "display:none";
+    $scope.display_getpass = "display:none";
+    $scope.display_chgpass = "display:none";
+  }
+
+  $scope.togetpass = function(){
+    $scope.title = "找回密码";
+    
+    $scope.display_login = "display:none";
+    $scope.display_reg = "display:none";
+    $scope.display_chgpass = "display:none";
+    $scope.display_getpass = "display:block";
+  }
+
+  $scope.tochgpass = function(){
+    $scope.title = "找回密码";
+    
+    $scope.display_login = "display:none";
+    $scope.display_reg = "display:none";
+    $scope.display_chgpass = "display:block";
+    $scope.display_getpass = "display:none";
   }
 
   $scope.checkinput = function(){
+    if($scope.handletype == HandleType.GETPASS || $scope.handletype == HandleType.REG){
+      if(!$scope.user.username){
+        $ionicPopup.alert({ template: '帐号不能为空，请检查后重新填写' });
+        return false;
+      }
+      if(!$scope.user.email && !$scope.user.mobile){
+        $ionicPopup.alert({ template: '邮箱或电话至少填一个，请检查后重新填写' });
+        return false;
+      }
+
+      return true;
+    }
+
     if(!$scope.user.username || !$scope.user.password){
       $ionicPopup.alert({ template: '帐号密码填写有误，请检查后重新填写' });
       return false;
     }
 
-    if($scope.handletype == 2){
-      if(!$scope.user.email){
-        $ionicPopup.alert({ template: '邮箱不能为空' });
-        return false;
-      }
-
+    if($scope.handletype == HandleType.REG || $scope.handletype == HandleType.CHGPASS){
       if($scope.user.password != $scope.user.passconfirm){
         $ionicPopup.alert({ template: '两次密码不一致，请重新填写' });
         return false;
