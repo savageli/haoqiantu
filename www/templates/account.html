@@ -134,7 +134,7 @@
 <ion-view title="就业登记">
 	<ion-content class="has-header padding text-align:center">
 
-	  <div name="divlogin" class="list" >
+	  <div name="divemployReg" class="list" >
 
             <label class="item item-input">
               <span class="input-label">性别：</span>
@@ -145,21 +145,21 @@
             </label> 
 
 			<label class="item item-input item-select">
-			<div class="input-label">毕业去向：</div>
-			<select>
-			  <option>签约:民营企业</option>
-			  <option>签约:外资企业</option>
-			  <option>签约:国有企业</option>
-			  <option>签约:国家机关</option>
-			  <option>签约:事业单位</option>
-			  <option>签约:其他企业</option>
-			  <option>签约:部队</option>
-			  <option selected>灵活就业</option>
-			  <option>国内升学</option>
-			  <option>出国留学</option>
-			  <option>暂不就业</option>
-			  <option>待就业</option>
-			</select>
+				<div class="input-label">毕业去向：</div>
+				<select>
+				  <option>签约:民营企业</option>
+				  <option>签约:外资企业</option>
+				  <option>签约:国有企业</option>
+				  <option>签约:国家机关</option>
+				  <option>签约:事业单位</option>
+				  <option>签约:其他企业</option>
+				  <option>签约:部队</option>
+				  <option selected>灵活就业</option>
+				  <option>国内升学</option>
+				  <option>出国留学</option>
+				  <option>暂不就业</option>
+				  <option>待就业</option>
+				</select>
 			</label>
 
             <label class="item item-input">
@@ -240,20 +240,23 @@
               <span class="input-label">姓名：</span>
               <input  type="text" ng-model="buser.name"  placeholder="姓名">
             </label>
-            <label class="item item-select">
+
+            <label class="item item-input item-select">
           		<span class="input-label">性别：</span>
-	            <select name="sex" id="sex"  ng-model="buser.sex">
-				    <option value="6">男</option>
-				    <option selected value="7">女</option>
+	            <select name="sex" id="sex"  ng-model="buser.sex"
+	            	ng-options="sexc.value as sexc.sex for sexc in sexclass" ng-init="buser.sex = sexclass[1].value">
 				</select>
             </label>
+
             <label class="item item-input">
               <span class="input-label">学号：</span>
               <input  type="text" ng-model="buser.sno" placeholder="学号">
             </label>
-            <label class="item item-select">
+
+            <label class="item item-input item-select">
               <span class="input-label">最高学历：</span>
-              <select name="maxedu" id="maxedu"  ng-model="buser.maxedu" ng-options="eduopt.id as eduopt.n for eduopt in educlass">
+              <select name="maxedu" id="maxedu"  ng-model="buser.maxedu" 
+              		ng-options="eduopt.id as eduopt.n for eduopt in educlass" ng-init="buser.maxedu = educlass[5].id">
 				    <!-- option ng-repeat="eduopt in educlass" value={{eduopt.id}}>{{eduopt.n}}</option -->				    
 			  </select>
             </label>

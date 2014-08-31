@@ -495,6 +495,7 @@ angular.module('starter.controllers', [])
   $scope.ouser = {}
   $scope.buser = {}
   $scope.educlass = BaseConfig.getEduclassAll();
+  $scope.sexclass = BaseConfig.getSexclassAll();
 
   //alert(JSON.stringify(BaseInfo.getcity(1)) );
   $scope.AddBaseInfo = function(){
