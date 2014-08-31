@@ -38,8 +38,20 @@ angular.module('starter.controllers', [])
     $ionicPopup.alert({ template: '收藏成功！' });
   }
 
+  $scope.jobComment = function(){
+    $ionicPopup.alert({ template: '评论成功！' });
+  }
+
   $scope.jobApply = function(){
     $ionicPopup.alert({ template: '申请成功！' });
+  }
+
+  $scope.jobShare = function(){
+    window.plugins.socialsharing.share($scope.job.body, 
+      $scope.job.title, 
+      'www/img/hqt92.ico', 
+      'http://cs.haoqiantu.net')
+    //$ionicPopup.alert({ template: '分享成功！' });
   }
 })
 
@@ -481,9 +493,17 @@ angular.module('starter.controllers', [])
 .controller('AccountBaseInfoCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User, BaseConfig) {
   $scope.user = User.getuser();
   $scope.ouser = {}
+  $scope.buser = {}
+  $scope.educlass = BaseConfig.getEduclassAll();
 
   //alert(JSON.stringify(BaseInfo.getcity(1)) );
   $scope.AddBaseInfo = function(){
+    if(!$scope.buser.name || !$scope.buser.sex || !$scope.buser.sno || !!$scope.buser.maxedu
+      || !$scope.buser.school || !$scope.buser.starttime || !$scope.buser.endtime || !$scope.buser.college || !$scope.buser.specialty){
+
+      $ionicPopup.alert({ template: '请检查是否都正确填写！' });
+      return;
+    }
     $ionicPopup.alert({ template: '提交成功！' });
     $state.go("app.account");
   }

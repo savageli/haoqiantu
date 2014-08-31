@@ -49,7 +49,7 @@
   
     <div class="list">
         <a class="item" type="item-text-wrap" >
-            <h3 style='text-align:center; margin-top:10px'>{{job.title}}</h3>
+            <h2 style='text-align:center; margin-top:10px'>{{job.title}}</h2>
         </a>
         
         <a class="item" type="item-text-wrap" >
@@ -64,14 +64,31 @@
 
         <a class="item" style="white-space: normal">招聘要求：<br />{{job.body}}</a>
        
-       <div class="buttons" style='text-align:center; margin-top:10px'>
-          <button class="button button-energized" ng-click="jobFav()"> 收藏 </button>
-          <button class="button button-positive" ng-click="jobApply()"> 申请 </button>
-       </div>
+       <!-- div class="buttons" style='text-align:center; margin-top:10px'>
+          <button class="button button-energized" ng-click="jobFav()"> <i class="icon ion-thumbsup"></i>收藏 </button>
+          <button class="button button-positive" ng-click="jobApply()"><i class="icon ion-chatbox"></i> 申请 </button>
+       </div -->
+
+       <div class="item tabs tabs-secondary tabs-icon-left" style='margin-top:10px'>
+          <a class="tab-item" ng-click="jobFav()">
+            <i class="icon ion-heart "></i>
+            收藏
+          </a>
+          <a class="tab-item" ng-click="jobComment()">
+            <i class="icon ion-edit"></i>
+            评论
+          </a>
+          <a class="tab-item" ng-click="jobApply()">
+            <i class="icon ion-paper-airplane"></i>
+            申请
+          </a>
+          <a class="tab-item" ng-click="jobShare()">
+            <i class="icon ion-share"></i>
+            分享
+          </a>
+        </div>
       
     </div>
-    
-
   </ion-content>
 </ion-view>
 </script>
@@ -135,8 +152,6 @@
 </ion-view>
 </script>
 
-
-
 <script type="text/ng-template" id="templates/news.html">
 <ion-view title={{news.title}}>
   <ion-content class="has-header padding">
@@ -151,7 +166,6 @@
         </a>
     </div>
     <div>{{news.body}}</div>
-
   </ion-content>
 </ion-view>
 </script>
@@ -166,7 +180,6 @@
             <i class="icon ion-ios7-arrow-right"></i>
         </a>
     </div>
-
   </ion-content>
 </ion-view>
 </script>
@@ -181,7 +194,6 @@
             <i class="icon ion-ios7-arrow-right"></i>
         </a>
     </div>
-
   </ion-content>
 </ion-view>
 </script>

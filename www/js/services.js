@@ -293,6 +293,19 @@ angular.module('starter.services', [])
             return com;
           }
         }
+    },
+	
+	getEduclassAll: function() {
+        return educlass;
+      },
+
+    geteduclass: function(id){
+      for(var i=0;i<educlass.length;i++){
+          edu =  educlass[i];
+          if (edu.id==id){
+            return edu;
+          }
+        }
     }
 
   } 

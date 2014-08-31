@@ -25,8 +25,7 @@
         <button class="button button-balanced" ng-click="toreg()">新用户注册</button>
         <button class="button button-positive" ng-click="login()"> 登&nbsp&nbsp&nbsp&nbsp录 </button>
         <button class="button button-outline button-energized" ng-click="togetpass()">忘记密码？</button>
-      </div>
-         
+      </div>      
     </div>
 
     <div name="divreg" class="list" style="{{display_reg}}">
@@ -63,7 +62,7 @@
             </label>
             <label class="item item-input">
               <span class="input-label">联系方式：</span>
-              <input name="user.mobile" ng-model="user.mobile" type="tel" placeholder="联系方式">
+              <input name="user.mobile" ng-model="user.mobile" type="tel" placeholder="联系方式" required>
             </label>
             
         </ion-item>
