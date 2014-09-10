@@ -55,17 +55,30 @@ angular.module('starter.controllers', [])
   }
 })
 
-// PostSubscription 招聘会
-.controller('PostSubsCtrl', function($scope, $ionicPopup, User) {
+// PostSubscription 职位订阅
+.controller('PostSubsCtrl', function($scope, $ionicPopup, User, BaseConfig) {
   //$scope.postsubs = PostSubs.all();
   $scope.mycity = "深圳";
+  $scope.comclass = BaseConfig.getComclassAll();
+  $scope.cityclass = BaseConfig.getCities();
+  $scope.jobclass = BaseConfig.getJobclassAll();
+
+  $scope.searchobj = {};
+
+  // filter
+  $scope.filterPid = function(keyid){
+     return function(item){
+        return item.pid == keyid;
+     }
+  }
 
   $scope.postSubs = function(){  
-    $ionicPopup.alert({ template: '没有您期待的职位，请稍候再试！' });
+     $ionicPopup.alert({ template: '没有您期待的职位，请稍候再试！' });
+    //alert(JSON.stringify($scope.searchobj));
   }
 
   if (!User.getuid()) {
-    $ionicPopup.alert({ template: '登录过期，请先退出登录。' });
+    $ionicPopup.alert({ template: '登录过期，请重新登录。' });
     $state.go("app.account-login");
   }
 

@@ -99,33 +99,66 @@
   <ion-content class="has-header padding">
   
     <div class="list ">
-        <label class="item item-input">
+        <label class="item item-input item-select">
           <span class="input-label">行业选择：</span>
-          <input  type="text" placeholder="行业">
-        </label>
-
-        <label class="item item-input">
-          <span class="input-label">地区选择：</span>
-          <input  type="text" placeholder="地区">
+          <select name="hy" id="hy"  ng-model="searchobj.hyid"
+                ng-options="hy.id as hy.n for hy in jobclass|filter:filterPid(0)|orderBy:'s'" 
+                ng-init="searchobj.hyid = jobclass[0].id">
+          </select>
+          
         </label>
 
         <label class="item item-input item-select">
-            <div class="input-label">求职类型：</div>
-            <select>
-              <option selected>全职</option>
-              <option>兼职</option>
-              <option>实习</option>
-            </select>
+          <span class="input-label">子行业选择：</span>
+          <select name="hysub" id="hysub"  ng-model="searchobj.hysubid"
+                ng-options="hysub.id as hysub.n for hysub in jobclass|filter:filterPid(searchobj.hyid)|orderBy:'s'" >
+          </select>
         </label>
 
-        <label class="item item-input">
+        <label class="item item-input item-select">
+          <span class="input-label">职位选择：</span>
+          <select name="hyjob" id="hyjob"  ng-model="searchobj.hyjobid"
+                ng-options="hyjob.id as hyjob.n for hyjob in jobclass|filter:filterPid(searchobj.hysubid)|orderBy:'s'" >
+          </select>
+        </label>
+
+        <label class="item item-input item-select">
+          <span class="input-label">省份选择：</span>
+          <select name="province" id="province"  ng-model="searchobj.provinceid"
+                ng-options="province.id as province.n for province in cityclass|filter:filterPid(0)|orderBy:'s'" 
+                ng-init="searchobj.provinceid = cityclass[0].id">
+          </select>
+        </label>
+        <label class="item item-input item-select">
+          <span class="input-label">城市选择：</span>
+          <select name="city" id="city"  ng-model="searchobj.cityid"
+                ng-options="city.id as city.n for city in cityclass|filter:filterPid(searchobj.provinceid)|orderBy:'s'" >
+          </select>
+        </label>
+
+        <label class="item item-input item-select">
+          <div class="input-label">求职类型：</div>
+          <select name="type" id="type"  ng-model="searchobj.type"
+              ng-options="com.id as com.n for com in comclass|filter:filterPid(35)|orderBy:'s'" >
+          </select>
+        </label>
+
+        <label class="item item-input item-select">
           <span class="input-label">求职待遇：</span>
-          <input  type="text" placeholder="待遇">
+          <select name="salary" id="salary"  ng-model="searchobj.salary"
+                ng-options="com.id as com.n for com in comclass|filter:filterPid(34)|orderBy:'s'" >
+           </select>
         </label>
 
-        <div class="buttons" style='text-align:center; margin-top:10px'>
-          <button class="button button-positive" ng-click="postSubs()"> 订个好未来 </button>
-        </div>
+    </div>
+    <div>
+        <label class="item item-input">
+          <span class="input-label">关键词搜索：</span>
+          <input ng-model="searchobj.keywords" type="text" placeholder="关键词" > 
+        </label>
+    </div>
+    <div class="buttons" style='text-align:center; margin-top:10px'>
+      <button class="button button-positive" ng-click="postSubs()"> 订个好未来 </button>
     </div>
 
   </ion-content>
@@ -147,7 +180,6 @@
             <i class="icon ion-ios7-arrow-right"></i>
         </a>
     </div>
-
   </ion-content>
 </ion-view>
 </script>
