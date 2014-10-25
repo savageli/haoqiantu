@@ -55,7 +55,68 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     .state('app', {
       url: "/app",
       abstract: true,
-      templateUrl: "templates/template.html"
+      templateUrl: "templates/template.html",
+      controller: 'TemplateCtrl'
+    })
+
+    .state('app.site', {
+      url: '/site',
+      views: {
+        'app-site': {
+          templateUrl: 'templates/site.html',
+          controller: 'SiteCtrl'
+        }
+      }
+    })
+
+    .state('app.site-arrange', {
+      url: '/site/arrange',
+      views: {
+        'app-site': {
+          templateUrl: 'templates/site-arrange.html',
+          controller: 'SiteArrangeCtrl'
+        }
+      }
+    })
+
+    .state('app.account-mymsg', {
+      url: '/mymsg',
+      views: {
+        'app-msg': {
+          templateUrl: 'templates/account-mymsg.html',
+          controller: 'AccountMyMsgCtrl'
+        }
+      }
+    })
+
+    .state('app.message-detail', {
+      url: '/mymsg/:ID',
+      views: {
+        'app-msg': {
+          templateUrl: 'templates/message-detail.html',
+          controller: 'MessageDetailCtrl'
+        }
+      }
+    })
+
+    .state('app.news', {
+      url: '/news',
+      views: {
+        'app-site': {
+          templateUrl: 'templates/news.html',
+          controller: 'NewsCtrl'
+        }
+      }
+    })
+
+    .state('app.news-detail', {
+      url: '/news/:ID',
+      views: {
+        'app-site': {
+          templateUrl: 'templates/news-detail.html',
+          controller: 'NewsDetailCtrl'
+        }
+      }
     })
 
     // Each app has its own nav history stack:
@@ -65,6 +126,25 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         'app-home': {
           templateUrl: 'templates/home.html',
           controller: 'HomeCtrl'
+        }
+      }
+    })
+
+    .state('app.account-favjobs', {
+      url: '/account/favjobs',
+      views: {
+        'app-account': {
+          templateUrl: 'templates/account-favjobs.html',
+          controller: 'AccountFavJobCtrl'
+        }
+      }
+    })
+    .state('app.account-applyjobs', {
+      url: '/account/applyjobs',
+      views: {
+        'app-account': {
+          templateUrl: 'templates/account-applyjobs.html',
+          controller: 'AccountApplyJobsCtrl'
         }
       }
     })
@@ -92,11 +172,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }) 
     // 职位详情
     .state('app.home-jobdetail', {
-      url: '/home/job/:jobId',
+      url: '/home/:jobId',
       views: {
         'app-home': {
-          // template: '<div class="card"><h2>${{jobfair.name}}</h2><h3>${{jobfair.addr}}</h3><p>{{jobfair.date}}</p></div>',
-          templateUrl: 'templates/jobdetail.html',
+          templateUrl: 'templates/job-detail.html',
           controller: 'JobDetailCtrl'
         }
       }
@@ -107,7 +186,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       url: '/home/com/:comId',
       views: {
         'app-home': {
-          // template: '<div class="card"><h2>${{jobfair.name}}</h2><h3>${{jobfair.addr}}</h3><p>{{jobfair.date}}</p></div>',
           templateUrl: 'templates/com-detail.html',
           controller: 'ComDetailCtrl'
         }
@@ -115,82 +193,25 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     })
 
     // jobfairs 招聘会
-    .state('app.home-jobfairs', {
-      url: '/home/jobfairs',
+    .state('app.jobfairs', {
+      url: '/jobfairs',
       views: {
-        'app-home': {
+        'app-site': {
           templateUrl: 'templates/jobfairs.html',
           controller: 'JobFairsCtrl'
         }
       }
     })
 
-    .state('app.home-jobfairdetail', {
-      url: '/home/jobfairs/:jobfairId',
+    .state('app.jobfairdetail', {
+      url: '/jobfairs/:jobfairId',
       views: {
-        'app-home': {
-          // template: '<div class="card"><h2>${{jobfair.name}}</h2><h3>${{jobfair.addr}}</h3><p>{{jobfair.date}}</p></div>',
+        'app-site': {
           templateUrl: 'templates/jobfair-detail.html',
           controller: 'JobFairDetailCtrl'
         }
       }
-    })
-
-
-    // preaches 宣讲会
-    .state('app.home-preaches', {
-      url: '/home/preaches',
-      views: {
-        'app-home': {
-          templateUrl: 'templates/preaches.html',
-          controller: 'PreachesCtrl'
-        }
-      }
-    })
-
-    .state('app.home-preachdetail', {
-      url: '/home/preaches/:preachId',
-      views: {
-        'app-home': {
-          // template: '<div class="card"><h2>${{jobfair.name}}</h2><h3>${{jobfair.addr}}</h3><p>{{jobfair.date}}</p></div>',
-          templateUrl: 'templates/preach-detail.html',
-          controller: 'PreachDetailCtrl'
-        }
-      }
-    })
-
-    // news
-    .state('app.home-news', {
-      url: '/home/news/:newsid',
-      views: {
-        'app-home': {
-          templateUrl: 'templates/news.html',
-          controller: 'NewsCtrl'
-        }
-      }
     }) 
-
-    // 学习中心
-    .state('app.home-study', {
-      url: '/home/study',
-      views: {
-        'app-home': {
-          templateUrl: 'templates/study.html',
-          controller: 'StudyCtrl'
-        }
-      }
-    }) 
-
-    // 创业中心
-    .state('app.home-venture', {
-      url: '/home/venture',
-      views: {
-        'app-home': {
-          templateUrl: 'templates/venture.html',
-          controller: 'VentureCtrl'
-        }
-      }
-    })     
 
     // resume 简历
     .state('app.resumes', {
@@ -242,15 +263,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
-    .state('app.account-mymsg', {
-      url: '/account/mymsg',
-      views: {
-        'app-account': {
-          templateUrl: 'templates/account-mymsg.html',
-          controller: 'AccountMyMsgCtrl'
-        }
-      }
-    })
+
     .state('app.account-mycoin', {
       url: '/account/mycoin',
       views: {
@@ -260,15 +273,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
-    .state('app.account-favjobs', {
-      url: '/account/favjobs',
-      views: {
-        'app-account': {
-          templateUrl: 'templates/account-favjobs.html',
-          controller: 'AccountFavJobCtrl'
-        }
-      }
-    })
+
     .state('app.account-employreg', {
       url: '/account/employreg',
       views: {
@@ -365,7 +370,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     })
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/home');
+  $urlRouterProvider.otherwise('/app/site');
 
 });
 

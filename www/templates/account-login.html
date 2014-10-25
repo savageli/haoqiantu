@@ -1,35 +1,41 @@
 <ion-view title="{{title}}" >
   <ion-content class="has-header">
 
-    <div name="divlogin" class="list" style="{{display_login}}">
+    <div class="login-form" style="{{display_login}}">
+        <div class="title"><h2>展示最优秀的你</h2></div>
+        <div class="form">
+            <ul class="form-list">
+                <li>
+                    <span class="form-label"><i class="ion-ios7-person-outline"></i></span>
+                    <div class="form-cont">
+                      <input name="user.username" ng-model="user.username" type="text" placeholder="用户名" required class="ctrl-txt" />
+                    </div>
+                </li>
+                <li>
+                    <span class="form-label"><i class="ion-ios7-locked-outline"></i></span>
+                    <div class="form-cont">
+                      <input name="user.password" ng-model="user.password" type="password" placeholder="密码" required class="ctrl-pwd" />
+                    </div>
+                </li>
+            </ul>
+            <div class="form-action">
+                <button type="submit" class="ctrl-btn" ng-click="login()">登录</button>
+            </div>
+            <p class="link"><a ng-click="togetpass()">忘记密码？</a><a ng-click="toreg()">我要注册</a></p>
+        </div>
+      <!--   <div class="login-method fbox">
+            <span class="fitem"><a href="#"><i class="icon-login icon-login-qq"></i></a></span>
+            <span class="fitem"><a href="#"><i class="icon-login icon-login-wx"></i></a></span>
+            <span class="fitem"><a href="#"><i class="icon-login icon-login-wb"></i></a></span>
+            <span class="fitem"><a href="#"><i class="icon-login icon-login-rr"></i></a></span>
+        </div> -->
 
-      <div style="text-align:center">          
-        <img style="width:100%; display:block; margin:0 auto" id="myImage" src="img/login.png" />
-      </div>
-      
-      <div style="margin-top:10px"> 
-			  <label class="item item-input">
-          <span class="input-label">用户名：</span>
-          <input name="user.username" ng-model="user.username" type="text" placeholder="用户名" required>
-        </label>
-        
-        <label class="item item-input">
-          <span class="input-label">密码：</span>
-          <input name="user.password" ng-model="user.password" type="password" placeholder="密码" required>
-        </label>
-      </div>    
-    
-      <div class="button-bar" style='text-align:center; margin-top:10px'>
-        <button class="button button-balanced" ng-click="toreg()">新用户注册</button>
-        <button class="button button-positive" ng-click="login()"> 登&nbsp&nbsp&nbsp&nbsp录 </button>
-        <button class="button button-outline button-energized" ng-click="togetpass()">忘记密码？</button>
-      </div>      
-    </div>
+    </div>  
 
-    <div name="divreg" class="list" style="{{display_reg}}">
+    <div name="divreg" class="login-form" style="{{display_reg}}">
       
         <ion-item >
-            <!-- <h2>基本信息：</h2> -->
+          
             <label class="item item-input">
               <span class="input-label">用户名：</span>
               <input name="user.username" ng-model="user.username" type="text" placeholder="用户名" required>
@@ -42,18 +48,7 @@
               <span class="input-label">确认密码：</span>
               <input name="user.passconfirm" ng-model="user.passconfirm" type="password" placeholder="确认密码" required>
             </label>
-            <!-- <label class="item item-radio">
-              <span class="input-label">性别：</span>
-              <input name="sex" ng-model="user.sex" type="radio" value="6" >
-              <i>男</i>
-              <input name="sex" ng-model="user.sex" type="radio" value="7" checked="checked">
-              <i>女</i>
-            </label> -->
-            <!-- <label class="item item-radio">
-              <span class="input-label">性别：</span>
-              <ion-radio name="user.sex" ng-model="user.sex" ng-value="6">男</ion-radio>
-              <ion-radio name="user.sex" ng-model="user.sex" ng-value="7">女</ion-radio>
-            </label>  -->
+            
             <label class="item item-input">
               <span class="input-label">电子邮箱：</span>
               <input name="user.email" ng-model="user.email"  type="email" placeholder="邮箱" required>
@@ -71,7 +66,7 @@
         </div>
     </div>
 
-    <div name="divgetpass" class="list" style="{{display_getpass}}">
+    <div name="divgetpass" class="login-form" style="{{display_getpass}}">
       
         <ion-item >
             <!-- <h2>基本信息：</h2> -->
@@ -99,7 +94,7 @@
         </div>
     </div>
 
-    <div name="divchgpass" class="list" style="{{display_chgpass}}">
+    <div name="divchgpass" class="login-form" style="{{display_chgpass}}">
       
         <ion-item >
             <!-- <h2>基本信息：</h2> -->

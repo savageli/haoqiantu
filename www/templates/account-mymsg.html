@@ -1,0 +1,35 @@
+<ion-view title="消息中心">
+  <ion-content class="has-header padding text-align:center">
+
+    <ion-list ng-if='messagelist.length > 0' 
+        show-delete="shouldShowDelete"
+        show-reorder="shouldShowReorder"
+        can-swipe="listCanSwipe">
+
+      <ion-item class="item-icon-right" ng-repeat="message in messagelist" type="item-text-wrap" href="#/app/mymsg/{{message.id}}">
+        <h3>发送者：{{message.username}}</h3>
+        <h3>消息时间：{{message.ctime*1000 |date : 'yyyy-MM-dd'}}</h3>
+        <i class="icon ion-ios7-arrow-right"></i>
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
+</ion-view>
+
+<script type="text/ng-template" id="templates/message-detail.html">
+<ion-view title="消息详情">
+  <ion-content class="has-header padding text-align:center">
+    <div class="list">
+      <a class="item" type="item-text-wrap" >
+            <h3>发送者：{{message.username}}</h3>
+            <h3>消息时间：{{message.ctime*1000 |date : 'yyyy-MM-dd'}}</h3>
+      </a>
+      
+      <a class="item" type="item-text-wrap" >
+          <textarea cols ="20" rows = "15">{{message.content}}</textarea>
+      </a>
+
+    </div>    
+  </ion-content>
+</ion-view>
+</script>

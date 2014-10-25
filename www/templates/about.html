@@ -43,8 +43,21 @@
 	    关于我们
 	    <i class="icon ion-ios7-arrow-right"></i>
 	  </a>
-
 	</div>
+	
+	<div class="list" ng-hide="showlogin">
+		<a class="item item-icon-left item-icon-right" href="#/app/account/chgpass">
+		    <i class="icon ion-compose calm"></i>
+		    密码修改
+		    <i class="icon ion-ios7-arrow-right"></i>
+	  	</a>
+  		<button class="button button-block button-assertive" ng-click="Logout()"> 退出登录 </button>
+	</div>
+
+	<div class="list" ng-show="showlogin">
+		<button class="button button-block button-positive" ng-click="Login()"> 登 录 </button>
+	</div>
+
   </ion-content>
 </ion-view>
 
@@ -81,16 +94,16 @@
 	        <p>多谢您的反馈，我们会认真聆听您的声音！</p>
 	        <label class="item item-input item-stacked-label">
 	          <p class="input-label"> 您的意见：</p>
-	          <textarea name="suggest" cols ="20" rows = "5" placeholder="我的意见"></textarea>
+	          <textarea ng-model="suggest.content" cols ="20" rows = "5" placeholder="我的意见"></textarea>
 	        </label>
 
 	        <label class="item item-input">
 	          <span class="input-label">联系人：</span>
-	          <input type="text" placeholder="您的大名">
+	          <input type="text" ng-model="suggest.name" placeholder="您的大名">
 	        </label>
 	        <label class="item item-input">
 	          <span class="input-label">邮箱：</span>
-	          <input  type="email" placeholder="邮箱">
+	          <input  type="email" ng-model="suggest.email" placeholder="邮箱">
 	        </label>
 	        
 	    </ion-item>
@@ -136,15 +149,15 @@
 	        
 	        <label class="item item-input">
 	          <span class="input-label">企业信息：</span>
-	          <input type="text" name="企业名称">
+	          <input type="text" ng-model="suggest.comname" name="企业名称">
 	        </label>
 	        <label class="item item-input">
 	          <span class="input-label">关注职位：</span>
-	          <input  type="text" placeholder="职位">
+	          <input  type="text" ng-model="suggest.job_post" placeholder="职位">
 	        </label>
 	        <label class="item item-input item-stacked-label">
 	          <p class="input-label">您想说：</p>
-	          <textarea name="suggest" cols ="20" rows = "5" placeholder="我想进你们公司"></textarea>
+	          <textarea ng-model="suggest.content" cols ="20" rows = "5" placeholder="我想进你们公司"></textarea>
 	        </label>
 	    </ion-item>
 	    <div class="buttons" style='text-align:center; margin-top:10px'>
@@ -185,4 +198,32 @@
 </ion-view>
 </script>
 
+<script type="text/ng-template" id="templates/account-chgpass.html">
+<ion-view title="修改密码">
+  <ion-content class="has-header padding">
+    <div name="divlogin" class="list" >
 
+            <label class="item item-input">
+              <span class="input-label">旧密码：</span>
+              <input name="ouser.oldpassword" ng-model="ouser.oldpassword" type="password" placeholder="密码" required>
+            </label>
+
+            <label class="item item-input">
+              <span class="input-label">新密码：</span>
+              <input name="ouser.password" ng-model="ouser.password" type="password" placeholder="新密码" required>
+            </label>
+
+            <label class="item item-input">
+              <span class="input-label">新密码确认：</span>
+              <input name="ouser.newconfirmpass" ng-model="ouser.newconfirmpass" type="password" placeholder="新密码" required>
+            </label>
+           
+            <div class="buttons" style='text-align:center; margin-top:10px'>
+              <button class="button button-positive" ng-click="chgpass()"> 登录 </button>
+            </div>
+            
+      </div>
+    
+  </ion-content>
+</ion-view>
+</script>

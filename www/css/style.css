@@ -1,1 +1,207 @@
-/* Empty. Add your own CSS if you like */
+@charset "utf-8";
+.page-body{ position:relative; max-width:320px; margin:0 auto; background-color:#F0F0F0;}
+.page-body .has-header{ top:0; padding-top:44px;}
+.fbox{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: horizontal;
+    -webkit-flex-direction: horizontal;
+    -moz-flex-direction: horizontal;
+    -ms-flex-direction: horizontal;
+    flex-direction: horizontal;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    justify-content: center;
+}
+.fitem{
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+.icon-rate,
+.icon-rate:after{ display:inline-block; width:75px; height:15px; vertical-align:middle; background:url(../img/star.png) repeat-x 0 -15px; background-size:15px auto;}
+.icon-rate:after{ float:left; content:''; background-position:0 0;}
+.icon-rate-1:after{ width:20%;}
+.icon-rate-2:after{ width:40%;}
+.icon-rate-3:after{ width:60%;}
+.icon-rate-4:after{ width:80%;}
+.icon-rate-5:after{ width:100%;}
+
+.app-index ul{ overflow:hidden;}
+.app-index li{ float:left; width:50%; height:170px;}
+.app-index li .icon{ display:block; width:110px; height:110px; margin:30px auto; font-size:0; background:url(../img/icon_home.png) no-repeat; background-size:auto 110px;}
+.app-index li:nth-child(1){ background-color:#D92F16;}
+.app-index li:nth-child(2){ background-color:#0E88C7;}
+.app-index li:nth-child(3){ background-color:#FFCF0B;}
+.app-index li:nth-child(4){ background-color:#F3395E;}
+.app-index li:nth-child(5){ background-color:#81D40A;}
+.app-index li:nth-child(6){ background-color:#F96A31;}
+
+.app-index li:nth-child(1) .icon{ background-position:0 0;}
+.app-index li:nth-child(2) .icon{ background-position:-110px 0;}
+.app-index li:nth-child(3) .icon{ background-position:-220px 0;}
+.app-index li:nth-child(4) .icon{ background-position:-330px 0;}
+.app-index li:nth-child(5) .icon{ background-position:-440px 0;}
+.app-index li:nth-child(6) .icon{ background-position:-550px 0;}
+
+.job-list{ background-color:#E9E9E9;}
+.job-list .item{ height:80px; margin-top:4px; padding:10px 60px 10px 60px; border-right:4px solid #1799E4;}
+.job-list .item p{ line-height:20px; margin:0; font-size:12px; color:#ccc;}
+.job-list .pic{ position:absolute; left:0; top:0; width:50px; height:80px; text-align:center; background-color:#fff;}
+.job-list .pic img{ width:50px; height:50px; margin-top:10px;}
+.job-list .title{ color:#189AE6;}
+.job-list .title h2{ display:inline; margin-right:10px; color:#189AE6;}
+.job-list .title span{ font-size:12px;}
+.job-list .info .rate{ font-size:14px;}
+.job-list .info .rate .icon-rate{vertical-align:-2px;}
+.job-list .ext{ position:absolute; right:0; top:0; padding:30px 10px 0 0;}
+.job-list .ext p{ text-align:right;}
+.job-list .fixed{ position:absolute; right:10px; top:0; width:50px; height:25px; text-align:center; line-height:22px; font-size:12px; color:#FFF; background:url(../img/icon_top.png) no-repeat 0 0; background-size:50px auto;}
+.job-list .active{ color:#FFF; background-color:#1799E4}
+.job-list .active h2,
+.job-list .active p{ color:#FFF;}
+.job-list .active .fixed{ color:#333; background-position:0 -26px;}
+.job-list .active .icon-rate{ background-position:0 -45px;}
+.job-list .active .icon-rate:after{ background-position:0 -30px;}
+
+.job-detail{ background-color:#FFF;}
+.job-tabs{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -moz-flex;
+	display: -ms-flexbox;
+	display: flex;
+    -webkit-box-direction: normal;
+	-webkit-box-orient: horizontal;
+	-webkit-flex-direction: horizontal;
+	-moz-flex-direction: horizontal;
+	-ms-flex-direction: horizontal;
+	flex-direction: horizontal;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-justify-content: center;
+	-moz-justify-content: center;
+	justify-content: center;
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+	border-color: #b2b2b2;
+	background-color: #4a87ee;
+	color: #FFF;
+	width: 100%;
+	height: 30px;
+	line-height: 49px; 
+}
+.job-tabs .tabs-item {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    display: block;
+    overflow: hidden;	
+    height: 24px;
+    line-height:24px;
+    margin-top:4px;
+    color: inherit;
+    text-align: center;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 400;
+    font-size: 14px;
+    opacity: 0.7; 
+    border-left:1px solid #FFF;
+}
+.job-tabs .tabs-item:last-child{
+	border-right:0;
+}
+
+.job-summary{ position:relative; padding:10px;}
+.job-summary .title{ margin-bottom:10px;}
+.job-summary .title h2{ font-size:16px; color:#4a87ee; margin:0;}
+.job-summary .base{ width:170px; overflow:hidden;}
+.job-summary .ext{ position:absolute; right:10px; top:10px; padding:30px 0 0;}
+.job-summary .label{ position:absolute; right:0px; top:0; width:20px; height:25px; font-size:14px; text-align:center; line-height:26px; background-color:#FFFC01}
+.job-summary p{ margin:0; color:#CCC;}
+
+.job-state{ padding:20px 0; border-bottom:1px solid #F0F0F0;}
+.job-state ul{ overflow:hidden;}
+.job-state li{ float:left; width:50%; text-indent:10px;}
+.job-intro{ padding:10px;}
+.job-intro .title{ font-size:16px; color:#4a87ee; margin:0;}
+.job-intro .content{ padding:10px; font-size:12px;}
+
+.side-menu{ width:248px; min-height:540px; background-color:#189AE5;}
+.side-menu .search-box{ height:28px; padding:10px 0; box-sizing:content-box; }
+.side-menu .search-box input{ width:200px; height:28px; padding:0 10px; margin:0 auto; color:#FFF; border-radius:28px; border:1px solid #1483C3; background-color:#178ACD;}
+.side-menu .search-box input::-webkit-input-placeholder{ color:#EEE;}
+.side-menu .user-info{ text-align:center; font-size:12px; color:#FFF;}
+.side-menu .user-info h2{ margin:0; font-size:14px; color:#FFF;}
+.side-menu .user-info .avatar{ width:105px; height:105px; margin:10px auto; overflow:hidden; padding:5px; border-radius:106px; box-shadow:inset 0 0 3px rgba(0,0,0,.5); background-color:#189AE5;}
+.side-menu .user-info .avatar img{ width:95px; height:95px; border-radius:106px; background-color:#189AE5;}
+.side-menu .user-menu{ padding:10px 10px;}
+.side-menu .user-menu li{ position:relative; height:39px; line-height:38px; border-bottom:2px solid #148BCF;}
+.side-menu .user-menu a{ display:block; padding-left:10px;  color:#FFF; text-decoration:none;}
+.side-menu .user-menu .badge{ position:absolute; right:10px; top:9px; width:19px; height:19px; line-height:20px; font-size:12px; padding:0; font-weight:normal; border-radius:3px; color:#AAA; background-color:#fff;}
+
+.resume{ padding:7px 0 0; background:url(../img/bg_profile.jpg) no-repeat center top; background-size:100% auto;}
+.resume ul{ width:4px; min-height:800px; margin:0 auto;}
+.resume ul::before{ display:block; width:40px; height:40px; margin-left:-20px; content:''; background:url(../img/icon_resume.png) no-repeat 0 0; background-size:40px auto;}
+.resume li{ position:relative; width:12px; height:12px; margin:0 0 60px -8px; box-sizing:content-box; border-radius:13px; border:4px solid #F6712B;}
+.resume li .text{ position:absolute; top:-10px; width:150px; line-height:16px !important; font-size:12px; color:#3D3D3D;}
+.resume li .text h2{ font-size:14px; color:#189AE4; margin:0; font-weight:bold;}
+.resume li .icon{ position:absolute; top:-26px; width:64px; height:64px;overflow:hidden; border-radius:55px; border:5px solid rgba(175,175,175,.5); background-color:#fff;}
+.resume li .icon::before{ display:block; width:40px; height:40px; margin:5px auto; content:''; background:#fff url(../img/icon_resume.png) no-repeat; background-size:40px auto;}
+.resume li:nth-child(even) .text{ left:30px;}
+.resume li:nth-child(even) .icon{ right:30px;}
+.resume li:nth-child(odd) .text{ right:30px; text-align:right;}
+.resume li:nth-child(odd) .icon{ left:30px;}
+.resume li:nth-child(odd){ border-color:#21CDB7;}
+.resume li:first-child{ border-color:#E75280;}
+.resume li:last-child::after{ display:none;}
+.resume li:nth-child(odd):before{ left:19px;}
+.resume li:nth-child(even):before{ right:19px;}
+.resume li::before{ position:absolute; top:5px; width:8px; height:4px; content:''; background-color:#C3C1C1;}
+.resume li::after{ position:absolute; left:4px; top:19px; width:4px; height:53px; content:''; background-color:#C3C1C1;}
+.resume li .icon-1::before{ background-position:0 -40px;}
+.resume li .icon-2::before{ background-position:0 -80px;}
+.resume li .icon-3::before{ background-position:0 -120px;}
+.resume li .icon-4::before{ background-position:0 -160px;}
+.resume li .icon-5::before{ background-position:0 -200px;}
+.resume li .icon-6::before{ background-position:0 -240px;}
+.resume li .icon-7::before{ background-position:0 -280px;}
+
+.login-form{ padding:30px 0 0; color:#1A9BDF;}
+.login-form .title{ padding:70px 0; text-align:center; font-size:16px; font-weight:bold;}
+.login-form .title h2{ color:#1A9BDF;}
+.login-form .form-list li{ clear:both; height:35px; padding:0 30px 0 60px; margin-bottom:20px;}
+.login-form .form-label{ float:left; width:50px; text-align:right; padding-right:10px; margin-left:-60px; font-size:30px;}
+.login-form .form-cont{}
+.login-form .form-action{ width:100%; padding:0 30px;}
+.login-form .ctrl-txt{ padding:0 10px}
+.login-form .ctrl-btn{ display:block; width:100%; text-align:center; color:#FFF; line-height:40px; border:0; border-radius:4px; background-color:#1A9BDF;}
+.login-form .link{ padding:15px 30px;}
+.login-form .link a{ color:#1A9BDF; text-decoration:none;}
+.login-form .link a:first-child{ float:left;}
+.login-form .link a:last-child{ float:right;}
+.login-form .login-method{ padding-top:40px;}
+.login-form .login-method span{ text-align:center;}
+.login-form .icon-login{ display:inline-block; width:24px; height:24px; background:url(../img/login_icon.png) no-repeat; background-size:auto 24px;}
+.login-form .icon-login-qq{ background-position:0 0}
+.login-form .icon-login-wx{ background-position:-24px 0}
+.login-form .icon-login-wb{ background-position:-48px 0}
+.login-form .icon-login-rr{ background-position:-72px 0}
+

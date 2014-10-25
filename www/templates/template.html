@@ -3,29 +3,363 @@
   Each tab's child <ion-nav-view> directive will have its own 
   navigation history that also transitions its views in and out.
 -->
-<ion-tabs class="tabs-icon-top ">
+<ion-side-menus>
+  <ion-side-menu-content ng-controller="NavController">
+      <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+      </ion-nav-buttons>
+
+      <!-- tabs -->
+      <ion-tabs class="tabs-icon-top" >
+
+        <ion-tab title="隐藏resumes" icon="icon ion-home balanced" href="#/app/home" hidden="true">
+          <ion-nav-view name="app-resumes"></ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="好前途" icon="icon ion-home balanced" href="#/app/site">
+          <ion-nav-view name="app-site"></ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="找工作" icon="icon ion-ios7-paperplane energized" href="#/app/home/postsubs">
+          <ion-nav-view name="app-home"></ion-nav-view>
+        </ion-tab>
+        <ion-tab title="隐藏account" icon="icon ion-ios7-email positive" href="#/app/mymsg" hidden="true">
+          <ion-nav-view name="app-account"></ion-nav-view>
+        </ion-tab>
+        <ion-tab title="通知" icon="icon ion-ios7-email positive" href="#/app/mymsg">
+          <ion-nav-view name="app-msg"></ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="设置" icon="icon ion-ios7-gear calm" href="#/app/about">
+          <ion-nav-view name="app-about"></ion-nav-view>
+        </ion-tab>
+      </ion-tabs>
+
+  </ion-side-menu-content>
+
+  <!-- left side menu content -->
+  <ion-side-menu side="left" ng-controller="NavController">
+
+    <ion-header-bar class="bar bar-header bar-assertive">
+      <h1 class="title">what use for?</h1>
+    </ion-header-bar>
+
+    <ion-content has-header="true">
+      
+      <div class="side-menu">
+        <div class="search-box" >
+            <input style="display:none" type="search" placeholder="搜索" />            
+        </div>
+
+        <div class="user-info" ng-hide="showlogin">
+            <div class="avatar"><img ng-src="img/touxiang.png" /></div>
+              <h2>{{user.name}}</h2>
+              <p>{{user.province}}*{{user.city}}</p>
+        </div>
+
+        <div class="user-info" ng-show="showlogin">
+            <div class="avatar"><img ng-src="img/touxiang.png" /></div>
+              <!-- <a href="#/app/account/account-login">还没登录</a> -->
+              <h2>还没登录</h2>
+        </div>
+
+        <div class="user-menu">
+            <ul>
+                <li><a href="#/app/resumes" ng-click="toggleLeft()">我的简历</a></li>
+                <li><a href="#/app/site/arrange" ng-click="toggleLeft()">我的日程</a></li>
+                <li><a href="#/app/account/favjobs" ng-click="toggleLeft()">我的收藏</a></li>
+                <li><a href="#/app/account/applyjobs" ng-click="toggleLeft()">投递记录</a></li>
+                <li><a href="#/app/mymsg" ng-click="toggleLeft()">我的消息</a><span class="badge">{{message.num}}</span></li>
+                <li><a href="#/app/account/employreg" ng-click="toggleLeft()">就业登记</a></li>
+                <li><a href="#/app/account/mycoin" ng-click="toggleLeft()">我的前途币</a></li>
+            </ul>
+        </div>
+      </div>
+
+    </ion-content>
+  </ion-side-menu>
+
+</ion-side-menus>
 
 
-  <!-- Pets Tab -->
-  <ion-tab title="首页" icon="icon ion-home balanced" href="#/app/home">
-    <ion-nav-view name="app-home"></ion-nav-view>
-  </ion-tab>
+<script type="text/ng-template" id="templates/account-mycoin.html">
+<ion-view title="我的前途币">
+  <ion-content class="has-header padding text-align:center">
+    <div class="list">
+      <a class="item">您的前途币总量：100</a>
+      <a class="item">您今天获得1点，继续加油哟！</a>
+      <a class="item">您今天消耗了0点</a>
+    </div>    
+  </ion-content>
+</ion-view>
+</script>
+
+<script type="text/ng-template" id="templates/site-arrange.html">
+<ion-view title="我的日程">
+  <ion-content class="has-header padding text-align:center">
+    <div class="list">
+      <a class="item" type="item-text-wrap" >
+            <h3>实习安排：</h3>
+      </a>     
+      <a class="item" type="item-text-wrap" >      
+            <textarea name="suggest" cols ="20" rows = "6" placeholder="还没有安排">{{arrange.arrange1}}</textarea>
+      </a>
+      <a class="item" type="item-text-wrap" >
+            <h3>毕业安排：</h3>
+      </a>     
+      <a class="item" type="item-text-wrap" >      
+            <textarea name="suggest" cols ="20" rows = "6" placeholder="还没有安排">{{arrange.arrange2}}</textarea>
+      </a>
+      <a class="item" type="item-text-wrap" >
+            <h3>校园指导日程：</h3>
+      </a>     
+      <a class="item" type="item-text-wrap" >      
+            <textarea name="suggest" cols ="20" rows = "6" placeholder="还没有安排">{{arrange.arrange3}}</textarea>
+      </a>
+    </div>    
+  </ion-content>
+</ion-view>
+</script>
+
+<script type="text/ng-template" id="templates/account-favjobs.html">
+<ion-view title="职位收藏">
+  <ion-content class="has-header padding text-align:center">
+    <div class="job-list">
+      <ion-list ng-if='jobs.length > 0' 
+          show-delete="shouldShowDelete"
+          show-reorder="shouldShowReorder"
+          can-swipe="listCanSwipe">
+
+        <a class="item item-icon-right" ng-repeat="job in jobs" type="item-text-wrap" href="#/app/home/{{job.job_id}}">
+            <span class="pic"><img ng-src="img/pic.jpg"></span>
+            <div class="info">
+                <div class="title"><h2>{{job.job_name}}</h2><span>{{job.salary}}<i class="icon icon-good"></i></span></div>
+                <p>{{job.com_name}}</p>
+                <p class="rate">评分 <i class="icon-rate icon-rate-4"></i></p>
+            </div>
+            <div class="ext" >
+                <span style="display:none" class="fixed">置顶</span>
+                <p>{{job.datetime*1000 |date : 'yyyy-MM-dd'}}</p>
+            </div>
+        </a>
+      </ion-list>
+    </div>
+  </ion-content>
+</ion-view>
+</script>
+
+<script type="text/ng-template" id="templates/account-applyjobs.html">
+<ion-view title="申请记录">
+  <ion-content class="has-header padding text-align:center">
+    <div class="job-list">
+      <ion-list ng-if='jobs.length > 0' 
+          show-delete="shouldShowDelete"
+          show-reorder="shouldShowReorder"
+          can-swipe="listCanSwipe">
+
+        <a class="item item-icon-right" ng-repeat="job in jobs" type="item-text-wrap" href="#/app/home/{{job.job_id}}">
+            <span class="pic"><img ng-src="img/applogo96.png"></span>
+            <div class="info">
+                <div class="title"><h2>{{job.job_name}}</h2><span>{{job.money}}<i class="icon icon-good"></i></span></div>
+                <p>{{job.com_name}}</p>
+                <p class="rate">评分 <i class="icon-rate icon-rate-4"></i></p>
+            </div>
+            <div class="ext" >
+                <span style="display:none" class="fixed">置顶</span>
+                <p>{{job.datetime*1000 |date : 'yyyy-MM-dd'}}</p>
+            </div>
+        </a>
+      </ion-list>
+    </div>
+  </ion-content>
+</ion-view>
+</script>
+
+<script type="text/ng-template" id="templates/account-employreg.html">
+<ion-view title="就业登记">
+  <ion-content class="has-header padding text-align:center">
+
+    <div name="divemployReg" class="list" >
+
+            <label class="item item-input">
+              <span class="input-label">性别：</span>
+              <select>
+          <option selected>女</option>
+          <option>男</option>
+        </select>
+            </label> 
+
+      <label class="item item-input item-select">
+        <div class="input-label">毕业去向：</div>
+        <select>
+          <option>签约:民营企业</option>
+          <option>签约:外资企业</option>
+          <option>签约:国有企业</option>
+          <option>签约:国家机关</option>
+          <option>签约:事业单位</option>
+          <option>签约:其他企业</option>
+          <option>签约:部队</option>
+          <option selected>灵活就业</option>
+          <option>国内升学</option>
+          <option>出国留学</option>
+          <option>暂不就业</option>
+          <option>待就业</option>
+        </select>
+      </label>
+
+      <label class="item item-input">
+        <span class="input-label">用人单位：</span>
+        <input name="dengji.company" ng-model="dengji.company" type="text"  required>
+      </label>
+
+      <label class="item item-input">
+        <span class="input-label">所在地：</span>
+        <input name="dengji.province" ng-model="dengji.province" type="text"  required>
+      </label>
+     
+      <label class="item item-input">
+        <span class="input-label">从事岗位：</span>
+        <input name="dengji.position" ng-model="dengji.position" type="text"  required>
+      </label>
+
+      <label class="item item-input item-select">
+        <div class="input-label">岗位与专业匹配度：</div>
+        <select>
+          <option selected>100%</option>
+          <option>80%</option>
+          <option>60%</option>
+          <option>50%</option>
+          <option>30%</option>
+          <option>0</option>
+        </select>
+      </label>
+
+      <div class="buttons" style='text-align:center; margin-top:10px'>
+              <button class="button button-positive" ng-click="employReg()"> 提交登记 </button>
+            </div>
+    </div>
+    
+  </ion-content>
+</ion-view>
+</script>
 
 
-  <!-- Adopt Tab -->
-  <ion-tab title="简历中心" icon="icon ion-heart energized" href="#/app/resumes">
-    <ion-nav-view name="app-resumes"></ion-nav-view>
-  </ion-tab>
+<script type="text/ng-template" id="templates/account-baseinfo.html">
+<ion-view title="个人基本信息" >
+  <ion-content class="has-header">
 
+    <div class="list" ng-show="showbase">
+      <ion-item >
+          <h2>基本信息：</h2>
+        <label class="item item-input">
+              <span class="input-label">姓名：</span>
+              <input  type="text" ng-model="buser.name"  placeholder="姓名">
+            </label>
 
-  <!-- About Tab -->
-  <ion-tab title="我的" icon="icon ion-person positive" href="#/app/account">
-    <ion-nav-view name="app-account"></ion-nav-view>
-  </ion-tab>
+            <label class="item item-input item-select">
+              <span class="input-label">性别：</span>
+              <select name="sex" id="sex"  ng-model="buser.sex"
+                ng-options="sexc.value as sexc.sex for sexc in sexclass" ng-init="buser.sex = sexclass[1].value">
+        </select>
+            </label>
 
-  <ion-tab title="关于" icon="icon ion-gear-b calm" href="#/app/about">
-    <ion-nav-view name="app-about"></ion-nav-view>
-  </ion-tab>
+            <label class="item item-input">
+              <span class="input-label">学号：</span>
+              <input  type="text" ng-model="buser.sno" placeholder="学号">
+            </label>
 
+            <label class="item item-input item-select">
+              <span class="input-label">最高学历：</span>
+              <select name="maxedu" id="maxedu"  ng-model="buser.maxedu" 
+                  ng-options="eduopt.id as eduopt.n for eduopt in educlass" ng-init="buser.maxedu = educlass[5].id">
+            <!-- option ng-repeat="eduopt in educlass" value={{eduopt.id}}>{{eduopt.n}}</option -->           
+        </select>
+            </label>
+      </ion-item>
 
-</ion-tabs>
+      <ion-item >
+            <h2>学校信息：</h2>
+            <label class="item item-input">
+              <span class="input-label">学校：</span>
+              <input  type="text" ng-model="buser.school" placeholder="学校">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">入学时间：</span>
+              <input type="date" ng-model="buser.starttime" name="gstarttime">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">毕业时间：</span>
+              <input type="date" ng-model="buser.endtime" name="gendtime">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">学院：</span>
+              <input  type="text" ng-model="buser.college" placeholder="学院">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">专业：</span>
+              <input  type="text" ng-model="buser.specialty" placeholder="专业">
+            </label>
+        </ion-item>
+
+        <div class="text-align:center">
+        <button class="button button-block button-positive" ng-click="AddBaseInfo()"> 提交 </button>
+        </div>
+    </div>
+
+    <div class="resume" ng-hide="showbase">
+      <ul>
+          <li>
+              <div class="text">
+                  <h2>评测</h2>
+                  <p>职业评测-创业评测</p>
+              </div>
+              <a href="#/app/news"><i class="icon icon-1"></i></a>
+          </li>
+          <li>
+              <div class="text">
+                  <h2>高手指路</h2>
+                  <p>就业学堂-创业评测</p>
+              </div>
+              <a href="#/app/news"><i class="icon icon-2"></i></a>
+          </li>
+          <li>
+              <div class="text">
+                  <h2>订阅职位</h2>
+                  <p>智能预定职位</p>
+              </div>
+              <a href="#/app/home/postsubs"><i class="icon icon-3"></i></a>
+          </li>
+          <li>
+              <div class="text">
+                  <h2>招聘会</h2>
+                  <p>社会招聘会-学院招聘会<br/>招聘会收藏提醒</p>
+              </div>
+              <a href="#/app/jobfairs"><i class="icon icon-4"></i></a>
+          </li>
+          <li>
+              <div class="text">
+                  <h2>宣讲会</h2>
+                  <p>宣讲会预定<br/>宣讲会收藏提醒</p>
+              </div>
+              <a href="#/app/jobfairs"><i class="icon icon-5"></i></a>
+          </li>
+          <li>
+              <div class="text">
+                  <h2>兼职</h2>
+                  <p>轻松找兼职</p>
+              </div>
+              <a href="#/app/home/newjobs"><i class="icon icon-6"></i></a>
+          </li>
+          <li>
+              <div class="text">
+                  <h2>我的好前途</h2>
+                  <p>语音视频简历<br/>全方位自我展示</p>
+              </div>
+              <a href="#/app/resumes"><i class="icon icon-7"></i></a>
+          </li>           
+      </ul>
+    </div>
+  </ion-content>
+</ion-view>
+</script>
+

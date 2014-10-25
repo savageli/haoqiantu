@@ -1,38 +1,178 @@
 angular.module('starter.controllers', [])
 
-.controller('HomeCtrl', function($scope, $state, User, Device) {
-
-  // //console.log("<-log-> HomeCtrl");
-
+.controller('NavController', function($scope, $ionicSideMenuDelegate) {
+  $scope.toggleLeft = function() {
+    $ionicSideMenuDelegate.toggleLeft();
+  };
+})
+  
+.controller('TemplateCtrl', function($scope, $state, User, Device, BaseConfig) {
+  $scope.messagenum = 0;
   $scope.user = User.getuser();
+  $scope.showlogin = true;
 
   $scope.init = function(){
-    ////console.log("<-log-> HomeCtrl.init");
-    
-    var UserObj = localStorage['user'];
+      var UserObj = localStorage['user'];
+      if(!UserObj)
+      {
+         //$state.go("app.account-login"); 
+         $scope.showlogin = true;
+         return;
+      }
 
-    if(!UserObj)
-    {
-       $state.go("app.account-login"); 
-       //console.log("<-log-> state.go(app.account-login)");
-       return;
-    }
-
-    $scope.user = JSON.parse(UserObj);
-    //User.setuser($scope.user.uid, $scope.user.username, $scope.user.password, $scope.user.usertype);
-    User.setAll($scope.user);
-
-    Device.set();
+      $scope.showlogin = false;
+      $scope.user = JSON.parse(UserObj);
+      User.setAll($scope.user);
+    //Device.set();
   };
 
-  if(!$scope.user.uid){
-    $scope.init();  
+  if(!User.getuid()){
+     $scope.init();
   }
+
+})
+
+.controller('SiteCtrl', function($scope, $state, User, Device) {
   
 })
 
-.controller('JobDetailCtrl', function($scope, $stateParams, $ionicPopup, Jobs) {
-  $scope.job = Jobs.get($stateParams.jobId);
+.controller('SiteArrangeCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User, Arrange, Device) {
+  $scope.user = User.getuser();
+  $scope.arrange = Arrange.Get();
+
+  if (!User.getuid()) {
+    $ionicPopup.alert({ template: '登录过期，请先退出登录。' });
+    $state.go("app.account-login");
+    return;
+  }  
+
+  // 获取arrange
+  $scope.init = function(){
+
+    $ionicLoading.show({
+        noBackdrop:true,
+        template: '数据加载中...'
+        });
+
+    $http.post(localStorage.siteHost+'?c=getarrange', $scope.user).
+      success(function(data) {
+        
+        Arrange.SetTime();
+        $ionicLoading.hide();
+        if(data.error == 1){   
+            if(!data.list){
+              $ionicPopup.alert({ template: '没有您的日常安排!' });
+              return;
+            }
+
+            for (var i = data.list.length - 1; i >= 0; i--) {
+               Arrange.Set(data.list[i]);
+            }
+            $scope.arrange = Arrange.Get();
+
+        }else{
+          switch(data.error){
+            case 2:
+            case 3:
+              $ionicPopup.alert({ template: '帐号不存在，请退出重现登录' });
+              break;
+
+            case 4: // 消息不存在
+              $ionicPopup.alert({ template: '没有您的日常安排!' });
+              break;  
+
+            case 1008:
+              $ionicPopup.alert({ template: '密码错误，请退出重现登录' });
+              break;     
+
+            default:
+              $ionicPopup.alert({ template: '系统错误，请稍候重试。错误码：' + data.error });
+          }
+          
+        }
+      }).
+      error(function(data,status,headers,config){
+        $ionicLoading.hide();
+        $ionicPopup.alert({ template: '系统或网络异常，请稍候重试！' });
+      });
+  }
+
+  if(Arrange.isNeedFetch()){
+    $scope.init();
+    return;
+  }
+
+})
+
+.controller('HomeCtrl', function($scope, $state, User, Device) {
+})
+
+.controller('JobDetailCtrl', function($scope, $stateParams, $ionicPopup, $state, $http, $ionicLoading, User, Device, BaseConfig) {
+  $scope.job = {};
+  $scope.job.id= $stateParams.jobId;
+
+  $scope.JobDetail = function(){
+
+    $ionicLoading.show({
+        noBackdrop:true,
+        template: '数据加载中...'
+        });
+
+    $http.post(localStorage.siteHost+'?m=job&c=show', {id:$stateParams.jobId}).
+      success(function(data) {
+        
+        $ionicLoading.hide();
+        if(data.error == 1){   
+            if(!data.list){
+              $ionicPopup.alert({ template: '没有数据!' });
+              return;
+            }
+
+            $scope.job = data.list;
+            if($scope.job){
+              $scope.job.edu = BaseConfig.getcomclass($scope.job.edu).n;
+              $scope.job.salary = BaseConfig.getcomclass($scope.job.salary).n;
+              $scope.job.type = BaseConfig.getcomclass($scope.job.type).n;
+              $scope.job.report = BaseConfig.getcomclass($scope.job.report).n;
+              $scope.job.sex = BaseConfig.getcomclass($scope.job.sex).n;
+              $scope.job.pr = BaseConfig.getcomclass($scope.job.pr).n;
+              $scope.job.age = BaseConfig.getcomclass($scope.job.age).n;
+              $scope.job.exp = BaseConfig.getcomclass($scope.job.exp).n;
+
+              $scope.job.hy = BaseConfig.getjobclass($scope.job.hy).n;
+              $scope.job.job1 = BaseConfig.getjobclass($scope.job.job1).n;
+              $scope.job.job_post = BaseConfig.getjobclass($scope.job.job_post).n;
+
+              $scope.job.provinceid = BaseConfig.getcity($scope.job.provinceid).n;
+              $scope.job.cityid = BaseConfig.getcity($scope.job.cityid).n;
+            }
+
+        }else{
+          switch(data.error){
+            case 2:
+            case 3:
+              $ionicPopup.alert({ template: '帐号不存在，请退出重现登录' });
+              break;
+
+            case 4: 
+              $ionicPopup.alert({ template: '没有数据' });
+              break;  
+
+            case 1008:
+              $ionicPopup.alert({ template: '密码错误，请退出重现登录' });
+              break;     
+
+            default:
+              $ionicPopup.alert({ template: '系统错误，请稍候重试。错误码：' + data.error });
+          }
+          
+        }
+      }).
+      error(function(data,status,headers,config){
+        $ionicLoading.hide();
+        $ionicPopup.alert({ template: '系统或网络异常，请稍候重试！' });
+      });
+  }
 
   $scope.jobFav = function(){
     $ionicPopup.alert({ template: '收藏成功！' });
@@ -50,20 +190,28 @@ angular.module('starter.controllers', [])
     window.plugins.socialsharing.share($scope.job.body, 
       $scope.job.title, 
       'www/img/hqt92.ico', 
-      'http://cs.haoqiantu.net')
+      'http://haoqiantu.net')
     //$ionicPopup.alert({ template: '分享成功！' });
+  }
+
+  if($scope.job.id > 0){
+    $scope.JobDetail();
+    return;
   }
 })
 
 // PostSubscription 职位订阅
-.controller('PostSubsCtrl', function($scope, $ionicPopup, User, BaseConfig) {
+.controller('PostSubsCtrl', function($scope, $stateParams, $ionicPopup, $state, $http, $ionicLoading, User, Jobs, Device, BaseConfig) {
   //$scope.postsubs = PostSubs.all();
   $scope.mycity = "深圳";
   $scope.comclass = BaseConfig.getComclassAll();
   $scope.cityclass = BaseConfig.getCities();
   $scope.jobclass = BaseConfig.getJobclassAll();
+  $scope.jobs = Jobs.all();
 
   $scope.searchobj = {};
+  $scope.display_search = "block";
+  $scope.display_joblist = "none";
 
   // filter
   $scope.filterPid = function(keyid){
@@ -73,22 +221,120 @@ angular.module('starter.controllers', [])
   }
 
   $scope.postSubs = function(){  
-     $ionicPopup.alert({ template: '没有您期待的职位，请稍候再试！' });
+    //$ionicPopup.alert({ template: '没有您期待的职位，请稍候再试！' });
     //alert(JSON.stringify($scope.searchobj));
-  }
+    $ionicLoading.show({
+        noBackdrop:true,
+        template: '数据加载中...'
+        });
 
-  if (!User.getuid()) {
-    $ionicPopup.alert({ template: '登录过期，请重新登录。' });
-    $state.go("app.account-login");
+    $http.post(localStorage.siteHost+'?m=job&c=list', $scope.searchobj).
+      success(function(data) {
+        
+        $ionicLoading.hide();
+        if(data.error == 1){   
+            if(!data.list){
+              $ionicPopup.alert({ template: '没有您期待的职位，请稍候再试!' });
+              return;
+            }
+            for (var i = data.list.length - 1; i >= 0; i--) {
+              data.list[i].salary = BaseConfig.getcomclass(data.list[i].salary).n;
+              Jobs.set(data.list[i]);
+            };
+            $scope.jobs = Jobs.all();
+            $scope.display_search = "none";
+            $scope.display_joblist = "block";
+
+        }else{
+          switch(data.error){
+            case 2:
+            case 3:
+              $ionicPopup.alert({ template: '帐号不存在，请退出重现登录' });
+              break;
+
+            case 4: 
+              $ionicPopup.alert({ template: '没有您期待的职位，请稍候再试！' });
+              break;  
+
+            case 1008:
+              $ionicPopup.alert({ template: '密码错误，请退出重现登录' });
+              break;     
+
+            default:
+              $ionicPopup.alert({ template: '系统错误，请稍候重试。错误码：' + data.error });
+          }
+          
+        }
+      }).
+      error(function(data,status,headers,config){
+        $ionicLoading.hide();
+        $ionicPopup.alert({ template: '系统或网络异常，请稍候重试！' });
+      });
   }
 
 })
 
 // NewJobs 职位招聘
-.controller('NewJobsCtrl', function($scope, Jobs) {
-  //$scope.postsubs = PostSubs.all();
-  $scope.mycity = "深圳";
-  $scope.jobs = Jobs.all();
+.controller('NewJobsCtrl', function($scope, $stateParams, $ionicPopup, $state, $http, $ionicLoading, User, Jobs, Device, BaseConfig) {
+
+  $scope.jobs = {};
+  $scope.showlist = false;
+
+  $scope.init = function(){  
+    //$ionicPopup.alert({ template: '没有您期待的职位，请稍候再试！' });
+    //alert(JSON.stringify($scope.searchobj));
+    $ionicLoading.show({
+        noBackdrop:true,
+        template: '数据加载中...'
+        });
+
+    $http.post(localStorage.siteHost+'?m=job&c=list', {type:56}).
+      success(function(data) {
+        
+        $ionicLoading.hide();
+        if(data.error == 1){   
+            if(!data.list){
+              $ionicPopup.alert({ template: '没有您期待的职位，请稍候再试!' });
+              return;
+            }
+
+            for (var i = data.list.length - 1; i >= 0; i--) {
+              data.list[i].salary = BaseConfig.getcomclass(data.list[i].salary).n;
+              Jobs.set(data.list[i]);
+            };
+            $scope.jobs = Jobs.all();
+            $scope.showlist = true;
+
+        }else{
+          switch(data.error){
+            case 2:
+            case 3:
+              $ionicPopup.alert({ template: '帐号不存在，请退出重现登录' });
+              break;
+
+            case 4: 
+              $ionicPopup.alert({ template: '没有您期待的职位，请稍候再试！' });
+              break;  
+
+            case 1008:
+              $ionicPopup.alert({ template: '密码错误，请退出重现登录' });
+              break;     
+
+            default:
+              $ionicPopup.alert({ template: '系统错误，请稍候重试。错误码：' + data.error });
+          }
+          
+        }
+      }).
+      error(function(data,status,headers,config){
+        $ionicLoading.hide();
+        $ionicPopup.alert({ template: '系统或网络异常，请稍候重试！' });
+      });
+  }
+
+  if(!$scope.showlist){
+    $scope.init();
+  }
 
 })
 
@@ -100,34 +346,6 @@ angular.module('starter.controllers', [])
 
 .controller('JobFairDetailCtrl', function($scope, $stateParams, JobFairs) {
   $scope.jobfair = JobFairs.get($stateParams.jobfairId);
-})
-
-// preach 宣讲会
-.controller('PreachesCtrl', function($scope, Preaches) {
-  $scope.Preaches = Preaches.all();
-  $scope.mycity = "深圳";
-})
-
-.controller('PreachDetailCtrl', function($scope, $stateParams, Preaches) {
-  $scope.preach = Preaches.get($stateParams.preachId);
-})
-
-// news
-.controller('NewsCtrl', function($scope, $stateParams, Newss) {
-  $scope.news = Newss.get($stateParams.newsid);
-
-})
-
-// study 学习中心
-.controller('StudyCtrl', function($scope, Newss) {
-  $scope.newss = Newss.all();
-
-})
-
-// venture 创业中心
-.controller('VentureCtrl', function($scope, Newss) {
-  $scope.newss = Newss.all();
-
 })
 
 // resume 简历
@@ -147,10 +365,14 @@ angular.module('starter.controllers', [])
 
     $http.post(localStorage.siteHost+'?c=resumelist', $scope.user).
       success(function(data) {
-        
+        Resumes.setisfetch();
         $ionicLoading.hide();
-        if(!data.error){   
-            Resumes.setisfetch();
+        if(data.error == 1){   
+            
+            if(!data.list){
+              $ionicPopup.alert({ template: '没有您的数据!' });
+              return;
+            }
             for (var i = data.list.length - 1; i >= 0; i--) {
                Resumes.pushresume(data.list[i]);
             };
@@ -163,8 +385,9 @@ angular.module('starter.controllers', [])
               $ionicPopup.alert({ template: '帐号不存在，请退出重现登录' });
               break;
 
-            case 4: // 简历不存在
+            case 4: 
               Resumes.setisfetch();
+              $ionicPopup.alert({ template: '没有数据' });
               break;  
 
             case 1008:
@@ -510,6 +733,8 @@ angular.module('starter.controllers', [])
   $scope.educlass = BaseConfig.getEduclassAll();
   $scope.sexclass = BaseConfig.getSexclassAll();
 
+  $scope.showbase = false;
+
   //alert(JSON.stringify(BaseInfo.getcity(1)) );
   $scope.AddBaseInfo = function(){
     if(!$scope.buser.name || !$scope.buser.sex || !$scope.buser.sno || !!$scope.buser.maxedu
@@ -528,15 +753,335 @@ angular.module('starter.controllers', [])
   }  
 })
 
-// NewJobs 职位招聘
-.controller('AccountFavJobCtrl', function($scope, Jobs) {
-  //$scope.postsubs = PostSubs.all();
-  $scope.mycity = "深圳";
-  $scope.jobs = Jobs.all();
+.controller('AccountFavJobCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User, FavJobs, Device) {
+  $scope.user = User.getuser();
+  $scope.myprivince = $scope.user.province;
+  $scope.mycity = $scope.user.city;
+  $scope.jobs = FavJobs.all();
+
+  $scope.init = function(){
+
+    $ionicLoading.show({
+        noBackdrop:true,
+        template: '数据加载中...'
+        });
+
+    $http.post(localStorage.siteHost+'?m=job&c=favlist', $scope.user).
+      success(function(data) {
+        FavJobs.SetTime();
+        $ionicLoading.hide();
+        if(data.error == 1){
+            if(!data.list){
+              $ionicPopup.alert({ template: '没有您的数据!' });
+              return;
+            }
+            for (var i = data.list.length - 1; i >= 0; i--) {
+               FavJobs.set(data.list[i]);
+            };
+            $scope.jobs = FavJobs.all();
+
+        }else{
+          switch(data.error){
+            case 2:
+            case 3:
+              $ionicPopup.alert({ template: '帐号不存在，请退出重现登录' });
+              break;
+
+            case 4: 
+            $ionicPopup.alert({ template: '没有数据' });
+              break;  
+
+            case 1008:
+              $ionicPopup.alert({ template: '密码错误，请退出重现登录' });
+              break;     
+
+            default:
+              $ionicPopup.alert({ template: '系统错误，请稍候重试。错误码：' + data.error });
+          }
+          
+        }
+      }).
+      error(function(data,status,headers,config){
+        $ionicLoading.hide();
+        $ionicPopup.alert({ template: '系统或网络异常，请稍候重试！' });
+      });
+  }
+
+  if(!User.getuid()){
+    $state.go("app.account-login");
+    return;
+  }
+
+  if(FavJobs.isNeedFetch()){
+    $scope.init();
+    return;
+  }
 
 })
 
-.controller('AccountMyMsgCtrl', function($scope) {
+.controller('AccountApplyJobsCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User, ApplyJobs, Device) {
+
+  $scope.user = User.getuser();
+  $scope.myprivince = $scope.user.province;
+  $scope.mycity = $scope.user.city;
+  $scope.jobs = ApplyJobs.all();
+
+  $scope.init = function(){
+
+    $ionicLoading.show({
+        noBackdrop:true,
+        template: '数据加载中...'
+        });
+
+    $http.post(localStorage.siteHost+'?m=job&c=applylist', $scope.user).
+      success(function(data) {
+        ApplyJobs.SetTime();
+        $ionicLoading.hide();
+        if(data.error == 1){
+            if(!data.list){
+              $ionicPopup.alert({ template: '没有您的数据!' });
+              return;
+            }   
+            for (var i = data.list.length - 1; i >= 0; i--) {
+               ApplyJobs.set(data.list[i]);
+            };
+            $scope.jobs = ApplyJobs.all();
+
+        }else{
+          switch(data.error){
+            case 2:
+            case 3:
+              $ionicPopup.alert({ template: '帐号不存在，请退出重现登录' });
+              break;
+
+            case 4: 
+              $ionicPopup.alert({ template: '没有数据' });
+              break;  
+
+            case 1008:
+              $ionicPopup.alert({ template: '密码错误，请退出重现登录' });
+              break;     
+
+            default:
+              $ionicPopup.alert({ template: '系统错误，请稍候重试。错误码：' + data.error });
+          }
+          
+        }
+      }).
+      error(function(data,status,headers,config){
+        $ionicLoading.hide();
+        $ionicPopup.alert({ template: '系统或网络异常，请稍候重试！' });
+      });
+  }
+
+  if(!User.getuid()){
+    $state.go("app.account-login");
+    return;
+  }
+
+  if(ApplyJobs.isNeedFetch()){
+    $scope.init();
+    return;
+  }
+
+})
+
+
+.controller('NewsCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User, News) {
+  $scope.newslist = News.All();
+
+  $scope.init = function(){
+
+    $ionicLoading.show({
+        noBackdrop:true,
+        template: '数据加载中...'
+        });
+
+    $http.post(localStorage.siteHost+'?m=news&c=list', {nid:40}).
+      success(function(data) {
+        
+        $ionicLoading.hide();
+        if(data.error == 1){   
+            if(!data.list){
+              $ionicPopup.alert({ template: '没有数据!' });
+              return;
+            }
+            for (var i = data.list.length - 1; i >= 0; i--) {
+               News.Set(data.list[i]);
+            }
+            $scope.newslist = News.All();
+
+        }else{
+          switch(data.error){
+            case 2:
+            case 3:
+              $ionicPopup.alert({ template: '帐号不存在，请退出重现登录' });
+              break;
+
+            case 4: // 消息不存在
+              $ionicPopup.alert({ template: '没有您的消息!' });
+              break;  
+
+            case 1008:
+              $ionicPopup.alert({ template: '密码错误，请退出重现登录' });
+              break;     
+
+            default:
+              $ionicPopup.alert({ template: '系统错误，请稍候重试。错误码：' + data.error });
+          }
+          
+        }
+      }).
+      error(function(data,status,headers,config){
+        $ionicLoading.hide();
+        $ionicPopup.alert({ template: '系统或网络异常，请稍候重试！' });
+      });
+  }
+
+  if($scope.newslist.length <= 0){
+    $scope.init();
+    return;
+  }
+
+})
+
+.controller('NewsDetailCtrl', function($scope, $stateParams, $http, $ionicPopup, $ionicLoading, $sce, User) {
+  $scope.news = {};
+  $scope.news.id= $stateParams.ID;
+
+  $scope.NewsDetail = function(){
+
+    $ionicLoading.show({
+        noBackdrop:true,
+        template: '数据加载中...'
+        });
+
+    $http.post(localStorage.siteHost+'?m=news&c=show', {id:$stateParams.ID}).
+      success(function(data) {
+        
+        $ionicLoading.hide();
+        if(data.error == 1){   
+            if(!data.list){
+              $ionicPopup.alert({ template: '没有数据!' });
+              return;
+            }
+
+            $scope.news = data.list;
+            $scope.news.body = $sce.trustAsHtml($scope.news.body);
+
+        }else{
+          switch(data.error){
+            case 2:
+            case 3:
+              $ionicPopup.alert({ template: '帐号不存在，请退出重现登录' });
+              break;
+
+            case 4: 
+              $ionicPopup.alert({ template: '没有数据' });
+              break;  
+
+            case 1008:
+              $ionicPopup.alert({ template: '密码错误，请退出重现登录' });
+              break;     
+
+            default:
+              $ionicPopup.alert({ template: '系统错误，请稍候重试。错误码：' + data.error });
+          }
+          
+        }
+      }).
+      error(function(data,status,headers,config){
+        $ionicLoading.hide();
+        $ionicPopup.alert({ template: '系统或网络异常，请稍候重试！' });
+      });
+  }
+
+  if($scope.news.id > 0){
+    $scope.NewsDetail();
+  }
+
+})
+
+
+.controller('AccountMyMsgCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User, Message) {
+  $scope.user = User.getuser();
+  $scope.ouser = {}
+  $scope.messagelist = Message.All();
+
+  if (!User.getuid()) {
+    $ionicPopup.alert({ template: '登录过期，请先退出登录。' });
+    $state.go("app.account-login");
+    return;
+  }  
+
+  // 获取message
+  $scope.init = function(){
+
+    $ionicLoading.show({
+        noBackdrop:true,
+        template: '数据加载中...'
+        });
+
+    $http.post(localStorage.siteHost+'?c=messagelist', $scope.user).
+      success(function(data) {
+        
+        $ionicLoading.hide();
+        if(data.error == 1){   
+            if(!data.list){
+              $ionicPopup.alert({ template: '没有您的数据!' });
+              return;
+            }
+            for (var i = data.list.length - 1; i >= 0; i--) {
+               Message.Set(data.list[i]);
+            }
+            $scope.messagelist = Message.All();
+
+        }else{
+          switch(data.error){
+            case 2:
+            case 3:
+              $ionicPopup.alert({ template: '帐号不存在，请退出重现登录' });
+              break;
+
+            case 4: // 消息不存在
+              $ionicPopup.alert({ template: '没有您的消息!' });
+              break;  
+
+            case 1008:
+              $ionicPopup.alert({ template: '密码错误，请退出重现登录' });
+              break;     
+
+            default:
+              $ionicPopup.alert({ template: '系统错误，请稍候重试。错误码：' + data.error });
+          }
+          
+        }
+      }).
+      error(function(data,status,headers,config){
+        $ionicLoading.hide();
+        $ionicPopup.alert({ template: '系统或网络异常，请稍候重试！' });
+      });
+  }
+
+  if($scope.messagelist.length <= 0){
+    $scope.init();
+    return;
+  }
+
+})
+
+.controller('MessageDetailCtrl', function($scope, $stateParams, $ionicPopup, Message) {
+
+  $scope.message = Message.Get($stateParams.ID);
+  //console.log("<-log-> ID:" + $stateParams.ID);
+  if(!$scope.message){
+    $ionicPopup.alert({ template: '系统错误，请退出重现登录' });
+  }
+
+  $scope.Reply = function(){
+    $ionicPopup.alert({ template: '正在开发' });
+  }
+
 })
 
 .controller('AccountMyCoinCtrl', function($scope) {
@@ -544,9 +1089,17 @@ angular.module('starter.controllers', [])
 
 .controller('AccountEmployRegCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User) {
   $scope.user = User.getuser();
-  $scope.ouser = {}
+  $scope.ouser = {};
+  $scope.dengji = {};
 
   $scope.employReg = function(){
+
+    if(!$scope.dengji.company || !$scope.dengji.province || !$scope.dengji.position)
+    {
+      $ionicPopup.alert({ template: '请确认所有记录项填写正确！' });
+      return;
+    }
+
     $ionicPopup.alert({ template: '就业登记，提交成功！' });
   }
 
@@ -573,13 +1126,8 @@ angular.module('starter.controllers', [])
     $scope.ouser.uid = $scope.user.uid
     $http.post(localStorage.siteHost+'?c=savepasswd', $scope.ouser).
         success(function(data) {
-          //console.log("<-log-> resp.error:" + data.error);
-
           $ionicLoading.hide();
           if(data.error == 1){
-              
-              //console.log("<-log-> chgpass ok:" + data.uid);
-
               User.setuser($scope.user.uid, $scope.user.username, $scope.ouser.password);
               localStorage['user'] = JSON.stringify(User.getuser());
               $ionicPopup.alert({ template: '修改密码成功' });
@@ -614,7 +1162,7 @@ angular.module('starter.controllers', [])
 })
 
 //登录注册相关
-.controller('LoginCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User) {
+.controller('LoginCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User, BaseConfig) {
   $scope.user = {}
   $scope.handletype = 0; // 1login，2reg，3getpass，4chgpass
   var HandleType = {
@@ -638,9 +1186,11 @@ angular.module('starter.controllers', [])
         $ionicLoading.hide();
         if(data.error == 1){
             User.setAll(data);
+            User.setAddr(BaseConfig.getcity($scope.user.provinceid).n, BaseConfig.getcity($scope.user.cityid).n);
+
             localStorage['user'] = JSON.stringify(User.getuser());
             $ionicPopup.alert({ template: '登录成功' });
-            $state.go("app.home");
+            $state.go("app.site");
         }else{
           switch(data.error){
             case 3:
@@ -884,19 +1434,52 @@ angular.module('starter.controllers', [])
 })
 
 // 关于
-.controller('AboutCtrl', function($scope, $http, $ionicPopup, User) {
+.controller('AboutCtrl', function($scope, $state, $ionicPopup, User) {
   $scope.user = User.getuser();
+  $scope.showlogin = true;
+
+  if(User.getuid()){
+    $scope.showlogin = false;
+  }
 
   $scope.refresh = function(){
     $ionicPopup.alert({ template: '您已经是最新版本，不需要更新！' });
   }
+
+  $scope.Logout = function(){
+
+    var confirmPopup = $ionicPopup.confirm({ title: '确定要退出成功吗？', cancelText:'取消', okText:'确认' });
+    confirmPopup.then(function(res) {
+      if(res) {
+        localStorage.removeItem('user');
+        User.clear();
+        $scope.showlogin = true;
+        //$state.go("app.account-login");
+        //console.log('<-log-> state.go(app.account-login)');
+      } else {
+        //console.log('<-log-> not sure');
+      }
+    });
+  }
+
+  $scope.Login = function(){
+    $state.go("app.account-login");
+    return;
+  }
+
 })
 
 // 关于
 .controller('AboutAdviceCtrl', function($scope, $http, $ionicPopup, User) {
   $scope.user = User.getuser();
+  $scope.suggest = {};
 
   $scope.advice = function(){
+    if(!$scope.suggest.content || !$scope.suggest.name || !$scope.suggest.email){
+       $ionicPopup.alert({ template: '请完整填写，我们一定及时处理！' });
+       return;
+    }
+
     $ionicPopup.alert({ template: '多谢您的反馈，我们一定及时处理！' });
   }
 })
@@ -904,9 +1487,16 @@ angular.module('starter.controllers', [])
 // 关于
 .controller('AboutFindOutCtrl', function($scope, $http, $ionicPopup, User) {
   $scope.user = User.getuser();
+  $scope.suggest = {};
 
   $scope.findout = function(){
+    if(!$scope.suggest.content || !$scope.suggest.comname || !$scope.suggest.job_post){
+       $ionicPopup.alert({ template: '请完整填写，我们一定及时处理！' });
+       return;
+    }
     $ionicPopup.alert({ template: '多谢您的反馈，我们一定及时处理！' });
   }
 })
+
+  //$scope.mainCtrl.showFeature = false;
 ;

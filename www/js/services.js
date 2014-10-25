@@ -7,8 +7,8 @@ angular.module('starter.services', [])
   // Might use a resource here that returns a JSON array
   //json-object
   var UserInfo = {uid:'', username:'', password:'', usertype:'', 
-		name:'', birthday:'', telphone:'', email:'', edu:'', provinceid:'',cityid:'', description:''};
-
+		name:'', birthday:'', telphone:'', email:'', edu:'', provinceid:'',cityid:'', description:'' , province:'', city:''};
+  
   return {
     setuser: function(uid, username, password, usertype) {
       UserInfo.uid = uid;
@@ -28,6 +28,11 @@ angular.module('starter.services', [])
       UserInfo.description = description;
     },
 	
+	setAddr: function(pname, cname) {
+      UserInfo.province = pname;
+      UserInfo.city = cname;
+    },
+
 	setAll: function(user){
       UserInfo = user;
     },
@@ -155,7 +160,6 @@ angular.module('starter.services', [])
 // jobfairs
 .factory('JobFairs', function() {
   // Might use a resource here that returns a JSON array
-
   // Some fake testing data
   var jobfairs = [
     { id: 0, title: '第一现场招聘会', address:'深圳', organizers:'长沙大学', body:'这是招聘介绍', starttime:'2014-08-01', endtime:'2014-09-21', traffic:'101,202', ctime:'1407735712'},
@@ -199,53 +203,216 @@ angular.module('starter.services', [])
   }
 })
 
-
-// news
-.factory('Newss', function() {
+.factory('Message', function() {
   // Might use a resource here that returns a JSON array
-
-  // Some fake testing data
-  var newss = [
-    { id: 0, pid:29, title: '就业分析', from:'好前途就业网',  body:'这是就业分析娃哈哈哈哈', ctime:'1407735712'},
-    { id: 1, pid:29, title: '面试指南', from:'好前途就业网',  body:'这是就业分析娃哈哈哈哈', ctime:'1407735712'},
-    { id: 2, pid:30, title: '创业课堂', from:'好前途就业网',  body:'这是就业分析娃哈哈哈哈', ctime:'1407735712'},
-    { id: 3, pid:30, title: '名家讲堂', from:'好前途就业网',  body:'这是就业分析娃哈哈哈哈', ctime:'1407735712'}
-  ];
+  var MessageList = [];
 
   return {
-    all: function() {
-      return newss;
+    Set: function(message) {
+      MessageList[MessageList.length] = message;
     },
-    get: function(newsid) {
+	
+    All: function(){
+      return MessageList;
+    },
+	
+	Get: function(ID) {
       // Simple index lookup
-      return newss[newsid];
+      for (var i = MessageList.length - 1; i >= 0; i--) {
+        if(MessageList[i].id == ID)
+          return MessageList[i];
+      };
+      return NULL;
     }
+	
   }
 })
 
-// news
-.factory('Jobs', function() {
+.factory('News', function() {
   // Might use a resource here that returns a JSON array
+  var NewsList = [];
 
-  // Some fake testing data
-  var jobs = [
-    { id: 0, title: '娃哈哈搬水工', from:'娃哈哈矿泉水公司', type:'全职', money:'面议', addr:'深圳', body:'负责娃哈哈深圳南山地区的矿泉水配送等', ctime:'1407735712'},
-    { id: 1, title: '软件开发工程师', from:'好前途就业网', type:'全职', money:'10000元/月', addr:'长沙', body:'负责好前途就业网的整体架构和功能建设，数据维护等', ctime:'1407735712'},
-    { id: 2, title: '设计师', from:'好前途就业网',  type:'全职', money:'10000元/月', addr:'长沙', body:'负责好前途就业网前后台的美工和整体布局设计', ctime:'1407735712'},
-    { id: 3, title: '娃哈哈营销经理', from:'好前途就业网', type:'全职', money:'10000元/月', addr:'长沙', body:'负责娃哈哈矿泉水湖南地区的推广销售', ctime:'1407735712'}
-  ];
+  return {
+    Set: function(news) {
+      NewsList[NewsList.length] = news;
+    },
+	
+    All: function(){
+      return NewsList;
+    },
+	
+	Get: function(ID) {
+      // Simple index lookup
+      for (var i = NewsList.length - 1; i >= 0; i--) {
+        if(NewsList[i].id == ID)
+          return NewsList[i];
+      };
+      return NULL;
+    }
+	
+  }
+})
+
+.factory('Arrange', function() {
+  // Might use a resource here that returns a JSON array
+  //json-object
+  var Arrange = {university:'', year:'', department:'', major:'', arrange1:'', arrange2:'', arrange3:''}
+  var fetchtime = 0;
+  
+  return {
+    Set: function(arrange) {
+      Arrange = arrange;
+    },
+	
+	SetTime: function(){
+		var d = new Date();
+		fetchtime = d.getTime();
+	},
+	
+	isNeedFetch: function(){
+		var d = new Date();
+		
+		if(d.getTime() - fetchtime > 1000*3600)
+			return true;
+		else
+			return false;
+	},
+	
+    Get: function(){
+      return Arrange;
+    }	
+  }
+})
+
+.factory('Jobs', function() {
+  var jobs = [];
+  var fetchtime = 0;
 
   return {
     all: function() {
       return jobs;
     },
-    get: function(jobid) {
+
+    SetTime: function(){
+		var d = new Date();
+		fetchtime = d.getTime();
+	},
+	
+	isNeedFetch: function(){
+		var d = new Date();
+		
+		if(d.getTime() - fetchtime > 1000*300)
+			return true;
+		else
+			return false;
+	},
+
+    set:function(job){
+	  for(var i=0; i<jobs.length; i++){
+		if(jobs[i].id == job.id)
+			return;
+	  }
+      jobs[jobs.length] = job;
+    },
+
+    get: function(id) {
       // Simple index lookup
-      return jobs[jobid];
+      for (var i = jobs.length - 1; i >= 0; i--) {
+        if(jobs[i].id == id)
+          return jobs[i];
+      };
+      return NULL;
     }
   }
 })
 
+.factory('FavJobs', function() {
+  // Might use a resource here that returns a JSON array
+  // Some fake testing data
+  var favjobs = [];
+  var fetchtime = 0;
+
+  return {
+    all: function() {
+      return favjobs;
+    },
+
+    SetTime: function(){
+		var d = new Date();
+		fetchtime = d.getTime();
+	},
+	
+	isNeedFetch: function(){
+		var d = new Date();
+		
+		if(d.getTime() - fetchtime > 1000*3600)
+			return true;
+		else
+			return false;
+	},
+
+    set:function(job){
+	  for(var i=0; i<favjobs.length; i++){
+		if(favjobs[i].id == job.id)
+			return;
+	  }
+      favjobs[favjobs.length] = job;
+    },
+
+    get: function(id) {
+      // Simple index lookup
+      for (var i = favjobs.length - 1; i >= 0; i--) {
+        if(favjobs[i].id == id)
+          return favjobs[i];
+      };
+      return NULL;
+    }
+  }
+})
+
+.factory('ApplyJobs', function() {
+  // Might use a resource here that returns a JSON array
+  // Some fake testing data
+  var applyjobs = [];
+  var fetchtime = 0;
+
+  return {
+    all: function() {
+      return applyjobs;
+    },
+
+    SetTime: function(){
+		var d = new Date();
+		fetchtime = d.getTime();
+	},
+	
+	isNeedFetch: function(){
+		var d = new Date();
+		
+		if(d.getTime() - fetchtime > 1000*3600)
+			return true;
+		else
+			return false;
+	},
+
+    set:function(job){
+	  for(var i=0; i<applyjobs.length; i++){
+		if(applyjobs[i].id == job.id)
+			return;
+	  }
+      applyjobs[applyjobs.length] = job;
+    },
+
+    get: function(id) {
+      // Simple index lookup
+      for (var i = applyjobs.length - 1; i >= 0; i--) {
+        if(applyjobs[i].id == id)
+          return applyjobs[i];
+      };
+      return NULL;
+    }
+  }
+})
 
 .factory('BaseConfig', function(){
 
@@ -262,11 +429,12 @@ angular.module('starter.services', [])
 
     getcity: function(id){
       for(var i=0;i<cities.length;i++){
-          city =  cities[i];
-          if (city.id==id){
-            return city;
+          //city =  cities[i];
+          if (cities[i].id==id){
+            return cities[i];
           }
         }
+		return cities[0];
     },
 
     getJobclassAll: function() {

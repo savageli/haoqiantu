@@ -1,0 +1,75 @@
+<ion-view title={{job.name}}>
+  <ion-content class="has-header padding">
+  
+    <div class="job-detail">
+        <div class="job-summary">
+            <div class="title"><h2>{{job.name}} {{job.salary}}</h2><i class="icon-good"></i></div>
+            <div class="base">              
+              <p>{{job.com_name}}</p>
+              <p>{{job.pr}}-{{job.type}}</p>
+            </div>
+            <div class="ext">
+                <p>广东-深圳 14-9-9</p>
+                <div class="rate">评分<i class="icon-rate icon-rate-4"></i></div>
+                <span class="label" ng-show="{{job.urgent}}">急</span>
+            </div>
+        </div>
+
+        <div class="job-tabs" <!-- style="display:none" -->>
+            <a href="#" class="tabs-item">详情</a>
+            <a href="#" class="tabs-item">关于</a>
+            <a href="#" class="tabs-item">其他职位</a>
+            <a href="#" class="tabs-item">招聘会</a>
+            <a href="#" class="tabs-item">宣讲会</a>
+        </div>
+
+        <div class="job-cont">            
+          <div class="job-state">
+            <ul>
+              <li>行业：{{job.hy}}</li>
+              <li>招聘期限：{{job.edate*1000 |date : 'yyyy-MM-dd'}}</li>
+              <li>学历要求：{{job.edu}}</li>
+              <li>工作经验：{{job.exp}}</li>
+              <li>年龄要求：{{job.age}}</li>
+              <li>性别要求：{{job.sex}}</li>            
+            </ul>
+          </div>
+          <div class="job-intro">
+            <h2 class="title">工作地</h2>
+            <div class="content">
+              {{job.provinceid}}*{{job.cityid}}
+            </div>
+            <h2 class="title">职业定位</h2>
+            <div class="content">
+               {{job.job1}} </br> {{job.job_post}}
+            </div>
+            <h2 class="title">职位概况</h2>
+            <div class="content">
+              {{job.description}}
+            </div>
+        
+          </div>
+        </div>
+
+       <div class="item tabs tabs-secondary tabs-icon-left" style='margin-top:10px'>
+          <a class="tab-item" ng-click="jobFav()">
+            <i class="icon ion-heart "></i>
+            收藏
+          </a>
+          <!-- <a class="tab-item" ng-click="jobComment()">
+            <i class="icon ion-edit"></i>
+            评论
+          </a> -->
+          <a class="tab-item" ng-click="jobApply()">
+            <i class="icon ion-paper-airplane"></i>
+            申请
+          </a>
+          <a class="tab-item" ng-click="jobShare()">
+            <i class="icon ion-share"></i>
+            分享
+          </a>
+        </div>
+      
+    </div>
+  </ion-content>
+</ion-view>

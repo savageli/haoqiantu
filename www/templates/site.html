@@ -1,0 +1,203 @@
+<ion-view title="好前途">
+  <ion-content class="has-header padding text-align:center">
+  <div class="app-index">
+        <ul>
+            <li class="link-1"><a href="#/app/home/postsubs"><i class="icon">订阅 搜索</i></a></li>
+            <li class="link-2"><a href="#/app/account/baseinfo"><i class="icon">个人中心</i></a></li>
+            <li class="link-3"><a href="#/app/jobfairs"><i class="icon">招聘会*宣讲会</i></a></li>
+            <li class="link-4"><a href="#/app/home/newjobs"><i class="icon">兼职</i></a></li>
+            <li class="link-5"><a href="#/app/news"><i class="icon">高人指点</i></a></li>
+            <li class="link-6"><a href="#/app/mymsg"><i class="icon">申请 私信</i></a></li>
+        </ul>
+    </div>   
+  </ion-content>
+</ion-view>
+
+<script type="text/ng-template" id="templates/postsubs.html">
+<ion-view title="职位订阅">
+  <ion-content class="has-header padding">
+    <div style="display:{{display_search}}">
+      <div class="list ">
+          <label class="item item-input item-select">
+            <span class="input-label">行业选择：</span>
+            <select name="hy" id="hy"  ng-model="searchobj.hy"
+                  ng-options="hy.id as hy.n for hy in jobclass|filter:filterPid(0)|orderBy:'s'" 
+                  ng-init="searchobj.hy = jobclass[0].id">
+            </select>
+            
+          </label>
+
+          <label class="item item-input item-select">
+            <span class="input-label">子行业选择：</span>
+            <select name="hysub" id="hysub"  ng-model="searchobj.job1"
+                  ng-options="hysub.id as hysub.n for hysub in jobclass|filter:filterPid(searchobj.hy)|orderBy:'s'" >
+            </select>
+          </label>
+
+          <label class="item item-input item-select">
+            <span class="input-label">职位选择：</span>
+            <select name="hyjob" id="hyjob"  ng-model="searchobj.job_post"
+                  ng-options="hyjob.id as hyjob.n for hyjob in jobclass|filter:filterPid(searchobj.job1)|orderBy:'s'" >
+            </select>
+          </label>
+
+          <label class="item item-input item-select">
+            <span class="input-label">省份选择：</span>
+            <select name="province" id="province"  ng-model="searchobj.provinceid"
+                  ng-options="province.id as province.n for province in cityclass|filter:filterPid(0)|orderBy:'s'" 
+                  ng-init="searchobj.provinceid = cityclass[0].id">
+            </select>
+          </label>
+          <label class="item item-input item-select">
+            <span class="input-label">城市选择：</span>
+            <select name="city" id="city"  ng-model="searchobj.cityid"
+                  ng-options="city.id as city.n for city in cityclass|filter:filterPid(searchobj.provinceid)|orderBy:'s'" >
+            </select>
+          </label>
+
+          <label class="item item-input item-select">
+            <div class="input-label">求职类型：</div>
+            <select name="type" id="type"  ng-model="searchobj.type"
+                ng-options="com.id as com.n for com in comclass|filter:filterPid(35)|orderBy:'s'" >
+            </select>
+          </label>
+
+          <label class="item item-input item-select">
+            <span class="input-label">求职待遇：</span>
+            <select name="salary" id="salary"  ng-model="searchobj.salary"
+                  ng-options="com.id as com.n for com in comclass|filter:filterPid(34)|orderBy:'s'" >
+             </select>
+          </label>
+
+      </div>
+      <div>
+          <label class="item item-input">
+            <span class="input-label">关键词搜索：</span>
+            <input ng-model="searchobj.keywords" type="text" placeholder="关键词" > 
+          </label>
+      </div>
+      <div class="buttons" style='text-align:center; margin-top:10px'>
+        <button class="button button-positive" ng-click="postSubs()"> 订个好未来 </button>
+      </div>
+    </div>
+
+    <div class="job-list" style="display:{{display_joblist}}">
+      <ion-list ng-if='jobs.length > 0' 
+          show-delete="shouldShowDelete"
+          show-reorder="shouldShowReorder"
+          can-swipe="listCanSwipe">
+
+        <a class="item item-icon-right" ng-repeat="job in jobs" type="item-text-wrap" href="#/app/home/{{job.id}}">
+            <span class="pic"><img ng-src="img/pic.jpg"></span>
+            <div class="info">
+                <div class="title"><h2>{{job.name}}</h2><span>{{job.salary}}<i class="icon icon-good"></i></span></div>
+                <p>{{job.com_name}}</p>
+                <p class="rate">评分 <i class="icon-rate icon-rate-4"></i></p>
+            </div>
+            <div class="ext" >
+                <span ng-show="${{job.urgent}}" class="fixed">置顶</span>
+                <p>{{job.lastupdate*1000 |date : 'yyyy-MM-dd'}}</p>
+            </div>
+        </a>
+      </ion-list>
+    </div>
+
+  </ion-content>
+</ion-view>
+</script>
+
+<script type="text/ng-template" id="templates/newjobs.html">
+<ion-view title="兼职">
+<ion-content class="has-header padding text-align:center">
+    <div class="job-list" ng-show="showlist">
+      <ion-list ng-if='jobs.length > 0' 
+          show-delete="shouldShowDelete"
+          show-reorder="shouldShowReorder"
+          can-swipe="listCanSwipe">
+
+        <a class="item item-icon-right" ng-repeat="job in jobs" type="item-text-wrap" href="#/app/home/{{job.id}}">
+            <span class="pic"><img ng-src="img/pic.jpg"></span>
+            <div class="info">
+                <div class="title"><h2>{{job.name}}</h2><span>{{job.salary}}<i class="icon icon-good"></i></span></div>
+                <p>{{job.com_name}}</p>
+                <p class="rate">评分 <i class="icon-rate icon-rate-4"></i></p>
+            </div>
+            <div class="ext" >
+                <span ng-show="${{job.urgent}}" class="fixed">置顶</span>
+                <p>{{job.lastupdate*1000 |date : 'yyyy-MM-dd'}}</p>
+            </div>
+        </a>
+      </ion-list>
+    </div>
+  </ion-content>
+</ion-view>
+</script>
+
+<script type="text/ng-template" id="templates/news.html">
+<ion-view title="高人指点">
+  <ion-content class="has-header padding">
+
+    <div class="list ">
+      <a class="item item-icon-right" ng-repeat="news in newslist" type="item-text-wrap" href="#/app/news/{{news.id}}">
+                <h3>{{news.title}}</h3>
+                <h4>{{news.author}}</h4>
+                <p>{{news.datetime*1000 |date : 'yyyy-MM-dd'}}</p>
+        </a>
+    </div>
+
+  </ion-content>
+</ion-view>
+</script>
+
+<script type="text/ng-template" id="templates/news-detail.html">
+<ion-view title="{{news.title}}">
+  <ion-content class="has-header padding">
+  
+    <div class="list">
+        <h3>{{news.title}}</h3>
+        <a class="item">发布时间：{{news.datetime*1000 |date : 'yyyy-MM-dd'}}</a> 
+    </div>
+    <div>
+        <span ng-bind-html="news.body">
+        </span>
+    </div>
+
+  </ion-content>
+</ion-view>
+
+</script>
+
+<script type="text/ng-template" id="templates/jobfairs.html">
+<ion-view title="招聘会*{{mycity}}">
+  <ion-content class="has-header padding">
+  
+    <div class="list ">
+      <a class="item item-icon-right" ng-repeat="jobfair in jobfairs" type="item-text-wrap" href="#/app/jobfairs/{{jobfair.id}}">
+                <h3>{{jobfair.title}}</h3>
+                <h4>{{jobfair.address}}</h4>
+                <p>{{jobfair.starttime}}</p>
+                <i class="icon ion-ios7-arrow-right"></i>
+        </a>
+    </div>
+
+  </ion-content>
+</ion-view>
+</script>
+
+<script type="text/ng-template" id="templates/jobfair-detail.html">
+<ion-view title="招聘会*{{jobfair.address}}">
+  <ion-content class="has-header padding">
+  
+    <div class="list">
+        <h3>{{jobfair.title}}</h3>
+        <a class="item">介绍：{{jobfair.body}}</a>
+        <a class="item">地址：{{jobfair.address}}</a>
+        <a class="item">交通：{{jobfair.traffic}}</a>
+        <a class="item">时间：{{jobfair.starttime}}</a>
+        <a class="item">组织者：{{jobfair.organizers}}</a>
+    </div>
+
+  </ion-content>
+</ion-view>
+
+</script>
