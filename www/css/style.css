@@ -205,3 +205,16 @@
 .login-form .icon-login-wb{ background-position:-48px 0}
 .login-form .icon-login-rr{ background-position:-72px 0}
 
+.box1{background:url(../img/1.png) no-repeat center top; padding:7px 0 0;  background-size:100% auto;}
+.box2{background:url(../img/2.png) no-repeat center top; padding:7px 0 0;  background-size:100% auto;}
+.box3{background:url(../img/3.png) no-repeat center top; padding:7px 0 0;  background-size:100% auto;}
+.box4{background:url(../img/4.png) no-repeat center top; padding:7px 0 0;  background-size:100% auto;}
+
+.btn-start {
+  top: initial;
+  bottom : 40px;
+  width: 100px;
+  margin:0 auto;
+  display:block;
+}
+

@@ -14,6 +14,7 @@
 	
 	<icon src="icon.png" />
 	<gap:splash src="splash.png" />
+	<preference name="SplashScreenDelay" value="10000" />
 <!-- 	
 	<icon src="res/icon/ios/icon-57.png" gap:platform="ios" width="57" height="57" />
 	<icon src="res/icon/ios/icon-57-2x.png" gap:platform="ios" width="114" height="114" />
@@ -36,17 +37,18 @@
 	<gap:splash src="res/screen/android/screen-xhdpi-portrait.png" gap:platform="android" gap:qualifier="xhdpi" />
 	 -->
 	<preference name="permissions" value="none"/>
+	<preference name="orientation" value="portrait" />
 	
 	<gap:platform name="ios" />
 	<gap:platform name="android" />
-	<!-- <gap:platform name="winphone" /> -->
+	<gap:platform name="winphone" />
 	
     <content src="index.html" />
     <access origin="*" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
-	<preference name="Orientation" value="portrait" />
+	<!-- <preference name="Orientation" value="portrait" /> -->
 
     <!-- Don't store local date in an iCloud backup. Turn this to "cloud" to enable storage 
          to be sent to iCloud. Note: enabling this could result in Apple rejecting your app.
@@ -62,6 +64,7 @@
 	<gap:plugin name="org.apache.cordova.file-transfer" version="0.4.2" />
 	<gap:plugin name="org.apache.cordova.media-capture" version="0.2.8" />
 	<gap:plugin name="org.apache.cordova.camera" version="0.2.9" />
+	<gap:plugin name="org.apache.cordova.splashscreen" version="0.3.3" />
 	
 	<gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.0" />
 	
