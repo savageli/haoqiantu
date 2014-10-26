@@ -8,7 +8,7 @@ angular.module('starter.controllers', [])
   
 .controller('TutorialCtrl', function($scope, $state, $ionicViewService) {
 
-  //window.localStorage['didTutorial'] = false;// For Test
+  // window.localStorage['didTutorial'] = false;// For Test
 
   var startApp = function() {
     $ionicViewService.clearHistory();
@@ -33,7 +33,7 @@ angular.module('starter.controllers', [])
   }
 
   $scope.slideHasChanged = function(index) {
-  };
+  }
 })
 
 .controller('TemplateCtrl', function($scope, $state, User, Device, BaseConfig) {

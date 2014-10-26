@@ -21,7 +21,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   });
 
-  version="0.0.2"
+  version="0.0.032"
   if(localStorage.data_version!=version){
 
     localStorage.removeItem('siteHost');
@@ -35,7 +35,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // cordova-api
   document.addEventListener("deviceready", onDeviceReady, false);
   function onDeviceReady() {
-      console.log(device); // cordova-api
+      //console.log(device); // cordova-api
       //alert(JSON.stringify(device));
       localStorage['device'] = JSON.stringify(device);
   }
