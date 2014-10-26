@@ -1,0 +1,621 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"fo",
+				"form	Tag"
+			],
+			[
+				"in",
+				"input	Tag"
+			],
+			[
+				"he",
+				"header	Tag"
+			],
+			[
+				"function",
+				"create_function"
+			],
+			[
+				"crea",
+				"creative"
+			],
+			[
+				"creative",
+				"creative_id"
+			],
+			[
+				"fun",
+				"function	function"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "www/templates/home.html",
+			"settings":
+			{
+				"buffer_size": 2282,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "www/config.xml",
+			"settings":
+			{
+				"buffer_size": 3619,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "www/js/app.js",
+			"settings":
+			{
+				"buffer_size": 9032,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/C++/C++.sublime-build",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"codei",
+				"Snippet: CI - Assign the CodeIgniter object to a variable"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 464.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/G/haoqiantu/www/templates/template.html",
+		"/D/微云网盘/370418501/self/project/truck/doc/说明.txt",
+		"/C/Users/savage/Application Data/SSH/temp/admin.php",
+		"/D/proj/USBWebserver v8.6/hqtjyw/template/company/green/footer.htm",
+		"/D/proj/USBWebserver v8.6/hqtjyw/template/company/default1/footer.htm",
+		"/D/proj/USBWebserver v8.6/hqtjyw/template/company/blue/footer.htm",
+		"/D/proj/USBWebserver v8.6/hqtjyw/template/company/black/footer.htm",
+		"/D/proj/USBWebserver v8.6/hqtjyw/template/admin/index.htm",
+		"/D/proj/USBWebserver v8.6/hqtjyw/template/admin/admin_web_config.htm",
+		"/D/proj/USBWebserver v8.6/hqtjyw/template/admin/admin_navigation_add.htm",
+		"/D/proj/USBWebserver v8.6/hqtjyw/template/admin/admin_link_add.htm",
+		"/D/proj/USBWebserver v8.6/hqtjyw/template/admin/admin_adddomain.htm",
+		"/D/proj/USBWebserver v8.6/hqtjyw/plus/seo.cache.php",
+		"/D/proj/USBWebserver v8.6/hqtjyw/html/index.html",
+		"/D/proj/USBWebserver v8.6/hqtjyw/html/参照说明/网止.txt",
+		"/D/proj/USBWebserver v8.6/hqtjyw/plus/config.php",
+		"/D/proj/USBWebserver v8.6/hqtjyw/model/class/action.class.php",
+		"/D/proj/USBWebserver v8.6/hqtjyw/admin/model/emailconfig.class.php",
+		"/D/proj/self/ionicapp/www/index.html",
+		"/D/proj/self/ionicapp/www/js/services.js",
+		"/D/proj/self/ionicapp/www/templates/friend-detail.html",
+		"/D/proj/self/ionicapp/www/templates/tab-account.html",
+		"/D/proj/self/ionicapp/www/templates/tab-friends.html",
+		"/D/proj/self/ionicapp/www/js/app.js",
+		"/D/proj/self/ionicapp/www/js/controllers.js",
+		"/D/proj/self/ionicapp/www/lib/ionic/js/ionic.bundle.js",
+		"/D/proj/self/ionicapp/www/lib/ionic/js/ionic.js",
+		"/D/proj/self/ionicapp/www/templates/tabs.html",
+		"/D/proj/self/ionicapp/www/lib/ionic/css/ionic.min.css",
+		"/D/proj/self/ionicapp/www/lib/ionic/fonts/ionicons.svg",
+		"/D/proj/self/ionicapp/www/lib/ionic/css/ionic.css",
+		"/D/proj/self/ionicapp/www/css/style.css",
+		"/D/微云网盘/370418501/self/proj/李丹朋友.txt",
+		"/D/proj/self/ionictabs/www/js/controllers.js",
+		"/D/proj/self/ionictabs/www/index.html",
+		"/D/proj/self/ionicapp/www/lib/ionic/scss/ionicons/_ionicons-icons.scss",
+		"/D/proj/self/ionicapp/www/templates/tab-clock.html",
+		"/D/proj/self/ionicapp/www/templates/tab-dash.html",
+		"/D/proj/self/ionicapp/www/README.md",
+		"/D/微云网盘/370418501/self/proj/cordova_ionic.txt",
+		"/D/proj/self/myapp/www/index.html",
+		"/D/微云网盘/370418501/self/proj/nodejs_npm.txt",
+		"/D/微云网盘/370418501/self/project/truck/doc/aliyun_挂载磁盘.txt",
+		"/D/wx_sample.php",
+		"/D/proj/74cms/安装说明.txt",
+		"/D/proj/phpyun/install说明.txt",
+		"/D/proj/phpyun/upload/model/login.class.php",
+		"/D/proj/phpyun/upload/js/member_public.js",
+		"/D/proj/phpyun/upload/member/index.php",
+		"/D/proj/phpyun/upload/template/default/js/reg_ajax.js",
+		"/D/proj/phpyun/upload/api/pw_api/pw_api.php",
+		"/D/proj/phpyun/upload/api/pw_api/class_Msg.php",
+		"/D/proj/phpyun/upload/company/index.php",
+		"/D/proj/phpyun/upload/ask/index.php",
+		"/D/proj/phpyun/upload/api/uc/uc.php",
+		"/D/proj/phpyun/upload/api/tenpay/index.php",
+		"/D/proj/phpyun/upload/api/locoy/index.php",
+		"/D/proj/phpyun/upload/install/index.php",
+		"/D/proj/phpyun/upload/install/install_lang.php",
+		"/D/proj/phpyun/upload/admin/index.php",
+		"/D/proj/phpyun/upload/api/alipaydual/index.php",
+		"/D/proj/phpyun/upload/api/alipay/index.php",
+		"/D/proj/phpyun/upload/api/pw_api/index.htm",
+		"/D/proj/phpyun/upload/model/announcement.class.php",
+		"/D/proj/USBWebserver v8.6/ci/application/controllers/item.php",
+		"/D/proj/USBWebserver v8.6/ci/system/core/Controller.php",
+		"/D/proj/USBWebserver v8.6/ci/application/views/item_start.php",
+		"/D/proj/USBWebserver v8.6/ci/application/controllers/Ctest.php",
+		"/D/proj/USBWebserver v8.6/ci/system/core/Common.php",
+		"/D/proj/USBWebserver v8.6/ci/application/config/routes.php",
+		"/D/proj/USBWebserver v8.6/ci/application/controllers/welcome.php",
+		"/D/proj/USBWebserver v8.6/ci/index.php",
+		"/D/proj/USBWebserver v8.6/ci/application/index.html",
+		"/D/proj/USBWebserver v8.6/ci/application/config/config.php",
+		"/D/proj/USBWebserver v8.6/htdoc/index.html",
+		"/D/proj/USBWebserver v8.6/htdoc/welcome.php",
+		"/D/Download/USBWebserver v8.6/htdoc/test.php",
+		"/D/proj/bilin/bilinrtb.sublime-project",
+		"/D/proj/bilin/rtb/conf/test.xml",
+		"/D/proj/bilin/rtb/conf/campaigns.xml",
+		"/D/proj/bilin/rtb/src/lua/bidder/classes/GoogleImpHandler.lua",
+		"/D/proj/bilin/rtb/src/lua/bidder/classes/GoogleBidHandler.lua",
+		"/D/proj/bilin/rtb/src/lua/bidder/campaigns.lua",
+		"/D/proj/bilin/rtb/src/lua/bidder/classes/GoogleClickHandler.lua",
+		"/D/proj/bilin/rtb/src/lua/bidder/classes/UserHistory.lua",
+		"/D/proj/bilin/rtb/src/lua/bidder/classes/CookieManager.lua",
+		"/D/proj/bilin/rtb/src/lua/shared/base/Class.lua",
+		"/D/proj/bilin/rtb/src/c++/googlebid.cc",
+		"/D/proj/bilin/rtb/src/c++/googlebid.h",
+		"/D/proj/bilin/rtb/src/c++/Makefile",
+		"/D/proj/bilin/rtb/src/c++/example/parse_text.lua",
+		"/D/proj/bilin/rtb/src/c++/bidparse.cc",
+		"/D/proj/bilin/rtb/src/c++/bidserialize.cc",
+		"/D/proj/bilin/rtb/src/c++/google.pb.cc",
+		"/D/proj/bilin/rtb/src/c++/google.proto",
+		"/D/proj/bilin/rtb/src/c++/google.pb.h",
+		"/D/proj/bilin/rtb/src/lua/shared/util.lua",
+		"/D/proj/bilin/rtb/src/lua/shared/log.lua",
+		"/D/proj/bilin/rtb/src/lua/init.lua",
+		"/D/proj/bilin/rtb/src/lua/conf.lua",
+		"/D/proj/bilin/rtb/src/lua/bidder/classes/GooglePixelHandler.lua",
+		"/D/proj/bilin/rtb/src/lua/budget/budget_client.lua",
+		"/D/proj/bilin/rtb/src/lua/bidder/google_geo_data.lua",
+		"/D/proj/bilin/rtb/src/lua/redis/ring.lua",
+		"/D/proj/bilin/rtb/src/lua/proto/google_pb.lua",
+		"/D/proj/bilin/rtb/src/lua/bidder/empty.file",
+		"/D/proj/tx/SeedSvr/seedpj.sublime-project",
+		"/D/proj/tx/SeedSvr/ServerConnectPool.hpp",
+		"/D/proj/tx/SeedSvr/ServerConnectPool.cpp",
+		"/D/proj/tx/SeedSvr/TimerMng.hpp",
+		"/D/proj/tx/SeedSvr/TimerMng.cpp",
+		"/D/proj/tx/SeedSvr/UdpNode.cpp",
+		"/D/proj/tx/SeedSvr/UdpNode.hpp",
+		"/D/proj/tx/SeedSvr/ServerConnect.hpp",
+		"/D/proj/tx/SeedSvr/Msg/SeedMsgPara.hpp",
+		"/D/proj/tx/SeedSvr/HttpConnect.cpp",
+		"/D/proj/tx/SeedSvr/HttpConnect.hpp",
+		"/D/proj/tx/SeedSvr/HttpConnectPool.hpp",
+		"/D/proj/tx/SeedSvr/HttpConnectPool.cpp",
+		"/D/proj/tx/SeedSvr/ServerConnect.cpp",
+		"/D/微云网盘/370418501/手册/WebNofity.hpp",
+		"/C/Users/savage/AppData/Roaming/Sublime Text 2/Packages/User/Z++.sublime-build"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"D:\\proj\\USBWebserver v8.6\\hqtjyw",
+			"D:\\proj\\phpyun\\upload",
+			"D:\\proj\\bilin\\rtb\\src"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"cordovaSplashscreen",
+			"blue",
+			"hr135",
+			"php云",
+			"phpyun",
+			"admin-header_top_wz",
+			"授权",
+			"admin112233",
+			"sy_pw_type",
+			"check_login",
+			"BASEPATH",
+			"welcome",
+			"welcoe",
+			"pausemsg",
+			"pause",
+			"[:/\\](.+)$",
+			"name",
+			"self",
+			"CookieManager",
+			"cookie_map",
+			"cookie_value_text",
+			"self",
+			"make_imp_content",
+			"CookieManager",
+			"UserHistory",
+			"campaigns",
+			"UserHistory",
+			"creatives",
+			"1628534",
+			"creatives",
+			"parse_creative",
+			"creatives",
+			"conf.creatives",
+			"make_imp_content",
+			"bid_context_encoded",
+			"parse_creative",
+			"parse_campaign",
+			"campaigns",
+			"1628534",
+			"make_imp_content",
+			"reg_impression",
+			"load",
+			"spend",
+			"reg_impression",
+			"campaign_id",
+			"make_imp_content",
+			"reg_impression",
+			"validate_bid_context",
+			"validate_params",
+			"validate_bid_context",
+			"make_imp_content",
+			"decode_google_price",
+			"reg_impression",
+			"cjson",
+			"validate_parameters",
+			"reg_impression",
+			"m_stAntiXss",
+			"DispatchHttpRequest",
+			"FD_SIZE",
+			"g_pstHttpConnectPool",
+			"DeRequest"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "www/templates/home.html",
+					"settings":
+					{
+						"buffer_size": 2282,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2282,
+								2282
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"is_preview": true,
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 324.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "www/config.xml",
+					"settings":
+					{
+						"buffer_size": 3619,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2534,
+								2534
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/XML/XML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 702.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "www/js/app.js",
+					"settings":
+					{
+						"buffer_size": 9032,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								635,
+								635
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 245.0,
+	"status_bar_visible": true
+}
