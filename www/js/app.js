@@ -26,6 +26,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
     localStorage.removeItem('siteHost');
     localStorage.removeItem('data_version');
+    localStorage['didTutorial'] = false;
 
     localStorage.siteHost= "http://cs.haoqiantu.net/api/app/index.php";
     //localStorage.localUrl= "file:///android_asset/www/index.html";
