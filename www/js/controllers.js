@@ -8,7 +8,7 @@ angular.module('starter.controllers', [])
   
 .controller('TutorialCtrl', function($scope, $state, $ionicViewService) {
 
-  // localStorage['didTutorial'] = false;// For Test
+  localStorage['didTutorial'] = false;// For Test
 
   var startApp = function() {
     $ionicViewService.clearHistory();
@@ -22,9 +22,9 @@ angular.module('starter.controllers', [])
     // 向导页面只显示一次
     startApp();
   } else {
-    setTimeout(function () {
-      splashscreen.hide();
-    }, 750);
+    // setTimeout(function () {
+    //   splashscreen.hide();
+    // }, 750);
   }
 
   // "立即体验"按钮Event

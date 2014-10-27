@@ -10,7 +10,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // $cordovaSplashscreen.hide();
+    splashscreen.hide();
     // for form inputs)
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -21,7 +21,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   });
 
-  version="0.0.032"
+  version="0.0.033"
   if(localStorage.data_version!=version){
 
     localStorage.removeItem('siteHost');
