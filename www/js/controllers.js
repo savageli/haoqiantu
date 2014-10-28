@@ -8,7 +8,7 @@ angular.module('starter.controllers', [])
   
 .controller('TutorialCtrl', function($scope, $state, $ionicViewService) {
 
-  localStorage['didTutorial'] = false;// For Test
+  // localStorage['didTutorial'] = false;// For Test
 
   var startApp = function() {
     $ionicViewService.clearHistory();
