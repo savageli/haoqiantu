@@ -22,9 +22,9 @@ angular.module('starter.controllers', [])
     // 向导页面只显示一次
     startApp();
   } else {
-    // setTimeout(function () {
-    //   splashscreen.hide();
-    // }, 750);
+    setTimeout(function () {
+      navigator.splashscreen.hide();
+    }, 500);
   }
 
   // "立即体验"按钮Event

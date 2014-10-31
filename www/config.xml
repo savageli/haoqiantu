@@ -14,8 +14,8 @@
 	
 	<icon src="icon.png" />
 	<gap:splash src="splash.png" />
-	<preference name="SplashScreenDelay" value="2000" />
-	<preference name="auto-hide-splash-screen"    value="true" />
+	<preference name="SplashScreenDelay" value="10000" />
+	<preference name="auto-hide-splash-screen"    value="false" />
 	<preference name="show-splash-screen-spinner" value="true" /> 
 <!-- 	
 	<icon src="res/icon/ios/icon-57.png" gap:platform="ios" width="57" height="57" />
