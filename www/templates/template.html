@@ -15,6 +15,11 @@
         <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
       </ion-nav-buttons>
 
+      <!-- <ion-nav-buttons side="right">
+        <button class="button-icon icon ion-ios7-location-outline stable" ng-click="setcity()">
+        </button>
+      </ion-nav-buttons> -->
+
       <!-- tabs -->
       <ion-tabs class="tabs-icon-top" >
 
@@ -72,10 +77,11 @@
         <div class="user-menu">
             <ul>
                 <li><a href="#/app/resumes" ng-click="toggleLeft()">我的简历</a></li>
-                <li><a href="#/app/site/arrange" ng-click="toggleLeft()">我的日程</a></li>
+                <!-- <li><a href="#/app/site/arrange" ng-click="toggleLeft()">我的日程</a></li> -->
                 <li><a href="#/app/account/favjobs" ng-click="toggleLeft()">我的收藏</a></li>
                 <li><a href="#/app/account/applyjobs" ng-click="toggleLeft()">投递记录</a></li>
                 <li><a href="#/app/mymsg" ng-click="toggleLeft()">我的消息</a><span class="badge">{{message.num}}</span></li>
+                <li><a href="#/app/site/bindxuexiao" ng-click="toggleLeft()">绑定学校</a></li>
                 <li><a href="#/app/account/employreg" ng-click="toggleLeft()">就业登记</a></li>
                 <li><a href="#/app/account/mycoin" ng-click="toggleLeft()">我的前途币</a></li>
             </ul>
@@ -181,36 +187,102 @@
 </ion-view>
 </script>
 
+<script type="text/ng-template" id="templates/site-bindxuexiao.html">
+<ion-view title="绑定学校">
+  <ion-content class="has-header padding text-align:center">
+    <div class="list">
+        <label class="item item-input item-select">
+            <span class="input-label">省份：</span>
+            <select name="province" id="province"  ng-model="searchobj.provinceid"
+                  ng-options="province.id as province.n for province in cityclass|filter:filterPid(0)|orderBy:'s'" 
+                  ng-init="searchobj.provinceid = cityclass[0].id">
+            </select>
+        </label>
+        <label class="item item-input item-select">
+          <span class="input-label">城市：</span>
+          <select name="city" id="city"  ng-model="searchobj.cityid" ng-change="OnSelectCity()"
+                ng-options="city.id as city.n for city in cityclass|filter:filterPid(searchobj.provinceid)|orderBy:'s'" >
+          </select>
+        </label>
+
+        <label class="item item-input item-select">
+          <span class="input-label">学校：</span>
+          <select name="xuexiao" id="xuexiao"  ng-model="searchobj.xxid" ng-change="OnSelectXuexiao()"
+                ng-options="xuexiao.id as xuexiao.n for xuexiao in xxlist|orderBy:'id'" >
+          </select>
+        </label>
+
+        <label class="item item-input item-select">
+          <span class="input-label">学院：</span>
+          <select name="xueyuan" id="xueyuan"  ng-model="searchobj.xueyuan" ng-change="OnSelectXueYuan()"
+                ng-options="xueyuan.n as xueyuan.n for xueyuan in xylist" >
+          </select>
+        </label>
+
+        <label class="item item-input item-select">
+          <span class="input-label">专业：</span>
+          <select name="zhuanye" id="zhuanye"  ng-model="searchobj.zyid"
+                ng-options="zhuanye.id as zhuanye.n for zhuanye in zylist|orderBy:'id'" >
+          </select>
+        </label>
+
+        <label class="item item-input item-select">
+          <span class="input-label">学历：</span>
+          <select name="xueli" id="xueli"  ng-model="searchobj.xueli"
+                ng-options="xueli.id as xueli.n for xueli in xllist|orderBy:'id'" >
+          </select>
+        </label>
+
+        <label class="item item-input">
+            <span class="input-label">身份证：</span>
+            <input ng-model="searchobj.cardid" type="text" placeholder="身份证号" > 
+        </label>
+
+        <label class="item item-input">
+            <span class="input-label">学号：</span>
+            <input ng-model="searchobj.xuehao" type="text" placeholder="学号" > 
+        </label>
+
+        <label class="item item-input">
+            <span class="input-label">年级：</span>
+            <input ng-model="searchobj.nianji" type="number" placeholder="年级" > 
+        </label>
+
+        <label class="item item-input">
+            <span class="input-label">班级：</span>
+            <input ng-model="searchobj.banji" type="number" placeholder="班级" > 
+        </label>
+
+    </div>   
+    
+    <div class="buttons" style='text-align:center; margin-top:10px'>
+        <button class="button button-positive" ng-click="BindXueXiao()"> 绑定学校 </button>
+    </div>
+
+  </ion-content>
+</ion-view>
+</script>
+
 <script type="text/ng-template" id="templates/account-employreg.html">
 <ion-view title="就业登记">
   <ion-content class="has-header padding text-align:center">
 
     <div name="divemployReg" class="list" >
 
-            <label class="item item-input">
-              <span class="input-label">性别：</span>
-              <select>
-          <option selected>女</option>
-          <option>男</option>
-        </select>
-            </label> 
-
       <label class="item item-input item-select">
         <div class="input-label">毕业去向：</div>
         <select>
-          <option>签约:民营企业</option>
-          <option>签约:外资企业</option>
-          <option>签约:国有企业</option>
-          <option>签约:国家机关</option>
-          <option>签约:事业单位</option>
-          <option>签约:其他企业</option>
-          <option>签约:部队</option>
-          <option selected>灵活就业</option>
-          <option>国内升学</option>
-          <option>出国留学</option>
-          <option>暂不就业</option>
+          <option selected>就业</option>
+          <option>考研</option>
+          <option>出国</option>
+          <option>创业</option>
           <option>待就业</option>
         </select>
+      </label>
+
+      <label class="item item-input">
+        <span class="input-label">报到证：</span>
+        <input name="dengji.baodaozheng" ng-model="dengji.baodaozheng" type="text"  required>
       </label>
 
       <label class="item item-input">
@@ -219,13 +291,19 @@
       </label>
 
       <label class="item item-input">
-        <span class="input-label">所在地：</span>
-        <input name="dengji.province" ng-model="dengji.province" type="text"  required>
-      </label>
-     
-      <label class="item item-input">
-        <span class="input-label">从事岗位：</span>
+        <span class="input-label">组织机构代码：</span>
         <input name="dengji.position" ng-model="dengji.position" type="text"  required>
+      </label>
+
+      <label class="item item-input item-select">
+        <div class="input-label">企业类型：</div>
+        <select>
+          <option selected>私企</option>
+          <option>国企</option>
+          <option>外企</option>
+          <option>事业单位</option>
+          <option>政府部门</option>
+        </select>
       </label>
 
       <label class="item item-input item-select">

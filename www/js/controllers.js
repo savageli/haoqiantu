@@ -56,6 +56,11 @@ angular.module('starter.controllers', [])
     //Device.set();
   };
 
+  $scope.setcity = function(){
+    alert("Test");
+    return;
+  }
+
   if(!User.getuid()){
      $scope.init();
   }
@@ -133,6 +138,231 @@ angular.module('starter.controllers', [])
   }
 
 })
+
+.controller('SiteBindXueXiaoCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User, Device, BaseConfig) {
+  $scope.user = User.getuser();
+  $scope.searchobj = {};
+
+  $scope.cityclass = BaseConfig.getCities();
+  $scope.xxlist = {}; //学校list
+  $scope.xylist = {}; // 学院list
+  $scope.zylist = {}; // 专业list
+  $scope.xllist = [{id:1,n:'大专'},{id:2,n:'本科'},{id:3,n:'硕士'},{id:4,n:'博士'},
+                    {id:5,n:'高中'},{id:6,n:'中专'},{id:7,n:'初中'},{id:8,n:'其他'}];
+
+  // filter
+  $scope.filterPid = function(keyid){
+     return function(item){
+        return item.pid == keyid;
+     }
+  }
+
+  if (!User.getuid()) {
+    $ionicPopup.alert({ template: '登录过期，请先退出登录。' });
+    $state.go("app.account-login");
+    return;
+  }  
+
+  // get xxlist
+  $scope.OnSelectCity = function(){
+
+    $ionicLoading.show({
+        noBackdrop:true,
+        template: '学校数据加载中...'
+        });
+
+    $http.post(localStorage.siteHost+'?c=getxxlist', $scope.searchobj).
+      success(function(data) {
+        
+        $ionicLoading.hide();
+        if(data.error == 1){   
+            if(!data.list){
+              $ionicPopup.alert({ template: '该地区没有学校信息!' });
+              return;
+            }
+
+            $scope.xxlist = data.list;
+
+        }else{
+          switch(data.error){
+            case 2:
+            case 3:
+              $ionicPopup.alert({ template: '请先选择省份和城市！' });
+              break;
+
+            case 4: // 消息不存在
+              $ionicPopup.alert({ template: '该地区没有学校信息!' });
+              break;  
+
+            case 1008:
+              $ionicPopup.alert({ template: '密码错误，请退出重现登录' });
+              break;     
+
+            default:
+              $ionicPopup.alert({ template: '系统错误，请稍候重试。错误码：' + data.error });
+          }
+          
+        }
+      }).
+      error(function(data,status,headers,config){
+        $ionicLoading.hide();
+        $ionicPopup.alert({ template: '系统或网络异常，请稍候重试！' });
+      });
+  }
+
+ // get xylist
+  $scope.OnSelectXuexiao = function(){
+
+    $ionicLoading.show({
+        noBackdrop:true,
+        template: '学院数据加载中...'
+        });
+
+    $http.post(localStorage.siteHost+'?c=getxylist', $scope.searchobj).
+      success(function(data) {
+        
+        $ionicLoading.hide();
+        if(data.error == 1){   
+            if(!data.list){
+              $ionicPopup.alert({ template: '该学校暂没有学院，专业数据!' });
+              return;
+            }
+
+            $scope.xylist = data.list;
+
+        }else{
+          switch(data.error){
+            case 2:
+            case 3:
+              $ionicPopup.alert({ template: '请先选择学校！' });
+              break;
+
+            case 4: // 消息不存在
+              $ionicPopup.alert({ template: '该学校暂没有学院，专业数据!' });
+              break;  
+
+            case 1008:
+              $ionicPopup.alert({ template: '密码错误，请退出重现登录' });
+              break;     
+
+            default:
+              $ionicPopup.alert({ template: '系统错误，请稍候重试。错误码：' + data.error });
+          }
+          
+        }
+      }).
+      error(function(data,status,headers,config){
+        $ionicLoading.hide();
+        $ionicPopup.alert({ template: '系统或网络异常，请稍候重试！' });
+      });
+  }
+
+ // get zylist
+  $scope.OnSelectXueYuan = function(){
+
+    $ionicLoading.show({
+        noBackdrop:true,
+        template: '专业数据加载中...'
+        });
+
+    $http.post(localStorage.siteHost+'?c=getzylist', $scope.searchobj).
+      success(function(data) {
+        
+        $ionicLoading.hide();
+        if(data.error == 1){   
+            if(!data.list){
+              $ionicPopup.alert({ template: '该学校暂没有学院，专业数据!' });
+              return;
+            }
+
+            $scope.zylist = data.list;
+
+        }else{
+          switch(data.error){
+            case 2:
+            case 3:
+              $ionicPopup.alert({ template: '请先选择学校和学院！' });
+              break;
+
+            case 4: // 消息不存在
+              $ionicPopup.alert({ template: '该学校暂没有学院，专业数据!' });
+              break;  
+
+            case 1008:
+              $ionicPopup.alert({ template: '密码错误，请退出重现登录' });
+              break;     
+
+            default:
+              $ionicPopup.alert({ template: '系统错误，请稍候重试。错误码：' + data.error });
+          }
+          
+        }
+      }).
+      error(function(data,status,headers,config){
+        $ionicLoading.hide();
+        $ionicPopup.alert({ template: '系统或网络异常，请稍候重试！' });
+      });
+  }  
+
+  $scope.CheckSubmit = function(){
+    $scope.searchobj.uid = $scope.user.uid;
+    $scope.searchobj.username = $scope.user.username;
+    $scope.searchobj.password = $scope.user.password;
+
+    if( !$scope.searchobj.xxid || !$scope.searchobj.zyid || !$scope.searchobj.uid
+      || !$scope.searchobj.xueli || !$scope.searchobj.cardid || !$scope.searchobj.xuehao
+      || !$scope.searchobj.nianji || !$scope.searchobj.banji){
+
+      $ionicPopup.alert({ template: '请检查是否都正确填写！' });
+      return false;
+    }
+
+     return true; 
+  }
+
+  $scope.BindXueXiao = function(){
+    if(!$scope.CheckSubmit()){
+      return;
+    }
+
+    $ionicLoading.show({
+        noBackdrop:true,
+        template: '正在提交...'
+        });
+
+    $http.post(localStorage.siteHost+'?c=bindxuexiao', $scope.searchobj).
+      success(function(data) {
+        $ionicLoading.hide();
+        if(data.error == 1){ 
+          $ionicPopup.alert({ template: '绑定成功!' });
+        }else{
+          switch(data.error){
+            case 2:
+            case 3:
+              $ionicPopup.alert({ template: '请先选择省份和城市！' });
+              break;
+
+            case 4: // 消息不存在
+              $ionicPopup.alert({ template: '该地区没有学校信息!' });
+              break;  
+
+            case 1008:
+              $ionicPopup.alert({ template: '密码错误，请退出重现登录' });
+              break;     
+
+            default:
+              $ionicPopup.alert({ template: '系统错误，请稍候重试。错误码：' + data.error });
+          }
+        }
+      }).
+      error(function(data,status,headers,config){
+        $ionicLoading.hide();
+        $ionicPopup.alert({ template: '系统或网络异常，请稍候重试！' });
+      });
+  }
+
+})
+
 
 .controller('HomeCtrl', function($scope, $state, User, Device) {
 })
@@ -1124,7 +1354,7 @@ angular.module('starter.controllers', [])
 
   $scope.employReg = function(){
 
-    if(!$scope.dengji.company || !$scope.dengji.province || !$scope.dengji.position)
+    if(!$scope.dengji.company || !$scope.dengji.baodaozheng || !$scope.dengji.position)
     {
       $ionicPopup.alert({ template: '请确认所有记录项填写正确！' });
       return;
