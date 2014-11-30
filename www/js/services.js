@@ -161,20 +161,22 @@ angular.module('starter.services', [])
 .factory('JobFairs', function() {
   // Might use a resource here that returns a JSON array
   // Some fake testing data
-  var jobfairs = [
-    { id: 0, title: '第一现场招聘会', address:'深圳', organizers:'长沙大学', body:'这是招聘介绍', starttime:'2014-08-01', endtime:'2014-09-21', traffic:'101,202', ctime:'1407735712'},
-    { id: 1, title: '华中夏季招聘会', address:'广州', organizers:'长沙大学', body:'这是招聘介绍', starttime:'2014-08-01', endtime:'2014-09-21', traffic:'101,202', ctime:'1407735712'},
-    { id: 2, title: '华北研究生招聘会', address:'武汉', organizers:'长沙大学', body:'这是招聘介绍', starttime:'2014-08-01', endtime:'2014-09-21', traffic:'101,202', ctime:'1407735712'},
-    { id: 3, title: '东北事业单位招聘会', address:'北京', organizers:'长沙大学', body:'这是招聘介绍', starttime:'2014-08-01', endtime:'2014-09-21', traffic:'101,202', ctime:'1407735712'}
-  ];
+  var jobfairs = [];
 
   return {
     all: function() {
       return jobfairs;
     },
+	set: function(jobfair){
+		jobfairs[jobfairs.length] = jobfair;
+	},
     get: function(jobfairId) {
       // Simple index lookup
-      return jobfairs[jobfairId];
+      for (var i = jobfairs.length - 1; i >= 0; i--) {
+        if(jobfairs[i].id == jobfairId)
+          return jobfairs[i];
+      };
+      return NULL;
     }
   }
 })

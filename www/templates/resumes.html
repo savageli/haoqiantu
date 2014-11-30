@@ -1,4 +1,4 @@
-<ion-view title="简历中心*数量（{{resumes.length}}）" >
+<ion-view title="简历中心" >
 
   <!-- <div class="bar bar-header">
     <button class="button icon ion-navicon"></button>
@@ -8,20 +8,20 @@
 
   <ion-content class="has-header">
     <!-- 有简历时 -->
-    <ion-list ng-if='resumes.length > 0' 
+    <!-- <ion-list ng-if='resumes.length > 0' 
     	  show-delete="shouldShowDelete"
         show-reorder="shouldShowReorder"
         can-swipe="listCanSwipe">
 
       <ion-item class="item-icon-right" ng-repeat="resume in resumes" type="item-text-wrap" href="#/app/resume/{{resume.id}}">
-      	<!-- <ion-delete-button class="ion-minus-circled"></ion-delete-button> -->
+      	<ion-delete-button class="ion-minus-circled"></ion-delete-button>
         {{resume.name}}
         <i class="icon ion-ios7-arrow-right"></i>
       </ion-item>
-    </ion-list>
+    </ion-list> -->
 
     <!-- 没有简历时 -->
-    <div ng-if='resumes.length <= 0' >
+    <!-- <div ng-if='resumes.length <= 0' >
       <a class="item item-icon-left item-icon-right" href="#/app/account/baseinfo">
         <i class="icon ion-star"></i>
         您还没有设置简历，前往设置！
@@ -33,56 +33,73 @@
         <i class="icon ion-ios7-videocam energized"></i>
         个性化的多媒体简历
         <i class="icon ion-ios7-arrow-right"></i>
-    </a>
+    </a> -->
 
-    <!-- <div ng-if='resumes.length <= 0' class="list">
-        <ion-item >
-            <h2>个人签名：</h2>
-            <label class="item item-input">
-              <textarea placeholder="描述下自己的专业，特长等。"></textarea>
-            </label>
-        </ion-item>
+    <div class="profile-info">
+        <div class="user-info">
+            <div class="avatar"><img ng-src="{{user.photo}}" /></div>
+            <!-- <div class="label">简历已公开</div> -->
+        </div>
+        <div class="profile-cont profile-cont-media">
+            <h2 class="title">多媒体简历</h2>
+            <ul>
+                <li><div class="label">图片</div><span>靓照、奖励、你有么</span><i class="icon icon-prof-image"></i></li>
+                <li><div class="label">视频简历</div><span>来做一次导演吧</span><i class="icon icon-prof-vedio"></i></li>
+                <li><div class="label">音频简历</div><span>我还是喜欢一句话自我介绍</span><i class="icon icon-prof-sound"></i></li>
+            </ul>
+        </div>
+        <div style="text-align:center; margin-top:10px">        
+          <img style="width:50%; visibility:hidden; display:none; margin:0 auto" id="myImage" src="" />
 
-    		<ion-item >
+          <video webkit-playsinline style="width:50%; visibility:hidden; display:none; margin:0 auto" id="myVideo"  controls>
+            <source src="" type="video/3gpp">你的系统不支持video标签
+          </video>
+
+          <audio style="width:50%; visibility:hidden; display:none; margin:0 auto" id="myAudio"  controls>
+            <source src="" type="audio/ogg">您的系统不支持audio标签
+          </audio>
+
+        </div>
+
+        <ion-list>
+          <ion-item >
             <h2>基本信息：</h2>
-    			  <label class="item item-input">
-              <span class="input-label">姓名：</span>
-              <input  type="text" placeholder="姓名">
+            <label class="item item-input">
+                <span class="input-label">姓名：</span>
+                <input  type="text" ng-model="user.name"  placeholder="姓名">
             </label>
             <label class="item item-input">
-              <span class="input-label">性别：</span>
-              <input type="radio" name="Sex" value="男" >
-              <input type="radio" name="Sex" value="女" checked="checked">
+                <span class="input-label">邮箱：</span>
+                <input  type="text" ng-model="user.email"  placeholder="邮箱">
             </label>
             <label class="item item-input">
-              <span class="input-label">联系方式：</span>
-              <input  type="text" placeholder="联系方式">
+                <span class="input-label">手机：</span>
+                <input  type="text" ng-model="user.telephone"  placeholder="手机">
             </label>
-    		</ion-item>
+          </ion-item>
 
-    		<ion-item >
-            <h2>学校信息：</h2>
+          <ion-item >
+            <h2>教育信息：</h2>
             <label class="item item-input">
-              <span class="input-label">学校：</span>
-              <input  type="text" placeholder="学校">
+                <span class="input-label">学校：</span>
+                <input  type="text" ng-model="bindxxinfo.xuexiao"  placeholder="学校">
             </label>
             <label class="item item-input">
-              <span class="input-label">毕业时间：</span>
-              <input type="month" name="gtime">
+                <span class="input-label">学院：</span>
+                <input  type="text" ng-model="bindxxinfo.xueyuan"  placeholder="学院">
             </label>
             <label class="item item-input">
-              <span class="input-label">学院：</span>
-              <input  type="text" placeholder="学院">
+                <span class="input-label">专业：</span>
+                <input  type="text" ng-model="bindxxinfo.zhuanye"  placeholder="专业">
             </label>
             <label class="item item-input">
-              <span class="input-label">专业：</span>
-              <input  type="text" placeholder="专业">
+                <span class="input-label">年级：</span>
+                <input  type="text" ng-model="bindxxinfo.nianji"  placeholder="年级">
             </label>
-        </ion-item>
-
-        <button class="button button-block button-positive" ngclick="AddResume()"> 提交 </button>
-    </div> -->
-
+          </ion-item>
+           
+        </ion-list>
+    </div> 
   </ion-content>
 </ion-view>
 
@@ -91,22 +108,7 @@
   <ion-content class="has-header padding">
     <!-- 测试照相api -->
 
-    <div style="text-align:center; margin-top:10px">    
-      <h3>多媒体简历</h3>    
-         
-      <img style="width:50%; visibility:hidden; display:none; margin:0 auto" id="myImage" src="" />
-
-      <video style="width:50%; visibility:hidden; display:none;margin:0 auto" id="myVideo"  controls>
-        <source src="" type="video/3gpp">
-        你的系统不支持video标签
-      </video>
-
-      <audio style="width:50%; visibility:hidden; display:none; margin:0 auto" id="myAudio"  controls>
-        <source src="" type="audio/ogg">
-        您的系统不支持audio标签
-      </audio>
-
-    </div>
+    
 
     <!-- Actions -->
     <!-- div>    

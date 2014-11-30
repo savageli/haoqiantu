@@ -63,13 +63,13 @@
         </div>
 
         <div class="user-info" ng-hide="showlogin">
-            <div class="avatar"><img ng-src="img/touxiang.png" /></div>
+            <div class="avatar"><img ng-click="logout()" ng-src="{{user.photo}}" /></div>
               <h2>{{user.name}}</h2>
               <p>{{user.province}}*{{user.city}}</p>
         </div>
 
         <div class="user-info" ng-show="showlogin">
-            <div class="avatar"><img ng-src="img/touxiang.png" /></div>
+            <div class="avatar"><img ng-click="login()" ng-src="img/touxiang.png" /></div>
               <!-- <a href="#/app/account/account-login">还没登录</a> -->
               <h2>还没登录</h2>
         </div>
@@ -83,7 +83,7 @@
                 <li><a href="#/app/mymsg" ng-click="toggleLeft()">我的消息</a><span class="badge">{{message.num}}</span></li>
                 <li><a href="#/app/site/bindxuexiao" ng-click="toggleLeft()">绑定学校</a></li>
                 <li><a href="#/app/account/employreg" ng-click="toggleLeft()">就业登记</a></li>
-                <li><a href="#/app/account/mycoin" ng-click="toggleLeft()">我的前途币</a></li>
+                <!-- <li><a href="#/app/account/mycoin" ng-click="toggleLeft()">我的前途币</a></li> -->
             </ul>
         </div>
       </div>
@@ -394,18 +394,11 @@
       <ul>
           <li>
               <div class="text">
-                  <h2>评测</h2>
-                  <p>职业评测-创业评测</p>
+                  <h2>我的好前途</h2>
+                  <p>语音视频简历<br/>全方位自我展示</p>
               </div>
-              <a href="#/app/news"><i class="icon icon-1"></i></a>
-          </li>
-          <li>
-              <div class="text">
-                  <h2>高手指路</h2>
-                  <p>就业学堂-创业评测</p>
-              </div>
-              <a href="#/app/news"><i class="icon icon-2"></i></a>
-          </li>
+              <a href="#/app/resumes"><i class="icon icon-7"></i></a>
+          </li> 
           <li>
               <div class="text">
                   <h2>订阅职位</h2>
@@ -429,6 +422,14 @@
           </li>
           <li>
               <div class="text">
+                  <h2>高手指路</h2>
+                  <p>就业学堂-创业评测</p>
+              </div>
+              <a href="#/app/news"><i class="icon icon-2"></i></a>
+          </li>
+
+          <li>
+              <div class="text">
                   <h2>兼职</h2>
                   <p>轻松找兼职</p>
               </div>
@@ -436,11 +437,11 @@
           </li>
           <li>
               <div class="text">
-                  <h2>我的好前途</h2>
-                  <p>语音视频简历<br/>全方位自我展示</p>
+                  <h2>评测</h2>
+                  <p>职业评测-创业评测</p>
               </div>
-              <a href="#/app/resumes"><i class="icon icon-7"></i></a>
-          </li>           
+              <a href="#/app/news"><i class="icon icon-1"></i></a>
+          </li>          
       </ul>
     </div>
   </ion-content>

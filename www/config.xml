@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="net.haoqiantu.app"
-        version="0.0.038"
+        version="1.0.00"
         xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0">
 		
@@ -50,6 +50,7 @@
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
+    <preference name="AllowInlineMediaPlayback" value="true" />
 	<!-- <preference name="Orientation" value="portrait" /> -->
 
     <!-- Don't store local date in an iCloud backup. Turn this to "cloud" to enable storage 
@@ -67,6 +68,7 @@
 	<gap:plugin name="org.apache.cordova.media-capture" version="0.2.8" />
 	<gap:plugin name="org.apache.cordova.camera" version="0.2.9" />
 	<gap:plugin name="org.apache.cordova.splashscreen" version="0.3.3" />
+	<gap:plugin name="org.apache.cordova.media" version="0.2.13" />
 	
 	<gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.0" />
 	

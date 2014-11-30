@@ -129,6 +129,9 @@
         </a>
       </ion-list>
     </div>
+    <div class="job-list" ng-hide="showlist">
+      <h3>没有您要的数据，请稍候重试！<h3>
+    </div>
   </ion-content>
 </ion-view>
 </script>
@@ -168,16 +171,16 @@
 </script>
 
 <script type="text/ng-template" id="templates/jobfairs.html">
-<ion-view title="招聘会*{{mycity}}">
+<ion-view title="招聘会">
   <ion-content class="has-header padding">
   
-    <div class="list ">
+    <div class="list">
       <a class="item item-icon-right" ng-repeat="jobfair in jobfairs" type="item-text-wrap" href="#/app/jobfairs/{{jobfair.id}}">
-                <h3>{{jobfair.title}}</h3>
-                <h4>{{jobfair.address}}</h4>
-                <p>{{jobfair.starttime}}</p>
-                <i class="icon ion-ios7-arrow-right"></i>
-        </a>
+          <h3>{{jobfair.title}}</h3>
+          <h4>{{jobfair.address}}</h4>
+          <p>{{jobfair.starttime}}</p>
+          <i class="icon ion-ios7-arrow-right"></i>
+      </a>
     </div>
 
   </ion-content>
@@ -185,16 +188,22 @@
 </script>
 
 <script type="text/ng-template" id="templates/jobfair-detail.html">
-<ion-view title="招聘会*{{jobfair.address}}">
+<ion-view title="{{jobfair.address}}">
   <ion-content class="has-header padding">
   
-    <div class="list">
+    <div class="list" ng-show="jobfair.bshow">
         <h3>{{jobfair.title}}</h3>
         <a class="item">介绍：{{jobfair.body}}</a>
         <a class="item">地址：{{jobfair.address}}</a>
         <a class="item">交通：{{jobfair.traffic}}</a>
-        <a class="item">时间：{{jobfair.starttime}}</a>
+        <a class="item">参与方式：{{jobfair.participate}}</a>
+        <a class="item">开始时间：{{jobfair.starttime}}</a>
+        <a class="item">截至时间：{{jobfair.endtime}}</a>
         <a class="item">组织者：{{jobfair.organizers}}</a>
+    </div>
+
+    <div class="list" ng-hide="jobfair.bshow">
+      <h3>数据错误，请稍候重试！！</h3>
     </div>
 
   </ion-content>

@@ -137,10 +137,10 @@
 .job-summary .label{ position:absolute; right:0px; top:0; width:20px; height:25px; font-size:14px; text-align:center; line-height:26px; background-color:#FFFC01}
 .job-summary p{ margin:0; color:#CCC;}
 
-.job-state{ padding:20px 0; border-bottom:1px solid #F0F0F0;}
+.job-state{ padding:10px 0; border-bottom:1px solid #F0F0F0;}
 .job-state ul{ overflow:hidden;}
-.job-state li{ float:left; width:50%; text-indent:10px;}
-.job-intro{ padding:10px;}
+.job-state li{ float:left; width:50%; text-indent:30px;}
+.job-intro{ padding:20px;}
 .job-intro .title{ font-size:16px; color:#4a87ee; margin:0;}
 .job-intro .content{ padding:10px; font-size:12px;}
 
@@ -228,3 +228,40 @@
   text-align: center;
   font-weight: 300;
 }
+.search-cont{ position:relative; height:38px; padding:0 10px; margin-bottom:5px; box-sizing:border-box; border-bottom:1px solid #E9E9E9; background-color:#fff;}
+.search-cont .search-ipt{ display:block;}
+.search-cont .search-btn{ position:absolute; z-index:2; right:10px; top:5px; width:20px; height:20px; border:0; opacity:0; box-sizing:content-box; padding:0;}
+.search-cont .icon-search{ position:absolute; z-index:1; right:10px; top:8px; display:block; width:16px; height:16px; border:2px solid #CCC; border-radius:20px; -webkit-transform:rotate(-45deg);}
+.search-cont .icon-search:before{ position:absolute; left:6px; top:14px; display:block; width:2px; height:6px; content:''; background-color:#ccc;}
+.list-view{ border:1px solid #E3E3E3; border-width:1px 0; background-color:#fff;}
+.list-view li{ position:relative; height:44px; line-height:44px; margin:0 10px; border-bottom:1px solid #E3E3E3;}
+.list-view li:before{ position:absolute; right:10px; top:16px; display:block; width:10px; height:10px; content:''; border:2px solid #CCC; border-width:0 2px 2px 0; -webkit-transform:rotate(-45deg);}
+.list-view li:last-child{ border-bottom:0;}
+.list-view li .title{ margin:0 100px 0 0; font-size:14px; line-height:44px;}
+.list-view li .extra{ position:absolute; right:25px; top:0; line-height:44px; font-size:12px;}
+.btn-dy{ display:block; height:30px; margin-top:5px; border-radius:3px; line-height:30px; text-align:center; color:#FFF; background-color:#189AE4; text-decoration:none;}
+.note-list{ background-color:#E9E9E9;}
+.note-list .item{ height:54px; margin:0; padding:8px 60px 5px 55px; border-width:0 0 1px; border-bottom:1px solid #E9E9E9; font-size:14px; color:#333;}
+.note-list .item p{ color:#333;}
+.note-list .pic{ position:absolute; left:0; top:0; width:50px; height:50px; padding-top:7px; text-align:center; background-color:#fff;}
+.note-list .pic img{ width:40px; height:40px; vertical-align:middle; border-radius:5px;}
+.note-list .title{ font-size:14px;}
+.note-list .date{ position:absolute; right:10px; top:8px; color:#333;}
+.profile-info{ }
+.profile-info .user-info{ overflow:hidden; text-align:center; font-size:12px; color:#FFF; background-color:#189AE5;}
+.profile-info .user-info h2{ margin:0; font-size:14px; color:#FFF;}
+.profile-info .user-info .avatar{ width:105px; height:105px; margin:10px auto; overflow:hidden; padding:5px; border-radius:106px; box-shadow:inset 0 0 3px rgba(0,0,0,.5); background-color:#189AE5;}
+.profile-info .user-info .avatar img{ width:95px; height:95px; border-radius:106px; background-color:#189AE5;}
+.profile-info .user-info .label{ width:80px; margin:0 10px 0 auto; text-align:center; color:#1999E2; border-radius:3px 3px 0 0; background-color:#F0F0F0;}
+.profile-cont{ margin:5px; padding:10px; background-color:#fff;}
+.profile-cont .title{ height:30px; line-height:30px; font-size:16px;}
+.profile-cont li{ position:relative; line-height:30px;}
+.profile-cont { line-height:30px;}
+.profile-cont .label{ float:left; width:65px; display:inline; font-size:14px; margin-right:10px; color:#666;}
+.profile-cont .icon{ position:absolute; right:10px; top:6px; width:20px; height:20px; background:url(../img/icon_profile.png) no-repeat; -webkit-background-size:20px auto;
+background-size:20px auto;}
+.profile-cont .icon-prof-image{ background-position:0 0;}
+.profile-cont .icon-prof-vedio{ background-position:0 -20px;}
+.profile-cont .icon-prof-sound{ background-position:0 -40px;}
+.profile-cont-media .label{ float:none; display:inline; font-size:14px; margin-right:10px;}
+.profile-cont-media span{ font-size:12px; color:#ccc;}
