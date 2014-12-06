@@ -1634,7 +1634,7 @@ angular.module('starter.controllers', [])
 
             // 上报注册信息-app-push
             var regid= localStorage['regid'];
-            var device = localStorage['device']; 
+            var device = JSON.parse(localStorage['device']); 
             $http.post(localStorage.siteHost+'?c=appreg', {"uid":User.getuid(), "deviceid":device.uuid, 
                 "ostype":device.platform, "regid":regid}).success(function(){}).error(function(){});  
 
@@ -1693,7 +1693,7 @@ angular.module('starter.controllers', [])
 
             // 上报注册信息-app-push
             var regid= localStorage['regid'];
-            var device = localStorage['device']; 
+            var device = JSON.parse(localStorage['device']); 
             $http.post(localStorage.siteHost+'?c=appreg', {"uid":User.getuid(), "deviceid":device.uuid, 
                 "ostype":device.platform, "regid":regid}).success(function(){}).error(function(){});  
 
