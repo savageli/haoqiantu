@@ -1631,6 +1631,13 @@ angular.module('starter.controllers', [])
             User.setAddr(BaseConfig.getcity($scope.user.provinceid).n, BaseConfig.getcity($scope.user.cityid).n);
 
             localStorage['user'] = JSON.stringify(User.getuser());
+
+            // 上报注册信息-app-push
+            var regid= localStorage['regid'];
+            var device = localStorage['device']; 
+            $http.post(localStorage.siteHost+'?c=appreg', {"uid":User.getuid(), "deviceid":device.uuid, 
+                "ostype":device.platform, "regid":regid}).success(function(){}).error(function(){});  
+
             $ionicPopup.alert({ template: '登录成功' });
             $state.go("app.site");
         }else{
@@ -1683,6 +1690,13 @@ angular.module('starter.controllers', [])
   
             User.setuser(data.uid, $scope.user.username, $scope.user.password, data.usertype);
             localStorage['user'] = JSON.stringify(User.getuser());
+
+            // 上报注册信息-app-push
+            var regid= localStorage['regid'];
+            var device = localStorage['device']; 
+            $http.post(localStorage.siteHost+'?c=appreg', {"uid":User.getuid(), "deviceid":device.uuid, 
+                "ostype":device.platform, "regid":regid}).success(function(){}).error(function(){});  
+
             $ionicPopup.alert({ template: '注册成功' });
             $state.go("app.account");
 

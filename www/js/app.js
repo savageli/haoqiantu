@@ -40,9 +40,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
     function successHandler(result){
       console.log(result);
+      alert("GCM register ok:" + result);
     }
     function errorHandler(result){
       console.log(result);
+      alert("GCM register failed:" + result);
     }
     function tokenHandler(result){
       console.log(result);
@@ -69,11 +71,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     
     // Android
     function onNotificationGCM(e) {
+      alert(JSON.stringify(e));
       switch ( e.event ) {
         case 'registered':
           if ( e.regid.length > 0 ) {
             console.log("regID = " + e.regid);
             localStorage['regid'] = e.regid;
+            alert("registered:" + e.regid);
           }
         break;
 
