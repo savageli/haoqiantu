@@ -22,92 +22,96 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       StatusBar.styleDefault();
     }
 
-    // push
-    var senderID = "573617880484";
-    var pushNotification;
-    pushNotification = window.plugins.pushNotification; 
-    if ( device.platform == 'android' || device.platform == 'Android' ) { 
-      pushNotification.register( successHandler, errorHandler, { 
-        "senderID": senderID, "ecb":"onNotificationGCM" }); 
-    }
-    else if( device.platform == "ios"){
-      pushNotification.register(tokenHandler, errorHandler, {
-        "badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
-    } 
-    else{
-      console.log(device.platform + " device, not support PushPlugin");
-    }
-
-    function successHandler(result){
-      console.log(result);
-      alert("GCM register ok:" + result);
-    }
-    function errorHandler(result){
-      console.log(result);
-      alert("GCM register failed:" + result);
-    }
-    function tokenHandler(result){
-      console.log(result);
-    }
-
-    // handle APNS notifications for iOS
-    function onNotificationAPN(e) {
-      if (e.alert) {
-         //$("#app-status-ul").append('<li>push-notification: ' + e.alert + '</li>');
-         // showing an alert also requires the org.apache.cordova.dialogs plugin
-         navigator.notification.alert(e.alert);
+    try{
+      // push
+      var senderID = "573617880484";
+      var pushNotification;
+      pushNotification = window.plugins.pushNotification; 
+      if ( device.platform == 'android' || device.platform == 'Android' ) { 
+        pushNotification.register( successHandler, errorHandler, { 
+          "senderID": senderID, "ecb":"onNotificationGCM" }); 
       }
+      else if( device.platform == "ios"){
+        pushNotification.register(tokenHandler, errorHandler, {
+          "badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
+      } 
+      else{
+        console.log(device.platform + " device, not support PushPlugin");
+      }
+
+      function successHandler(result){
+        console.log(result);
+        alert("GCM register ok:" + result);
+      }
+      function errorHandler(result){
+        console.log(result);
+        alert("GCM register failed:" + result);
+      }
+      function tokenHandler(result){
+        console.log(result);
+      }
+
+      // handle APNS notifications for iOS
+      function onNotificationAPN(e) {
+        if (e.alert) {
+           //$("#app-status-ul").append('<li>push-notification: ' + e.alert + '</li>');
+           // showing an alert also requires the org.apache.cordova.dialogs plugin
+           navigator.notification.alert(e.alert);
+        }
+          
+        if (e.sound) {
+          // playing a sound also requires the org.apache.cordova.media plugin
+          var snd = new Media(e.sound);
+          snd.play();
+        }
         
-      if (e.sound) {
-        // playing a sound also requires the org.apache.cordova.media plugin
-        var snd = new Media(e.sound);
-        snd.play();
+        if (e.badge) {
+          pushNotification.setApplicationIconBadgeNumber(successHandler, e.badge);
+        }
       }
       
-      if (e.badge) {
-        pushNotification.setApplicationIconBadgeNumber(successHandler, e.badge);
-      }
-    }
-    
-    // Android
-    function onNotificationGCM(e) {
-      alert(JSON.stringify(e));
-      switch ( e.event ) {
-        case 'registered':
-          if ( e.regid.length > 0 ) {
-            console.log("regID = " + e.regid);
-            localStorage['regid'] = e.regid;
-            alert("registered:" + e.regid);
+      // Android
+      function onNotificationGCM(e) {
+        alert(JSON.stringify(e));
+        switch ( e.event ) {
+          case 'registered':
+            if ( e.regid.length > 0 ) {
+              console.log("regID = " + e.regid);
+              localStorage['regid'] = e.regid;
+              alert("registered:" + e.regid);
+            }
+          break;
+
+        case 'message':
+          if ( e.foreground ) {
+            var soundfile = e.soundname || e.payload.sound;
+            var my_media = new Media("/android_asset/www/" + soundfile);            
+            my_media.play();
           }
-        break;
+          else {
+            // if ( e.coldstart ) {
+            // } else { }
+            console.log("backgroud notify + codeStart:" + e.coldstart);
+          }
 
-      case 'message':
-        if ( e.foreground ) {
-          var soundfile = e.soundname || e.payload.sound;
-          var my_media = new Media("/android_asset/www/" + soundfile);            
-          my_media.play();
+          alert(e.payload.message);
+          break;
+
+        case 'error':
+          console.log(e.msg);
+          alert("notify error:" + e.msg);
+          break;
+
+        default:
+          console.log("unknown event:" + e.event);
+          break;
         }
-        else {
-          // if ( e.coldstart ) {
-          // } else { }
-          console.log("backgroud notify + codeStart:" + e.coldstart);
-        }
 
-        alert(e.payload.message);
-        break;
-
-      case 'error':
-        console.log(e.msg);
-        alert("notify error:" + e.msg);
-        break;
-
-      default:
-        console.log("unknown event:" + e.event);
-        break;
       }
-
     }
-
+    catch(e){
+      alert("where error:"+ e);
+    }
   });
 
   version="0.0.039"
