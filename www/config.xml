@@ -71,6 +71,7 @@
 	<gap:plugin name="org.apache.cordova.media" version="0.2.13" />
 	
 	<gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.0" />
+	<gap:plugin name="com.phonegap.plugins.pushplugin" version="2.4.0" />
 	
     <feature name="StatusBar">
       <param name="ios-package" value="CDVStatusBar" onload="true" />
