@@ -899,7 +899,7 @@ angular.module('starter.controllers', [])
     // Specify transfer options
         var options = new FileUploadOptions();
         options.fileKey="file";
-        options.fileName= User.getuid() + ".png"; //imageURI.substr(imageURI.lastIndexOf('/')+1);
+        options.fileName= User.getuid() + "_img.png"; //imageURI.substr(imageURI.lastIndexOf('/')+1);
         options.mimeType= "image/jpeg";
         options.chunkedMode = false;
     // Transfer picture to server
@@ -960,8 +960,8 @@ angular.module('starter.controllers', [])
     navigator.camera.getPicture(onSuccess, onFail, CameraOptions);
     function onSuccess(imageURI) {
         var image = document.getElementById('myImage');
-        image.style.visibility = "visible";
-        image.style.display = "block";
+        // image.style.visibility = "visible";
+        // image.style.display = "block";
         image.src = imageURI;
         //alert(image.src);
 
@@ -1070,7 +1070,7 @@ angular.module('starter.controllers', [])
 
       case 2: // image
         var options = { limit: 1 };
-        medianame = User.getuid() + "_image.jpeg";
+        medianame = User.getuid() + "_img.png";
         navigator.device.capture.captureImage(OnSuccess, OnError, options);
         break;
 
@@ -1189,7 +1189,7 @@ angular.module('starter.controllers', [])
     // Specify transfer options
         var options = new FileUploadOptions();
         options.fileKey="file";
-        options.fileName= User.getuid() + ".png"; //imageURI.substr(imageURI.lastIndexOf('/')+1);
+        options.fileName= User.getuid() + "_img.png"; //imageURI.substr(imageURI.lastIndexOf('/')+1);
         options.mimeType= "image/jpeg";
         options.chunkedMode = false;
     // Transfer picture to server

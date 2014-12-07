@@ -105,36 +105,36 @@
   <ion-content class="has-header padding">
 
     <div style="text-align:center; margin-top:10px" ng-show="showpic">      
-      <img style="width:50%; visibility:hidden; display:none; margin:0 auto" id="myImage" src="" />
+      <img style="width:50%; visibility:visible; display:block; margin:0 auto" id="myImage" ng-src="{{imageurl}}" />
       <div class="buttons" style='text-align:center; margin-top:10px'>
           <button class="button button-positive" ng-click="TakePicture('1')"> 来照个相吧 </button>
-          <button class="button button-positive" ng-click="TakePicture('2')"> 从相册中选取照片 </button> 
+          <button class="button button-positive" ng-click="TakePicture('2')"> 从相册中选取 </button> 
       </div>
       <div class="buttons" style='text-align:center; margin-top:10px'>
-          <button class="button button-energized" ng-click="uploadPicture();"> 照片上传 </button> 
+          <button class="button button-energized" ng-click="uploadPicture();"> 上传 </button> 
       </div>
     </div>
 
 
     <div style="text-align:center; margin-top:10px" ng-show="showvideo">   
-      <video webkit-playsinline style="width:50%; visibility:hidden; display:none;margin:0 auto" id="myVideo"  controls>
-        <source src="" type="video/3gpp">
+      <video webkit-playsinline style="width:50%; visibility:visible; display:block;margin:0 auto" id="myVideo"  controls>
+        <source ng-src="{{videourl}}" type="video/3gpp">
         你的系统不支持video标签
       </video>
       <div class="buttons" style='text-align:center; margin-top:10px'>
           <button class="button button-positive" ng-click="MediaCapture(3)"> 录像 </button>
-          <button class="button button-energized" ng-click="MediaUpload(3)"> 录像上传 </button>
+          <button class="button button-energized" ng-click="MediaUpload(3)"> 上传 </button>
       </div>
     </div>  
 
     <div style="text-align:center; margin-top:10px" ng-show="showaudio">
-      <audio style="width:50%; visibility:hidden; display:none; margin:0 auto" id="myAudio"  controls>
-        <source src="" type="audio/ogg">
+      <audio style="width:50%; visibility:visible; display:block; margin:0 auto" id="myAudio"  controls>
+        <source ng-src="{{audiourl}}" type="audio/ogg">
         您的系统不支持audio标签
       </audio>   
       <div class="buttons" style='text-align:center; margin-top:10px'>
           <button class="button button-positive" ng-click="MediaCapture(1)"> 录音 </button>
-          <button class="button button-energized" ng-click="MediaUpload(1)"> 录音上传 </button>
+          <button class="button button-energized" ng-click="MediaUpload(1)"> 上传 </button>
       </div>
     </div>  
 
