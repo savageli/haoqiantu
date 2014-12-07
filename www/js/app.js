@@ -7,7 +7,51 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
-.run(function($ionicPlatform) {
+.factory('PushProcessingService', function() {
+  function onDeviceReady() {
+    alert('NOTIFY  Device is ready.  Registering with GCM server');
+    //register with google GCM server
+    var gcmAppID = "573617880484";
+    var pushNotification = window.plugins.pushNotification;
+    pushNotification.register(gcmSuccessHandler, gcmErrorHandler, {"senderID":gcmAppID,"ecb":"onNotificationGCM"});
+  }
+  function gcmSuccessHandler(result) {
+    alert('NOTIFY  pushNotification.register succeeded.  Result = '+result)
+  }
+  function gcmErrorHandler(error) {
+    alert('NOTIFY  '+error);
+  }
+  return {
+    initialize : function () {
+      alert('NOTIFY  initializing');
+      document.addEventListener('deviceready', onDeviceReady, false);
+    },
+    registerID : function (id) {
+      //Insert code here to store the user's ID on your notification server. 
+      //You'll probably have a web service (wrapped in an Angular service of course) set up for this.  
+      //For example:
+      myService.registerNotificationID(id).then(function(response){
+        if (response.data.Result) {
+          alert('NOTIFY  Registration succeeded');
+        } else {
+          alert('NOTIFY  Registration failed');
+        }
+      });
+    }, 
+    //unregister can be called from a settings area.
+    unregister : function () {
+      alert('unregister')
+      var push = window.plugins.pushNotification;
+      if (push) {
+        push.unregister(function () {
+          alert('unregister success')
+        });
+      }
+    }
+  }
+})
+
+.run(function($ionicPlatform, PushProcessingService) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     //navigator.splashscreen.hide();
@@ -22,96 +66,98 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       StatusBar.styleDefault();
     }
 
-    try{
-      // push
-      var senderID = "573617880484";
-      var pushNotification;
-      pushNotification = window.plugins.pushNotification; 
-      if ( device.platform == 'android' || device.platform == 'Android' ) { 
-        pushNotification.register( successHandler, errorHandler, { 
-          "senderID": senderID, "ecb":"onNotificationGCM" }); 
-      }
-      else if( device.platform == "ios"){
-        pushNotification.register(tokenHandler, errorHandler, {
-          "badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
-      } 
-      else{
-        console.log(device.platform + " device, not support PushPlugin");
-      }
+    PushProcessingService.initialize();
 
-      function successHandler(result){
-        console.log(result);
-        alert("GCM register ok:" + result);
-      }
-      function errorHandler(result){
-        console.log(result);
-        alert("GCM register failed:" + result);
-      }
-      function tokenHandler(result){
-        console.log(result);
-      }
+    // try{
+    //   // push
+    //   var senderID = "573617880484";
+    //   var pushNotification;
+    //   pushNotification = window.plugins.pushNotification; 
+    //   if ( device.platform == 'android' || device.platform == 'Android' ) { 
+    //     pushNotification.register( successHandler, errorHandler, { 
+    //       "senderID": senderID, "ecb":"onNotificationGCM" }); 
+    //   }
+    //   else if( device.platform == "ios"){
+    //     pushNotification.register(tokenHandler, errorHandler, {
+    //       "badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
+    //   } 
+    //   else{
+    //     console.log(device.platform + " device, not support PushPlugin");
+    //   }
 
-      // handle APNS notifications for iOS
-      function onNotificationAPN(e) {
-        if (e.alert) {
-           //$("#app-status-ul").append('<li>push-notification: ' + e.alert + '</li>');
-           // showing an alert also requires the org.apache.cordova.dialogs plugin
-           navigator.notification.alert(e.alert);
-        }
+    //   function successHandler(result){
+    //     console.log(result);
+    //     alert("GCM register ok:" + result);
+    //   }
+    //   function errorHandler(result){
+    //     console.log(result);
+    //     alert("GCM register failed:" + result);
+    //   }
+    //   function tokenHandler(result){
+    //     console.log(result);
+    //   }
+
+    //   // handle APNS notifications for iOS
+    //   function onNotificationAPN(e) {
+    //     if (e.alert) {
+    //        //$("#app-status-ul").append('<li>push-notification: ' + e.alert + '</li>');
+    //        // showing an alert also requires the org.apache.cordova.dialogs plugin
+    //        navigator.notification.alert(e.alert);
+    //     }
           
-        if (e.sound) {
-          // playing a sound also requires the org.apache.cordova.media plugin
-          var snd = new Media(e.sound);
-          snd.play();
-        }
+    //     if (e.sound) {
+    //       // playing a sound also requires the org.apache.cordova.media plugin
+    //       var snd = new Media(e.sound);
+    //       snd.play();
+    //     }
         
-        if (e.badge) {
-          pushNotification.setApplicationIconBadgeNumber(successHandler, e.badge);
-        }
-      }
+    //     if (e.badge) {
+    //       pushNotification.setApplicationIconBadgeNumber(successHandler, e.badge);
+    //     }
+    //   }
       
-      // Android
-      function onNotificationGCM(e) {
-        alert(JSON.stringify(e));
-        switch ( e.event ) {
-          case 'registered':
-            if ( e.regid.length > 0 ) {
-              console.log("regID = " + e.regid);
-              localStorage['regid'] = e.regid;
-              alert("registered:" + e.regid);
-            }
-          break;
+    //   // Android
+    //   function onNotificationGCM(e) {
+    //     alert(JSON.stringify(e));
+    //     switch ( e.event ) {
+    //       case 'registered':
+    //         if ( e.regid.length > 0 ) {
+    //           console.log("regID = " + e.regid);
+    //           localStorage['regid'] = e.regid;
+    //           alert("registered:" + e.regid);
+    //         }
+    //       break;
 
-        case 'message':
-          if ( e.foreground ) {
-            var soundfile = e.soundname || e.payload.sound;
-            var my_media = new Media("/android_asset/www/" + soundfile);            
-            my_media.play();
-          }
-          else {
-            // if ( e.coldstart ) {
-            // } else { }
-            console.log("backgroud notify + codeStart:" + e.coldstart);
-          }
+    //     case 'message':
+    //       if ( e.foreground ) {
+    //         var soundfile = e.soundname || e.payload.sound;
+    //         var my_media = new Media("/android_asset/www/" + soundfile);            
+    //         my_media.play();
+    //       }
+    //       else {
+    //         // if ( e.coldstart ) {
+    //         // } else { }
+    //         console.log("backgroud notify + codeStart:" + e.coldstart);
+    //       }
 
-          alert(e.payload.message);
-          break;
+    //       alert(e.payload.message);
+    //       break;
 
-        case 'error':
-          console.log(e.msg);
-          alert("notify error:" + e.msg);
-          break;
+    //     case 'error':
+    //       console.log(e.msg);
+    //       alert("notify error:" + e.msg);
+    //       break;
 
-        default:
-          console.log("unknown event:" + e.event);
-          break;
-        }
+    //     default:
+    //       console.log("unknown event:" + e.event);
+    //       break;
+    //     }
 
-      }
-    }
-    catch(e){
-      alert("where error:"+ e);
-    }
+    //   }
+    // }
+    // catch(e){
+    //   alert("where error:"+ e);
+    // }
   });
 
   version="0.0.039"
@@ -486,3 +532,64 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
 });
 
+// ALL GCM notifications come through here. 
+function onNotificationGCM(e) {
+    alert('EVENT -> RECEIVED:' + e.event + ':' + JSON.stringify(e));
+    switch( e.event )
+    {
+        case 'registered':
+            if ( e.regid.length > 0 )
+            {
+                alert('REGISTERED with GCM Server -> REGID:' + e.regid + "");
+                
+                //regid localstorage
+                localStorage.setItem('valueregid', e.regid);
+ 
+                //call back to web service in Angular.  
+                //This works for me because in my code I have a factory called
+                //      PushProcessingService with method registerID
+                var elem = angular.element(document.querySelector('[ng-app]'));
+                var injector = elem.injector();
+                var myService = injector.get('PushProcessingService');
+                myService.registerID(e.regid);
+            }
+            break;
+ 
+        case 'message':
+            // if this flag is set, this notification happened while we were in the foreground.
+            // you might want to play a sound to get the user's attention, throw up a dialog, etc.
+            if (e.foreground)
+            {
+                //we're using the app when a message is received.
+                alert('--INLINE NOTIFICATION--' + '');
+ 
+                // if the notification contains a soundname, play it.
+                //var my_media = new Media("/android_asset/www/"+e.soundname);
+                //my_media.play();
+                alert(e.payload.message);
+            }
+            else
+            {   
+                // otherwise we were launched because the user touched a notification in the notification tray.
+                if (e.coldstart)
+                    alert('--COLDSTART NOTIFICATION--' + '');
+                else
+                    alert('--BACKGROUND NOTIFICATION--' + '');
+ 
+                // direct user here:
+                window.location = "#/tab/featured";
+            }
+ 
+            alert('MESSAGE -> MSG: ' + e.payload.message + '');
+            alert('MESSAGE: '+ JSON.stringify(e.payload));
+            break;
+ 
+        case 'error':
+            alert('ERROR -> MSG:' + e.msg + '');
+            break;
+ 
+        default:
+            alert('EVENT -> Unknown, an event was received and we do not know what it is');
+            break;
+    }
+};
