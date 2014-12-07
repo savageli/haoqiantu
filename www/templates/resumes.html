@@ -43,22 +43,13 @@
         <div class="profile-cont profile-cont-media">
             <h2 class="title">多媒体简历</h2>
             <ul>
-                <li><div class="label">图片</div><span>靓照、奖励、你有么</span><i class="icon icon-prof-image"></i></li>
-                <li><div class="label">视频简历</div><span>来做一次导演吧</span><i class="icon icon-prof-vedio"></i></li>
-                <li><div class="label">音频简历</div><span>我还是喜欢一句话自我介绍</span><i class="icon icon-prof-sound"></i></li>
+                <li ng-click="openModal(1)"><div class="label">图片</div><span>靓照、奖励、你有么</span>
+                  <i class="icon icon-prof-image" ></i></li>
+                <li ng-click="openModal(2)"><div class="label">视频简历</div><span>来做一次导演吧</span>
+                  <i class="icon icon-prof-vedio" ></i></li>
+                <li ng-click="openModal(3)"><div class="label">音频简历</div><span>我还是喜欢一句话自我介绍</span>
+                  <i class="icon icon-prof-sound" ></i></li> 
             </ul>
-        </div>
-        <div style="text-align:center; margin-top:10px">        
-          <img style="width:50%; visibility:hidden; display:none; margin:0 auto" id="myImage" src="" />
-
-          <video webkit-playsinline style="width:50%; visibility:hidden; display:none; margin:0 auto" id="myVideo"  controls>
-            <source src="" type="video/3gpp">你的系统不支持video标签
-          </video>
-
-          <audio style="width:50%; visibility:hidden; display:none; margin:0 auto" id="myAudio"  controls>
-            <source src="" type="audio/ogg">您的系统不支持audio标签
-          </audio>
-
         </div>
 
         <ion-list>
@@ -96,50 +87,58 @@
                 <span class="input-label">年级：</span>
                 <input  type="text" ng-model="bindxxinfo.nianji"  placeholder="年级">
             </label>
-          </ion-item>
-           
+          </ion-item> 
         </ion-list>
     </div> 
   </ion-content>
 </ion-view>
 
 <script type="text/ng-template" id="templates/resume-media.html">
-<ion-view title='多媒体简历展示'>
+<ion-modal-view>
+  <ion-header-bar class="bar-light">
+    <h1 class="title">多媒体简历</h1>
+    <div class="buttons">
+        <button class="button button-clear" ng-click="closeModal()"><i class="icon ion-ios7-close-outline"></i></button>
+    </div>
+  </ion-header-bar>
+
   <ion-content class="has-header padding">
-    <!-- 测试照相api -->
 
-    
-
-    <!-- Actions -->
-    <!-- div>    
-      <input type="button" ng-click="TakePicture('1');" value="来照个相吧" /><br />    
-      <input type="button" ng-click="TakePicture('2');" value="从相册中选取照片" /><br />    
-      <input type="button" ng-click="uploadPicture();" value="照片上传" />
-
-      <input type="button" ng-click="MediaCapture(1);" value="录音" />
-      <input type="button" ng-click="MediaCapture(3);" value="录像" />
-      <input type="button" ng-click="MediaCapture(2);" value="capture-image" />
-    </div -->
-
-    <div class="buttons" style='text-align:center; margin-top:10px'>
+    <div style="text-align:center; margin-top:10px" ng-show="showpic">      
+      <img style="width:50%; visibility:hidden; display:none; margin:0 auto" id="myImage" src="" />
+      <div class="buttons" style='text-align:center; margin-top:10px'>
           <button class="button button-positive" ng-click="TakePicture('1')"> 来照个相吧 </button>
-          <button class="button button-positive" ng-click="TakePicture('2')"> 从相册中选取照片 </button>
-    </div>
-    <div class="buttons" style='text-align:center; margin-top:10px'>
+          <button class="button button-positive" ng-click="TakePicture('2')"> 从相册中选取照片 </button> 
+      </div>
+      <div class="buttons" style='text-align:center; margin-top:10px'>
           <button class="button button-energized" ng-click="uploadPicture();"> 照片上传 </button> 
-
+      </div>
     </div>
 
-    <div class="buttons" style='text-align:center; margin-top:10px'>
-          <button class="button button-positive" ng-click="MediaCapture(1)"> 录音 </button>
+
+    <div style="text-align:center; margin-top:10px" ng-show="showvideo">   
+      <video webkit-playsinline style="width:50%; visibility:hidden; display:none;margin:0 auto" id="myVideo"  controls>
+        <source src="" type="video/3gpp">
+        你的系统不支持video标签
+      </video>
+      <div class="buttons" style='text-align:center; margin-top:10px'>
           <button class="button button-positive" ng-click="MediaCapture(3)"> 录像 </button>
-    </div>
-    <div class="buttons" style='text-align:center; margin-top:10px'>
-          <button class="button button-energized" ng-click="MediaUpload(1)"> 录音上传 </button>
           <button class="button button-energized" ng-click="MediaUpload(3)"> 录像上传 </button>
-    </div>
+      </div>
+    </div>  
+
+    <div style="text-align:center; margin-top:10px" ng-show="showaudio">
+      <audio style="width:50%; visibility:hidden; display:none; margin:0 auto" id="myAudio"  controls>
+        <source src="" type="audio/ogg">
+        您的系统不支持audio标签
+      </audio>   
+      <div class="buttons" style='text-align:center; margin-top:10px'>
+          <button class="button button-positive" ng-click="MediaCapture(1)"> 录音 </button>
+          <button class="button button-energized" ng-click="MediaUpload(1)"> 录音上传 </button>
+      </div>
+    </div>  
 
   </ion-content>
-</ion-view>
+</ion-modal-view>
 </script>
 

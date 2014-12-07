@@ -9,21 +9,21 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
 .factory('PushProcessingService', function() {
   function onDeviceReady() {
-    alert('NOTIFY  Device is ready.  Registering with GCM server');
+    // alert('NOTIFY  Device is ready.  Registering with GCM server');
     //register with google GCM server
     var gcmAppID = "573617880484";
     var pushNotification = window.plugins.pushNotification;
     pushNotification.register(gcmSuccessHandler, gcmErrorHandler, {"senderID":gcmAppID,"ecb":"onNotificationGCM"});
   }
   function gcmSuccessHandler(result) {
-    alert('NOTIFY  pushNotification.register succeeded.  Result = '+result)
+    // alert('NOTIFY  pushNotification.register succeeded.  Result = '+result)
   }
   function gcmErrorHandler(error) {
     alert('NOTIFY  '+error);
   }
   return {
     initialize : function () {
-      alert('NOTIFY  initializing');
+      //alert('NOTIFY  initializing');
       document.addEventListener('deviceready', onDeviceReady, false);
     },
     registerID : function (id) {
@@ -391,15 +391,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
 
-    .state('app.resume-media', {
-      url: '/resumes/media',
-      views: {
-        'app-resumes': {
-          templateUrl: 'templates/resume-media.html',
-          controller: 'ResumeMediaCtrl'
-        }
-      }
-    })
+    // .state('app.resume-media', {
+    //   url: '/resumes/media',
+    //   views: {
+    //     'app-resumes': {
+    //       templateUrl: 'templates/resume-media.html',
+    //       controller: 'ResumeMediaCtrl'
+    //     }
+    //   }
+    // })
 
     // 个人
     .state('app.account', {
