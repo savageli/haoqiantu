@@ -164,48 +164,69 @@ angular.module('starter.services', [])
   // Might use a resource here that returns a JSON array
   // Some fake testing data
   var jobfairs = [];
+  var bfetch = false;
 
   return {
     all: function() {
       return jobfairs;
     },
-	set: function(jobfair){
-		jobfairs[jobfairs.length] = jobfair;
-	},
+  	set: function(jobfair){
+  		jobfairs[jobfairs.length] = jobfair;
+  	},
+
+    setisfetch: function() {
+      bfetch = true;
+    },
+
+    isfetch: function() {
+      return bfetch;
+    },
+
     get: function(jobfairId) {
       // Simple index lookup
       for (var i = jobfairs.length - 1; i >= 0; i--) {
         if(jobfairs[i].id == jobfairId)
           return jobfairs[i];
       };
-      return NULL;
+      return null;
     }
   }
 })
 
-
-// preaches
-.factory('Preaches', function() {
+// XjhList
+.factory('XjhList', function() {
   // Might use a resource here that returns a JSON array
-
   // Some fake testing data
-  var preaches = [
-    { id: 0, title: '娃哈哈宣讲会', address:'深圳', organizers:'长沙大学', body:'这是招聘介绍', starttime:'2014-08-01', endtime:'2014-09-21', traffic:'101,202', ctime:'1407735712'},
-    { id: 1, title: '网易科技宣讲会', address:'广州', organizers:'长沙大学', body:'这是招聘介绍', starttime:'2014-08-01', endtime:'2014-09-21', traffic:'101,202', ctime:'1407735712'},
-    { id: 2, title: '深圳机场宣讲会', address:'武汉', organizers:'长沙大学', body:'这是招聘介绍', starttime:'2014-08-01', endtime:'2014-09-21', traffic:'101,202', ctime:'1407735712'},
-    { id: 3, title: '长沙万利达宣讲会', address:'北京', organizers:'长沙大学', body:'这是招聘介绍', starttime:'2014-08-01', endtime:'2014-09-21', traffic:'101,202', ctime:'1407735712'}
-  ];
+  var xjhlist = [];
+  var bfetch = false;
 
   return {
     all: function() {
-      return preaches;
+      return xjhlist;
     },
-    get: function(preachId) {
+    set: function(xuanjiang){
+      xjhlist[xjhlist.length] = xuanjiang;
+    },
+
+    setisfetch: function() {
+      bfetch = true;
+    },
+
+    isfetch: function() {
+      return bfetch;
+    },
+
+    get: function(xjhId) {
       // Simple index lookup
-      return preaches[preachId];
+      for (var i = xjhlist.length - 1; i >= 0; i--) {
+        if(xjhlist[i].id == xjhId)
+          return xjhlist[i];
+      }
+      return null;
     }
   }
 })
+
 
 .factory('Message', function() {
   // Might use a resource here that returns a JSON array

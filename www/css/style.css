@@ -158,7 +158,7 @@
 .side-menu .user-menu .badge{ position:absolute; right:10px; top:9px; width:19px; height:19px; line-height:20px; font-size:12px; padding:0; font-weight:normal; border-radius:3px; color:#AAA; background-color:#fff;}
 
 .resume{ padding:7px 0 0; background:url(../img/bg_profile.jpg) no-repeat center top; background-size:100% auto;}
-.resume ul{ width:4px; min-height:800px; margin:0 auto;}
+.resume ul{ width:4px; min-height:700px; margin:0 auto;}
 .resume ul::before{ display:block; width:40px; height:40px; margin-left:-20px; content:''; background:url(../img/icon_resume.png) no-repeat 0 0; background-size:40px auto;}
 .resume li{ position:relative; width:12px; height:12px; margin:0 0 60px -8px; box-sizing:content-box; border-radius:13px; border:4px solid #F6712B;}
 .resume li .text{ position:absolute; top:-10px; width:150px; line-height:16px !important; font-size:12px; color:#3D3D3D;}

@@ -108,7 +108,7 @@
 
 <script type="text/ng-template" id="templates/newjobs.html">
 <ion-view title="兼职">
-<ion-content class="has-header padding text-align:center">
+  <ion-content class="has-header padding text-align:center">
     <div class="job-list" ng-show="showlist">
       <ion-list ng-if='jobs.length > 0' 
           show-delete="shouldShowDelete"
@@ -208,5 +208,46 @@
 
   </ion-content>
 </ion-view>
-
 </script>
+
+<script type="text/ng-template" id="templates/xuanjiang.html">
+<ion-view title="宣讲会">
+  <ion-content class="has-header padding">
+  
+    <div class="list">
+      <a class="item item-icon-right" ng-repeat="xy in xjlist" type="item-text-wrap" href="#/app/xjhlist/{{xy.id}}">
+          <h3>{{xy.title}}</h3>
+          <h4>{{xy.address}}</h4>
+          <p>{{xy.starttime}}</p>
+          <i class="icon ion-ios7-arrow-right"></i>
+      </a>
+    </div>
+
+  </ion-content>
+</ion-view>
+</script>
+
+<script type="text/ng-template" id="templates/xjh-detail.html">
+<ion-view title="{{xjh.address}}">
+  <ion-content class="has-header padding">
+  
+    <div class="list" ng-show="xjh.bshow">
+        <h3>{{xjh.title}}</h3>
+        <a class="item">介绍：{{xjh.body}}</a>
+        <a class="item">学校：{{xjh.xxname}}</a>
+        <a class="item">参与公司：{{xjh.companyname}}</a>
+        <a class="item">开始时间：{{xjh.starttime}}</a>
+        <a class="item">截至时间：{{xjh.endtime}}</a>
+        <a class="item">地址：{{xjh.province}} * {{xjh.city}}</a>
+        <a class="item">详细地址：{{xjh.address}}</a>
+        
+    </div>
+
+    <div class="list" ng-hide="xjh.bshow">
+      <h3>数据错误，请稍候重试！！</h3>
+    </div>
+
+  </ion-content>
+</ion-view>
+</script>
+

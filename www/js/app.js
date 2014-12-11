@@ -160,7 +160,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     // }
   });
 
-  version="0.0.039"
+  version="1.0.00"
   if(localStorage.data_version!=version){
 
     localStorage.removeItem('siteHost');
@@ -217,15 +217,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
 
-    .state('app.site-arrange', {
-      url: '/site/arrange',
-      views: {
-        'app-site': {
-          templateUrl: 'templates/site-arrange.html',
-          controller: 'SiteArrangeCtrl'
-        }
-      }
-    })
+    // .state('app.site-arrange', {
+    //   url: '/site/arrange',
+    //   views: {
+    //     'app-site': {
+    //       templateUrl: 'templates/site-arrange.html',
+    //       controller: 'SiteArrangeCtrl'
+    //     }
+    //   }
+    // })
 
     .state('app.site-bindxuexiao', {
       url: '/site/bindxuexiao',
@@ -370,6 +370,27 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     }) 
+
+    // xjhlist 宣讲会
+    .state('app.xjhlist', {
+      url: '/xjhlist',
+      views: {
+        'app-site': {
+          templateUrl: 'templates/xuanjiang.html',
+          controller: 'XJHListCtrl'
+        }
+      }
+    })
+
+    .state('app.xjhdetail', {
+      url: '/xjhlist/:Id',
+      views: {
+        'app-site': {
+          templateUrl: 'templates/xjh-detail.html',
+          controller: 'XJHDetailCtrl'
+        }
+      }
+    })     
 
     // resume 简历
     .state('app.resumes', {

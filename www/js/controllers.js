@@ -6,8 +6,20 @@ angular.module('starter.controllers', [])
   };
 })
   
-.controller('TutorialCtrl', function($scope, $state, $ionicViewService) {
+.controller('TutorialCtrl', function($scope, $state, $ionicViewService, $ionicPlatform) {
+  // 退出app
+  var deregister = $ionicPlatform.registerBackButtonAction(function () {
+    $ionicPopup.confirm({
+        title: '退出',
+        content: '确定要退出?'
+    }).then(function(res) {
+        if(res) {
+          ionic.Platform.exitApp();
+        }
+    });
+  }, 100);
 
+  $scope.$on('$destroy', deregister);
   // localStorage['didTutorial'] = false;// For Test
 
   var startApp = function() {
@@ -90,14 +102,26 @@ angular.module('starter.controllers', [])
     return;
   }
 
-  if(!User.getuid()){
+  //if(!User.getuid()){
      $scope.init();
-  }
+  //}
 
 })
 
-.controller('SiteCtrl', function($scope, $state, User, Device) {
-  
+.controller('SiteCtrl', function($scope, $state, $ionicPlatform, User, Device) {
+  // 退出app
+  var deregister = $ionicPlatform.registerBackButtonAction(function () {
+    $ionicPopup.confirm({
+        title: '退出',
+        content: '确定要退出?'
+    }).then(function(res) {
+        if(res) {
+          ionic.Platform.exitApp();
+        }
+    });
+  }, 100);
+
+  $scope.$on('$destroy', deregister);  
 })
 
 .controller('SiteArrangeCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User, Arrange, Device) {
@@ -393,7 +417,20 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('HomeCtrl', function($scope, $state, User, Device) {
+.controller('HomeCtrl', function($scope, $state, $ionicPlatform, User, Device) {
+  // 退出app
+  var deregister = $ionicPlatform.registerBackButtonAction(function () {
+    $ionicPopup.confirm({
+        title: '退出',
+        content: '确定要退出?'
+    }).then(function(res) {
+        if(res) {
+          ionic.Platform.exitApp();
+        }
+    });
+  }, 100);
+
+  $scope.$on('$destroy', deregister);  
 })
 
 .controller('JobDetailCtrl', function($scope, $stateParams, $ionicPopup, $state, $http, $ionicLoading, User, Device, BaseConfig) {
@@ -695,6 +732,76 @@ angular.module('starter.controllers', [])
               JobFairs.set(data.list[i]);
             };
             $scope.jobfairs = JobFairs.all();  
+            JobFairs.setisfetch();
+        }else{
+          switch(data.error){
+            case 2:
+            case 3:
+              $ionicPopup.alert({ template: '帐号不存在，请退出重现登录' });
+              break;
+
+            case 4: 
+              $ionicPopup.alert({ template: '没有招聘会信息，请稍候再试!' });
+              break;  
+
+            case 1008:
+              $ionicPopup.alert({ template: '密码错误，请退出重现登录' });
+              break;     
+
+            default:
+              $ionicPopup.alert({ template: '系统错误，请稍候重试。错误码：' + data.error });
+          }
+          
+        }
+      }).
+      error(function(data,status,headers,config){
+        $ionicLoading.hide();
+        $ionicPopup.alert({ template: '系统或网络异常，请稍候重试！' });
+      });
+  }
+
+  if(!JobFairs.isfetch()){
+    $scope.init();
+  }
+  
+})
+
+.controller('JobFairDetailCtrl', function($scope, $stateParams, JobFairs) {
+  $scope.jobfair = JobFairs.get($stateParams.jobfairId);
+  $scope.jobfair.bshow = true;
+
+  if(!$scope.jobfair){
+    $scope.jobfair.bshow = false;
+  }
+
+})
+
+// xjhlist 宣讲会
+.controller('XJHListCtrl', function($scope, $stateParams, $ionicPopup, $state, $http, $ionicLoading, User, Jobs, Device, XjhList) {
+  $scope.xjlist = XjhList.all();
+  $scope.mycity = "深圳";
+
+  $scope.init = function(){  
+
+    $ionicLoading.show({
+        noBackdrop:true,
+        template: '数据加载中...'
+        });
+
+    $http.post(localStorage.siteHost+'?m=job&c=xjhlist', {limit:20}).
+      success(function(data) {
+        
+        $ionicLoading.hide();
+        if(data.error == 1){   
+            if(!data.list){
+              $ionicPopup.alert({ template: '没有招聘会信息，请稍候再试!' });
+              return;
+            }
+            for (var i = data.list.length - 1; i >= 0; i--) {
+              XjhList.set(data.list[i]);
+            };
+            $scope.xjlist = XjhList.all();  
+            XjhList.setisfetch();
 
         }else{
           switch(data.error){
@@ -723,17 +830,25 @@ angular.module('starter.controllers', [])
       });
   }
 
-  $scope.init();
+  if(!XjhList.isfetch()){
+    $scope.init();
+  }
 
 })
 
-.controller('JobFairDetailCtrl', function($scope, $stateParams, JobFairs) {
-  $scope.jobfair = JobFairs.get($stateParams.jobfairId);
-  $scope.jobfair.bshow = true;
+.controller('XJHDetailCtrl', function($scope, $stateParams, XjhList, BaseConfig) {
+  $scope.xjh = XjhList.get($stateParams.Id);
+  $scope.xjh.bshow = false;
+  $scope.xjhk = {};
 
-  if(!$scope.jobfair){
-    $scope.jobfair.bshow = false;
+  if($scope.xjh){
+    $scope.xjh.bshow = true;
+    $scope.xjh.province = BaseConfig.getcity($scope.xjh.provinceid).n;
+    $scope.xjh.city = BaseConfig.getcity($scope.xjh.cityid).n;
+
   }
+
+  
 
 })
 
@@ -2179,7 +2294,21 @@ angular.module('starter.controllers', [])
 })
 
 // 关于
-.controller('AboutCtrl', function($scope, $state, $ionicPopup, User) {
+.controller('AboutCtrl', function($scope, $state, $ionicPopup, $ionicPlatform, User) {
+  // 退出app
+  var deregister = $ionicPlatform.registerBackButtonAction(function () {
+    $ionicPopup.confirm({
+        title: '退出',
+        content: '确定要退出?'
+    }).then(function(res) {
+        if(res) {
+          ionic.Platform.exitApp();
+        }
+    });
+  }, 100);
+
+  $scope.$on('$destroy', deregister);  
+
   $scope.user = User.getuser();
   $scope.showlogin = true;
 
