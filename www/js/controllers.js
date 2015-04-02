@@ -23,7 +23,7 @@ angular.module('starter.controllers', [])
   // localStorage['didTutorial'] = false;// For Test
 
   var startApp = function() {
-    $ionicViewService.clearHistory();
+    //$ionicViewService.clearHistory();
     // 默认进入
     $state.go('app.site');
     localStorage['didTutorial'] = true;
@@ -1549,7 +1549,7 @@ angular.module('starter.controllers', [])
 })
 
 // 个人
-.controller('AccountCtrl', function($scope, $state, $http, $ionicPopup, $ionicHistory, User) {
+.controller('AccountCtrl', function($scope, $state, $http, $ionicPopup,  User) {
   //$scope.data = {}
   //console.log('<-log-> AccountCtrl');
 
@@ -1564,7 +1564,7 @@ angular.module('starter.controllers', [])
         // localStorage.removeItem('user.password');
         localStorage.removeItem('user');
         User.clear();
-        $ionicHistory.clearCache();
+        //$ionicHistory.clearCache();
         $state.go("app.account-login");
         //console.log('<-log-> state.go(app.account-login)');
       } else {
@@ -2015,7 +2015,7 @@ angular.module('starter.controllers', [])
 })
 
 //登录注册相关
-.controller('LoginCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, $ionicHistory, User, BaseConfig) {
+.controller('LoginCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User, BaseConfig) {
   $scope.user = {}
   $scope.handletype = 0; // 1login，2reg，3getpass，4chgpass
   var HandleType = {
@@ -2057,7 +2057,7 @@ angular.module('starter.controllers', [])
                 "ostype":device.platform, "regid":regid}).success(function(){}).error(function(){});  
 
             $ionicPopup.alert({ template: '登录成功' });
-            $ionicHistory.clearCache();
+            //$ionicHistory.clearCache();
             $state.go("app.site");
         }else{
           switch(data.error){
