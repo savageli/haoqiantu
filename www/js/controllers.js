@@ -869,6 +869,18 @@ angular.module('starter.controllers', [])
   $scope.videourl = "";
   $scope.videoname = "";
 
+  if($scope.user.isAppPhoto){
+    $scope.imageurl = "http://haoqiantu.net/upload/app/" + User.getuid() + "_img.png";
+  }
+
+  if($scope.user.isAppAudio){
+    $scope.audiourl = "http://haoqiantu.net/upload/app/" + User.getuid() + "_audio.amr";
+  }
+
+  if($scope.user.isAppVideo){
+    $scope.videourl = "http://haoqiantu.net/upload/app/" + User.getuid() + "_video.3gpp";
+  }
+
   // 获取简历
   $scope.init = function(){
 
@@ -1287,6 +1299,7 @@ angular.module('starter.controllers', [])
   $scope.audioname = "";
   $scope.videourl = "";
   $scope.videoname = "";
+
 
   /** * Upload current picture */
   $scope.uploadPicture = function() {
