@@ -874,11 +874,11 @@ angular.module('starter.controllers', [])
   }
 
   if($scope.user.isAppAudio){
-    $scope.audiourl = "http://haoqiantu.net/upload/app/" + User.getuid() + "_audio.amr";
+    $scope.audiourl = "http://haoqiantu.net/upload/app/" + User.getuid() + "_audio.aac";
   }
 
   if($scope.user.isAppVideo){
-    $scope.videourl = "http://haoqiantu.net/upload/app/" + User.getuid() + "_video.3gpp";
+    $scope.videourl = "http://haoqiantu.net/upload/app/" + User.getuid() + "_video.mp4";
   }
 
   // 获取简历
@@ -1190,7 +1190,7 @@ angular.module('starter.controllers', [])
     switch(type){
       case 1: // audio
         var options = { limit: 1, duration: 10 };
-        medianame = User.getuid() + "_audio.amr";
+        medianame = User.getuid() + "_audio.aac";
         $scope.audioname = medianame;
         navigator.device.capture.captureAudio(OnSuccess, OnError, options);
         break;
@@ -1203,7 +1203,7 @@ angular.module('starter.controllers', [])
 
       case 3: // video
         var options = { limit: 1, duration: 10 };
-        medianame = User.getuid() + "_video.3gpp";
+        medianame = User.getuid() + "_video.mp4";
         $scope.videoname = medianame;
         navigator.device.capture.captureVideo(OnSuccess, OnError, options);
         break;
@@ -1481,7 +1481,7 @@ angular.module('starter.controllers', [])
     switch(type){
       case 1: // audio
         var options = { limit: 1, duration: 10 };
-        medianame = User.getuid() + "_audio.amr";
+        medianame = User.getuid() + "_audio.aac";
         $scope.audioname = medianame;
         navigator.device.capture.captureAudio(OnSuccess, OnError, options);
         break;
@@ -1494,7 +1494,7 @@ angular.module('starter.controllers', [])
 
       case 3: // video
         var options = { limit: 1, duration: 10 };
-        medianame = User.getuid() + "_video.3gpp";
+        medianame = User.getuid() + "_video.mp4";
         $scope.videoname = medianame;
         navigator.device.capture.captureVideo(OnSuccess, OnError, options);
         break;
@@ -1549,7 +1549,7 @@ angular.module('starter.controllers', [])
 })
 
 // 个人
-.controller('AccountCtrl', function($scope, $state, $http, $ionicPopup, User) {
+.controller('AccountCtrl', function($scope, $state, $http, $ionicPopup, $ionicHistory, User) {
   //$scope.data = {}
   //console.log('<-log-> AccountCtrl');
 
@@ -1564,6 +1564,7 @@ angular.module('starter.controllers', [])
         // localStorage.removeItem('user.password');
         localStorage.removeItem('user');
         User.clear();
+        $ionicHistory.clearCache();
         $state.go("app.account-login");
         //console.log('<-log-> state.go(app.account-login)');
       } else {
@@ -2014,7 +2015,7 @@ angular.module('starter.controllers', [])
 })
 
 //登录注册相关
-.controller('LoginCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, User, BaseConfig) {
+.controller('LoginCtrl', function($scope, $state, $http, $ionicPopup, $ionicLoading, $ionicHistory, User, BaseConfig) {
   $scope.user = {}
   $scope.handletype = 0; // 1login，2reg，3getpass，4chgpass
   var HandleType = {
@@ -2056,6 +2057,7 @@ angular.module('starter.controllers', [])
                 "ostype":device.platform, "regid":regid}).success(function(){}).error(function(){});  
 
             $ionicPopup.alert({ template: '登录成功' });
+            $ionicHistory.clearCache();
             $state.go("app.site");
         }else{
           switch(data.error){
