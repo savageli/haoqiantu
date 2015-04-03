@@ -23,7 +23,7 @@ angular.module('starter.controllers', [])
   // localStorage['didTutorial'] = false;// For Test
 
   var startApp = function() {
-    //$ionicViewService.clearHistory();
+    $ionicViewService.clearHistory();
     // 默认进入
     $state.go('app.site');
     localStorage['didTutorial'] = true;
@@ -869,15 +869,15 @@ angular.module('starter.controllers', [])
   $scope.videourl = "";
   $scope.videoname = "";
 
-  if($scope.user.isAppPhoto){
+  if($scope.user.isAppPhoto == "1"){
     $scope.imageurl = "http://haoqiantu.net/upload/app/" + User.getuid() + "_img.png";
   }
 
-  if($scope.user.isAppAudio){
+  if($scope.user.isAppAudio == "1"){
     $scope.audiourl = "http://haoqiantu.net/upload/app/" + User.getuid() + "_audio.aac";
   }
 
-  if($scope.user.isAppVideo){
+  if($scope.user.isAppVideo == "1"){
     $scope.videourl = "http://haoqiantu.net/upload/app/" + User.getuid() + "_video.mp4";
   }
 
