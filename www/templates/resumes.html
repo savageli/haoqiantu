@@ -104,7 +104,7 @@
 
   <ion-content class="has-header padding">
 
-    <div style="text-align:center; margin-top:10px" ng-show="showpic">      
+    <div data-tap-disabled="true" style="text-align:center; margin-top:10px" ng-show="showpic">      
       <img style="width:50%; visibility:visible; display:block; margin:0 auto" id="myImage" ng-src="{{imageurl}}" />
       <div class="buttons" style='text-align:center; margin-top:10px'>
           <button class="button button-positive" ng-click="TakePicture('1')"> 来照个相吧 </button>
@@ -116,7 +116,7 @@
     </div>
 
 
-    <div style="text-align:center; margin-top:10px" ng-show="showvideo">   
+    <div data-tap-disabled="true" style="text-align:center; margin-top:10px" ng-show="showvideo">   
       <video webkit-playsinline style="width:50%; visibility:visible; display:block;margin:0 auto" id="myVideo"  controls>
         <source ng-src="{{videourl}}" type="video/mp4">
         你的系统不支持video标签
@@ -127,7 +127,7 @@
       </div>
     </div>  
 
-    <div style="text-align:center; margin-top:10px" ng-show="showaudio">
+    <div data-tap-disabled="true" style="text-align:center; margin-top:10px" ng-show="showaudio">
       <audio style="width:50%; visibility:visible; display:block; margin:0 auto" id="myAudio"  controls>
         <source ng-src="{{audiourl}}" type="audio/aac">
         您的系统不支持audio标签
