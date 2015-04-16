@@ -1000,13 +1000,13 @@ angular.module('starter.controllers', [])
          $scope.showaudio = true;
          break;   
     }
-    alert("openModal type:"+type+" imageurl:" + $scope.imageurl +" audiourl:" +$scope.audiourl+" videourl:"+$scope.videourl);
+    //alert("openModal type:"+type+" imageurl:" + $scope.imageurl +" audiourl:" +$scope.audiourl+" videourl:"+$scope.videourl);
     $scope.modal.show();
 
   }
 
   $scope.closeModal = function() {
-    alert("closeModal imageurl:" + $scope.imageurl +" audiourl:" +$scope.audiourl+" videourl:"+$scope.videourl);
+    //alert("closeModal imageurl:" + $scope.imageurl +" audiourl:" +$scope.audiourl+" videourl:"+$scope.videourl);
     $scope.modal.hide();
   }
 
@@ -1014,7 +1014,7 @@ angular.module('starter.controllers', [])
     /** * Upload current picture */
   $scope.uploadPicture = function() {
     // Get URI of picture to upload
-    alert("uploadPicture imageurl:" + $scope.imageurl +" audiourl:" +$scope.audiourl+" videourl:"+$scope.videourl);
+    //alert("uploadPicture imageurl:" + $scope.imageurl +" audiourl:" +$scope.audiourl+" videourl:"+$scope.videourl);
       var img = document.getElementById('myImage');
       var imageURI = img.src;
       if (!imageURI || (img.style.display == "none")) {
@@ -1045,7 +1045,7 @@ angular.module('starter.controllers', [])
 
   // 照相
   $scope.TakePicture = function(picsource){
-    alert("TakePicture  socope:" + $scope.imageurl +" audiourl:" +$scope.audiourl+" videourl:"+$scope.videourl);
+    //alert("TakePicture  socope:" + $scope.imageurl +" audiourl:" +$scope.audiourl+" videourl:"+$scope.videourl);
     if(!picsource){
       picsource = 1;
     }
@@ -1107,7 +1107,7 @@ angular.module('starter.controllers', [])
 
   // media-capture
   $scope.MediaCapture = function(type){
-    alert("MediaCapture type:"+type+" socope:" + $scope.imageurl +" audiourl:" +$scope.audiourl+" videourl:"+$scope.videourl);
+    //alert("MediaCapture type:"+type+" socope:" + $scope.imageurl +" audiourl:" +$scope.audiourl+" videourl:"+$scope.videourl);
 
     function GoUpload(mediaurl, medianame){
       //alert("upload"+ mediaurl + ";" + medianame);
@@ -1218,7 +1218,7 @@ angular.module('starter.controllers', [])
   }
 
   $scope.MediaUpload = function(type){
-    alert("MediaUpload type:"+type+" socope:" + $scope.imageurl +" audiourl:" +$scope.audiourl+" videourl:"+$scope.videourl);
+    //alert("MediaUpload type:"+type+" socope:" + $scope.imageurl +" audiourl:" +$scope.audiourl+" videourl:"+$scope.videourl);
     if(type == 1){
       medianame = $scope.audioname;
       mediaurl = $scope.audiourl;

@@ -160,7 +160,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     // }
   });
 
-  version="1.0.20"
+  version="1.0.30"
   if(localStorage.data_version!=version){
 
     localStorage.removeItem('siteHost');
